@@ -7,7 +7,7 @@
 //
 
 #import "TeamboxProjectsParser.h"
-#import "Project.h"
+#import "ProjectModel.h"
 
 @implementation TeamboxProjectsParser
 
@@ -38,9 +38,9 @@
 			NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
 			[fetchRequest release];
 			
-			Project *aProject;
+			ProjectModel *aProject;
 			if ([items count]==0) {
-				aProject = (Project *)[NSEntityDescription insertNewObjectForEntityForName:@"Project" inManagedObjectContext:managedObjectContext];
+				aProject = (ProjectModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project" inManagedObjectContext:managedObjectContext];
 				aProject.project_id = nId;
 				
 			}else{

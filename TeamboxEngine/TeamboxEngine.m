@@ -25,14 +25,13 @@
 	if (self = [super init]) {
         engineDelegate = delegate;
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		username = @"dsdsad";
+		username = [defaults valueForKey:kUserNameSettingsKey];
 		#if TARGET_OS_MAC
-			password = @"dsdsa";
+			password = [defaults valueForKey:kPaswordSettingsKey];
 		#else
-			password = @"dsad";
+			password = [defaults valueForKey:kPaswordSettingsKey];
 		#endif
     }
-    
     return self;
 }
 

@@ -266,7 +266,6 @@
 								<string>2A37F4AAFDCFA73011CA2CEA</string>
 								<string>E1B74B1A0667B4A90069E3BA</string>
 								<string>2A37F4ABFDCFA73011CA2CEA</string>
-								<string>A4DA25B9115D1DD800853B0D</string>
 								<string>A4DA25A5115D1DB000853B0D</string>
 								<string>A4DA25A6115D1DB000853B0D</string>
 								<string>2A37F4AFFDCFA73011CA2CEA</string>
@@ -276,8 +275,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>7</integer>
-									<integer>1</integer>
+									<integer>32</integer>
+									<integer>13</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -319,7 +318,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Project_UserModel.m</string>
+								<string>TeamboxEngine.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,34 +326,39 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Project_UserModel.m</string>
+										<string>TeamboxEngine.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A4DA27CC115D23D100853B0D</string>
+										<string>A4DA2843115D283E00853B0D</string>
 										<key>history</key>
 										<array>
-											<string>A4DA264E115D213E00853B0D</string>
-											<string>A4DA264F115D213E00853B0D</string>
 											<string>A4DA2650115D213E00853B0D</string>
-											<string>A4DA2651115D213E00853B0D</string>
-											<string>A4DA2653115D213E00853B0D</string>
 											<string>A4DA2656115D213E00853B0D</string>
-											<string>A4DA2658115D213E00853B0D</string>
 											<string>A4DA265A115D213E00853B0D</string>
 											<string>A4DA265B115D213E00853B0D</string>
 											<string>A4DA265C115D213E00853B0D</string>
-											<string>A4DA27B7115D23C300853B0D</string>
-											<string>A4DA27B8115D23C300853B0D</string>
-											<string>A4DA27B9115D23C300853B0D</string>
-											<string>A4DA27BA115D23C300853B0D</string>
-											<string>A4DA27BB115D23C300853B0D</string>
-											<string>A4DA27BC115D23C300853B0D</string>
 											<string>A4DA27BD115D23C300853B0D</string>
 											<string>A4DA27BE115D23C300853B0D</string>
-											<string>A4DA27BF115D23C300853B0D</string>
-											<string>A4DA27CA115D23D100853B0D</string>
-											<string>A4DA27CB115D23D100853B0D</string>
+											<string>A4DA27E8115D25E000853B0D</string>
+											<string>A4DA27E9115D25E000853B0D</string>
+											<string>A4DA27EA115D25E000853B0D</string>
+											<string>A4DA27EB115D25E000853B0D</string>
+											<string>A4DA27F6115D271F00853B0D</string>
+											<string>A4DA2808115D274A00853B0D</string>
+											<string>A4DA282A115D27E200853B0D</string>
+											<string>A4DA282E115D27FC00853B0D</string>
+											<string>A4DA282F115D27FC00853B0D</string>
+											<string>A4DA2831115D27FC00853B0D</string>
+											<string>A4DA2832115D27FC00853B0D</string>
+											<string>A4DA2833115D27FC00853B0D</string>
+											<string>A4DA2834115D27FC00853B0D</string>
+											<string>A4DA2835115D27FC00853B0D</string>
+											<string>A4DA2836115D27FC00853B0D</string>
+											<string>A4DA2837115D27FC00853B0D</string>
+											<string>A4DA2838115D27FC00853B0D</string>
+											<string>A4DA283E115D281F00853B0D</string>
+											<string>A4DA283F115D281F00853B0D</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -555,8 +559,8 @@
 		<string>A4DA27C5115D23C300853B0D</string>
 		<string>A4DA27C6115D23C300853B0D</string>
 		<string>1C78EAAD065D492600B07095</string>
-		<string>1CD10A99069EF8BA00B06720</string>
 		<string>A4DA261B115D1EC100853B0D</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>/Users/alejandrojl/Proyectos/Mac/Teambox-Engine/Teambox-Engine.xcodeproj</string>
 	</array>
 	<key>WindowString</key>
@@ -581,7 +585,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TeamboxActivitiesParser.m</string>
+								<string>TeamboxProjectsParser.m</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -683,8 +687,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {316, 194}}</string>
-											<string>{{316, 0}, {378, 194}}</string>
+											<string>{{0, 0}, {437, 307}}</string>
+											<string>{{437, 0}, {523, 307}}</string>
 										</array>
 									</dict>
 									<key>VerticalSplitView</key>
@@ -699,8 +703,8 @@
 										<string>yes</string>
 										<key>sizes</key>
 										<array>
-											<string>{{0, 0}, {694, 194}}</string>
-											<string>{{0, 194}, {694, 187}}</string>
+											<string>{{0, 0}, {960, 307}}</string>
+											<string>{{0, 307}, {960, 295}}</string>
 										</array>
 									</dict>
 								</dict>
@@ -720,7 +724,7 @@
 								<key>DebugSTDIOWindowFrame</key>
 								<string>{{200, 200}, {500, 300}}</string>
 								<key>Frame</key>
-								<string>{{0, 0}, {694, 381}}</string>
+								<string>{{0, 0}, {960, 602}}</string>
 								<key>PBXDebugSessionStackFrameViewKey</key>
 								<dict>
 									<key>DebugVariablesTableConfiguration</key>
@@ -730,24 +734,24 @@
 										<string>Value</string>
 										<real>85</real>
 										<string>Summary</string>
-										<real>148</real>
+										<real>293</real>
 									</array>
 									<key>Frame</key>
-									<string>{{316, 0}, {378, 194}}</string>
+									<string>{{437, 0}, {523, 307}}</string>
 									<key>RubberWindowFrame</key>
-									<string>275 526 694 422 0 0 1920 1058 </string>
+									<string>361 326 960 643 0 0 1920 1058 </string>
 								</dict>
 								<key>RubberWindowFrame</key>
-								<string>275 526 694 422 0 0 1920 1058 </string>
+								<string>361 326 960 643 0 0 1920 1058 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugSessionModule</string>
 							<key>Proportion</key>
-							<string>381pt</string>
+							<string>602pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>381pt</string>
+					<string>602pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -772,11 +776,11 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
 			<key>WindowString</key>
-			<string>275 526 694 422 0 0 1920 1058 </string>
+			<string>361 326 960 643 0 0 1920 1058 </string>
 			<key>WindowToolGUID</key>
 			<string>1CD10A99069EF8BA00B06720</string>
 			<key>WindowToolIsVisible</key>
-			<false/>
+			<true/>
 		</dict>
 		<dict>
 			<key>Identifier</key>
