@@ -10,7 +10,7 @@
 
 @protocol TeamboxParserDelegate
 
-- (void)parserFinished:(NSArray *)parsedElements typeParse:(NSString *)type;
+- (void)parserFinishedType:(NSString *)type;
 - (void)parserFailedWithError:(NSError *)errorMsg;
 
 @end

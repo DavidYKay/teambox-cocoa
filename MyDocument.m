@@ -51,7 +51,7 @@
 
 }
 
-- (void)projectsReceived:(NSArray *)activities {
+- (void)projectsReceived:(NSManagedObjectContext *)managedObjectContext {
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	// Edit the entity name as appropriate.
 	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext];
@@ -70,16 +70,16 @@
 	for (int i=0;i<[projectsArray count];i++){
 		ProjectModel* aProject = [projectsArray objectAtIndex:i];
 		NSString* sLog=[NSString stringWithFormat:@"Project  :%@   Id:%i",aProject.name ,aProject.project_id];
-		NSLog(sLog);
+		NSLog(@"%@",sLog);
 		sLog = [NSString stringWithFormat:@"permalink:%@   archived:%i",aProject.permalink ,aProject.archived];
-		NSLog(sLog);
+		NSLog(@"%@",sLog);
 		NSArray* projects_usersArray = [[NSArray alloc] initWithArray:[aProject.Project_User allObjects]];
 		for (int j=0;j<[projects_usersArray count];j++)
 		{
 			Project_UserModel* pum=[projects_usersArray objectAtIndex:i];
 			
 			sLog = [NSString stringWithFormat:@"User %i:%@   archived:%i",pum.User.username ,pum.User.person_id];
-			NSLog(sLog);
+			NSLog(@"%@",sLog);
 		}
 		NSLog(@"------------------------------------------------------");
 	}

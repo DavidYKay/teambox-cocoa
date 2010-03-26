@@ -70,7 +70,7 @@
 }
 
 - (void)getProjects {
-	[TeamboxEngineConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KProjectsXML, username, password]] type:@"project" delegate:self];
+	[TeamboxEngineConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KProjectsXML, username, password]] type:@"Projects" delegate:self];
 }
 
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
@@ -104,9 +104,8 @@
 	NSLog(@"error %@",errorMsg);
 }
 
-- (void)parserFinished:(NSArray *)parsedElements typeParse:(NSString *)type {
-	if ([parsedElements count] > 0) {
-		if ([type isEqualToString:@"ActivitiesAll"])
+- (void)parserFinishedType:(NSString *)type {
+		/*if ([type isEqualToString:@"ActivitiesAll"])
 			[engineDelegate activitiesReceivedAll:parsedElements];
 		else if ([type isEqualToString:@"ActivitiesAllNew"])
 			[engineDelegate activitiesReceivedAllNew:parsedElements];
@@ -114,8 +113,8 @@
 			[engineDelegate activitiesReceivedAllMore:parsedElements];
 		else if ([type isEqualToString:@"Projects"])
 			[engineDelegate projectsReceived:parsedElements];
-	} else
-		[engineDelegate activitiesReceivedNothing:type];
+		//[engineDelegate activitiesReceivedNothing:type]; */
+	[engineDelegate projectsReceived:managedObjectContext];
 }
 
 - (NSManagedObjectContext *) managedObjectContext {

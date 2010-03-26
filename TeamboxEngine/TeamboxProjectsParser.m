@@ -153,8 +153,6 @@
 					// Handle the error.
 			}
 			
-			[parsedElements	insertObject:aProject atIndex:0];
-			
 				// find the next sibling element named "project"
 			project = [TBXML nextSiblingNamed:@"project" searchFromElement:project];
 		}
@@ -162,7 +160,7 @@
 		
 	}
 	
-	[delegate parserFinished:parsedElements typeParse:typeParse];
+	[delegate parserFinishedType:typeParse];
 	
 }
 
