@@ -125,7 +125,7 @@
 							enc=YES;
 						}
 					}
-					//if doen't exists the relationship with this user we have to create it CAMBIO
+					//if doen't exists the relationship with this user we have to create it
 					if (!enc) {
 						Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
 						[aProject addProject_UserObject:aProject_User];
