@@ -14,6 +14,7 @@
 @interface  TeamboxParser (Private)
 
 - (id)initWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
+- (void)parse;
 
 @end
 

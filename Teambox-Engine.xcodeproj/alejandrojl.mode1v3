@@ -275,7 +275,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>21</integer>
+									<integer>25</integer>
+									<integer>23</integer>
 									<integer>15</integer>
 									<integer>13</integer>
 									<integer>0</integer>
@@ -319,7 +320,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>TeamboxEngineConnection.m</string>
+								<string>TeamboxParser.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +328,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>TeamboxEngineConnection.m</string>
+										<string>TeamboxParser.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A4AAED1A115D54560027D81C</string>
+										<string>A4AAED4B115D5D700027D81C</string>
 										<key>history</key>
 										<array>
 											<string>A4DA2650115D213E00853B0D</string>
@@ -342,22 +343,22 @@
 											<string>A42DD8B7115D3C6900CA6A62</string>
 											<string>A42DD8B8115D3C6900CA6A62</string>
 											<string>A46DAEDF115D4D600061F0B8</string>
-											<string>A46DAF0E115D4F210061F0B8</string>
 											<string>A46DAF0F115D4F210061F0B8</string>
-											<string>A4AAECFB115D53E90027D81C</string>
-											<string>A4AAECFD115D53E90027D81C</string>
-											<string>A4AAECFE115D53E90027D81C</string>
-											<string>A4AAECFF115D53E90027D81C</string>
 											<string>A4AAED00115D53E90027D81C</string>
 											<string>A4AAED11115D54560027D81C</string>
-											<string>A4AAED12115D54560027D81C</string>
-											<string>A4AAED13115D54560027D81C</string>
-											<string>A4AAED14115D54560027D81C</string>
-											<string>A4AAED15115D54560027D81C</string>
 											<string>A4AAED16115D54560027D81C</string>
 											<string>A4AAED17115D54560027D81C</string>
 											<string>A4AAED18115D54560027D81C</string>
-											<string>A4AAED19115D54560027D81C</string>
+											<string>A4AAED1F115D5C480027D81C</string>
+											<string>A4AAED20115D5C480027D81C</string>
+											<string>A4AAED23115D5C480027D81C</string>
+											<string>A4AAED24115D5C480027D81C</string>
+											<string>A4AAED36115D5D1F0027D81C</string>
+											<string>A4AAED3B115D5D380027D81C</string>
+											<string>A4AAED3D115D5D380027D81C</string>
+											<string>A4AAED44115D5D5E0027D81C</string>
+											<string>A4AAED45115D5D5E0027D81C</string>
+											<string>A4AAED46115D5D5E0027D81C</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -555,7 +556,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>A4AAED1B115D54560027D81C</string>
 		<string>A4AAECD5115D52F60027D81C</string>
 		<string>A4AAECD6115D52F60027D81C</string>
 		<string>A4DA261B115D1EC100853B0D</string>
@@ -910,18 +910,18 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1311, 654}}</string>
+								<string>{{0, 0}, {816, 661}}</string>
 								<key>RubberWindowFrame</key>
-								<string>400 290 1311 695 0 0 1920 1058 </string>
+								<string>398 189 816 702 0 0 1920 1058 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXDebugCLIModule</string>
 							<key>Proportion</key>
-							<string>654pt</string>
+							<string>661pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
-					<string>654pt</string>
+					<string>661pt</string>
 				</dict>
 			</array>
 			<key>Name</key>
@@ -941,7 +941,7 @@
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.consoleV3</string>
 			<key>WindowString</key>
-			<string>400 290 1311 695 0 0 1920 1058 </string>
+			<string>398 189 816 702 0 0 1920 1058 </string>
 			<key>WindowToolGUID</key>
 			<string>1C78EAAD065D492600B07095</string>
 			<key>WindowToolIsVisible</key>
