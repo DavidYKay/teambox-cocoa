@@ -121,7 +121,7 @@
 					Boolean enc=NO;
 					for (int i=0;i<[projects_usersArray count];i++){
 						pum = [projects_usersArray objectAtIndex:i];
-						if (pum.project_id = aProject.project_id) {
+						if ([pum.project_id intValue]==[aProject.project_id intValue]) {
 							enc=YES;
 						}
 					}

@@ -69,16 +69,16 @@
 	NSArray *projectsArray = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
 	for (int i=0;i<[projectsArray count];i++){
 		ProjectModel* aProject = [projectsArray objectAtIndex:i];
-		NSString* sLog=[NSString stringWithFormat:@"Project  :%@   Id:%i",aProject.name ,aProject.project_id];
+		NSString* sLog=[NSString stringWithFormat:@"Project  :%@   Id:%i",aProject.name ,[aProject.project_id intValue]];
 		NSLog(@"%@",sLog);
-		sLog = [NSString stringWithFormat:@"permalink:%@   archived:%i",aProject.permalink ,aProject.archived];
+		sLog = [NSString stringWithFormat:@"permalink:%@   archived:%i",aProject.permalink ,[aProject.archived boolValue]];
 		NSLog(@"%@",sLog);
 		NSArray* projects_usersArray = [[NSArray alloc] initWithArray:[aProject.Project_User allObjects]];
 		for (int j=0;j<[projects_usersArray count];j++)
 		{
 			Project_UserModel* pum=[projects_usersArray objectAtIndex:i];
 			
-			sLog = [NSString stringWithFormat:@"User %i:%@   archived:%i",pum.User.username ,pum.User.person_id];
+			sLog = [NSString stringWithFormat:@"User %i:%@   archived:%i",pum.User.username ,[pum.User.person_id intValue]];
 			NSLog(@"%@",sLog);
 		}
 		NSLog(@"------------------------------------------------------");
