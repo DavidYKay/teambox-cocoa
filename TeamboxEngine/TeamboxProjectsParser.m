@@ -8,6 +8,8 @@
 
 #import "TeamboxProjectsParser.h"
 #import "ProjectModel.h"
+#import "UserModel.h"
+#import "Project_UserModel.h"
 
 @implementation TeamboxProjectsParser
 
@@ -71,7 +73,6 @@
 				}
 				
 			}
-			
 			desc = [TBXML childElementNamed:@"owner-user-id" parentElement:project];
 			if (desc != nil) {
 					// obtain the text from the description element
@@ -79,6 +80,71 @@
 				aProject.owner_user_id = nOwner;
 			}
 			
+			//Get the PEOPLE in the project
+			
+			TBXMLElement* people = [TBXML childElementNamed:@"people" parentElement:project];
+			TBXMLElement* person = [TBXML nextSiblingNamed:@"person" searchFromElement:people];
+			while (person != nil) {
+				
+				//first we search the person for update if exists
+				NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+				
+				NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext];
+				[fetchRequest setEntity:entity];
+				
+				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user_id=%i",[nId intValue]];
+				[fetchRequest setPredicate:predicate];
+				
+				NSError *error;
+				NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
+				[fetchRequest release];
+				
+				UserModel *aUser;
+				//Verify relationship with Projet
+				if ([items count]==0) {
+					//The user don't's exists 
+					
+					//first create de object Project_user
+					Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
+					//we create the user
+					aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
+					//add the ProjectUser to the project and to the user
+					[aProject addProject_UserObject:aProject_User];
+					[aUser addProject_UserObject:aProject_User];
+
+				}else{
+					aUser =[items objectAtIndex:0];
+					//if the user exists, we have to check if the project_user for that project and that user exists.
+
+					NSArray* projects_usersArray = [[NSArray alloc] initWithArray:[aUser.Project_User allObjects]];
+					Project_UserModel* pum;
+					Boolean enc=NO;
+					for (int i=0;i<[projects_usersArray count];i++){
+						pum = [projects_usersArray objectAtIndex:i];
+						if (pum.project_id = aProject.project_id) {
+							enc=YES;
+						}
+					}
+					//if doen't exists the relationship with this user we have to create it CAMBIO
+					if (!enc) {
+						Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
+						[aProject addProject_UserObject:aProject_User];
+						[aUser addProject_UserObject:aProject_User];
+					}
+					
+				}
+				
+				NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
+				aUser.person_id=nId;		
+				
+				TBXMLElement * desc = [TBXML childElementNamed:@"username" parentElement:person];
+				// if we found a description
+				if (desc != nil) {
+					// obtain the text from the description element
+					aUser.username =[TBXML stringByDecodingXMLEntities:[TBXML textForElement:desc]];
+				}
+				person = [TBXML nextSiblingNamed:@"person" searchFromElement:person];
+			}
 			
 			
 			
