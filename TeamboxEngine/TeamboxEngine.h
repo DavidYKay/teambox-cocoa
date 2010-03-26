@@ -10,6 +10,7 @@
 //
 
 #import "TeamboxEngineHeaders.h"
+#import "TeamboxEngineConnectionDelegate.h"
 #import "TeamboxParserDelegate.h"
 #import "TeamboxEngineDelegate.h"
 
@@ -18,10 +19,16 @@
 	NSString *username;
 	NSString *password;
 	NSString *typeUser;
+	NSManagedObjectModel *managedObjectModel;
+    NSManagedObjectContext *managedObjectContext;	    
+    NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	BOOL secureConnection;
 }
 #pragma mark Accessors
 @property (nonatomic, retain) NSString *typeUser;
+@property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
+@property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
+@property (nonatomic, retain) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 + (TeamboxEngine *)teamboxEngineWithDelegate:(NSObject *)theDelegate;
 - (TeamboxEngine *)initWithDelegate:(NSObject *)delegate;

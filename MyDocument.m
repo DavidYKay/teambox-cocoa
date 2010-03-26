@@ -27,6 +27,7 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController 
 {
     [super windowControllerDidLoadNib:windowController];
+	[engine getProjects];
     // user interface preparation code
 }
 

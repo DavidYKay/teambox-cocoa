@@ -13,21 +13,18 @@
 
 @interface  TeamboxParser (Private)
 
-- (id)initWithURL:(NSData *)data delegate:(NSObject *)theDelegate typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext;
+- (id)initWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
 
 @end
 
 @implementation TeamboxParser
 
-+ (id)parserWithData:(NSData *)data delegate:(NSObject *)theDelegate typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext{
-	id parser = [[self alloc
-				  ] initWithURL:data 
-                                 delegate:theDelegate 
-								typeParse:type managedObjectContext:theManagedObjectContext];
++ (id)parserWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate {
+	id parser = [[self alloc] initWithData:data typeParse:type managedObjectContext:theManagedObjectContext delegate:theDelegate];
     return [parser autorelease];
 }
 
-- (id)initWithURL:(NSData *)data delegate:(NSObject *)theDelegate typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext {
+- (id)initWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate {
     if (self = [super init]) {
 		delegate = theDelegate;
 		typeParse = type;

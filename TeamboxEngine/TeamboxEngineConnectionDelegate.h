@@ -6,9 +6,10 @@
 //  Copyright 2010 Teambox. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
+#import "TeamboxEngineHeaders.h"
 
 @protocol TeamboxEngineConnectionDelegate
+
+- (void)finishedGetData:(NSData *)data withType:(NSString *)type;
 
 @end

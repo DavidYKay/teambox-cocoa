@@ -17,11 +17,10 @@
 	NSObject <TeamboxParserDelegate> *delegate;
 	TBXML *parser;
 	NSMutableArray *parsedElements;
-	NSURL *url;
 	NSString *typeParse;
 	NSManagedObjectContext *managedObjectContext;
 }
 
-+ (id)parserWithData:(NSData *)data delegate:(NSObject *)theDelegate typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext;
++ (id)parserWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
 
 @end
