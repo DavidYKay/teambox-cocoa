@@ -125,13 +125,13 @@
 							enc=YES;
 						}
 					}
-					//if doen't exists the relationship with this user we have to create it
+					//if doen't exists the relationship with this user we have to create it CAMBIO
 					if (!enc) {
 						Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
 						[aProject addProject_UserObject:aProject_User];
 						[aUser addProject_UserObject:aProject_User];
 					}
-					
+
 				}
 				
 				NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
