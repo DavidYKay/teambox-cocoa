@@ -131,7 +131,7 @@
 						[aProject addProject_UserObject:aProject_User];
 						[aUser addProject_UserObject:aProject_User];
 					}
-					
+
 				}
 				
 				NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
