@@ -83,7 +83,7 @@
 			//Get the PEOPLE in the project
 			
 			TBXMLElement* people = [TBXML childElementNamed:@"people" parentElement:project];
-			TBXMLElement* person = [TBXML nextSiblingNamed:@"person" searchFromElement:people];
+			TBXMLElement* person = [TBXML childElementNamed:@"person" parentElement:people];
 			while (person != nil) {
 				
 				//first we search the person for update if exists
@@ -92,7 +92,7 @@
 				NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext];
 				[fetchRequest setEntity:entity];
 				
-				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user_id=%i",[nId intValue]];
+				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"person_id=%i",[nId intValue]];
 				[fetchRequest setPredicate:predicate];
 				
 				NSError *error;
@@ -131,11 +131,11 @@
 						[aProject addProject_UserObject:aProject_User];
 						[aUser addProject_UserObject:aProject_User];
 					}
+				
 
 				}
-				
 				NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
-				aUser.person_id=nId;		
+				aUser.person_id=[NSNumber numberWithInt:[nId intValue]];		
 				
 				TBXMLElement * desc = [TBXML childElementNamed:@"username" parentElement:person];
 				// if we found a description
@@ -144,6 +144,12 @@
 					aUser.username =[TBXML stringByDecodingXMLEntities:[TBXML textForElement:desc]];
 				}
 				person = [TBXML nextSiblingNamed:@"person" searchFromElement:person];
+				
+				//SAVE the object
+				if (![managedObjectContext save:&error]) {
+					// Handle the error.
+				}
+				
 			}
 			
 			

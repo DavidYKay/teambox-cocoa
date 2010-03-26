@@ -78,7 +78,7 @@
 		{
 			Project_UserModel* pum=[projects_usersArray objectAtIndex:i];
 			
-			sLog = [NSString stringWithFormat:@"User %i:%@   archived:%i",pum.User.username ,[pum.User.person_id intValue]];
+			sLog = [NSString stringWithFormat:@"User %i:%@   user_id:%i",j,pum.User.username ,[pum.User.person_id intValue]];
 			NSLog(@"%@",sLog);
 		}
 		NSLog(@"------------------------------------------------------");
