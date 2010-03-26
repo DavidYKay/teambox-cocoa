@@ -94,6 +94,7 @@
 		A4DA27A6115D23A800853B0D /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
 		A4DA27A7115D23A800853B0D /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
 		A4DA27A8115D23A800853B0D /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
+		A4DA27CD115D258600853B0D /* TeamboxEngineConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineConnectionDelegate.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -203,6 +204,7 @@
 				A4DA25B1115D1DB000853B0D /* TeamboxEngineHeaders.h */,
 				A4DA25B2115D1DB000853B0D /* TeamboxEngineConnection.h */,
 				A4DA25B3115D1DB000853B0D /* TeamboxEngineConnection.m */,
+				A4DA27CD115D258600853B0D /* TeamboxEngineConnectionDelegate.h */,
 				A4DA25A6115D1DB000853B0D /* Parser */,
 			);
 			path = TeamboxEngine;

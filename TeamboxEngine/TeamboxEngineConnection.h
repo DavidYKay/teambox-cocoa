@@ -6,8 +6,8 @@
 //  Copyright 2010 Teambox. All rights reserved.
 //
 
-#import <Cocoa/Cocoa.h>
-
+#import "TeamboxEngineHeaders.h"
+#import "ASIHTTPRequest.h"
 
 @interface TeamboxEngineConnection : NSObject {
 
