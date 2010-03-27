@@ -30,7 +30,7 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController 
 {
     [super windowControllerDidLoadNib:windowController];
-	[engine getProjects];
+	[engine authenticate];
     // user interface preparation code
 }
 
@@ -86,7 +86,26 @@
 }
 
 - (void)activitiesReceivedNothing:(NSString *)type {
+	
+}
 
+- (void)correctAuthentication {
+	[engine getProjects];
+}
+
+- (void)notHaveUser {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[engine setUsername:[defaults valueForKey:kUserNameSettingsKey] Password:[defaults valueForKey:kPaswordSettingsKey]];
+}
+
+- (void)notCorrectUserOrPassword:(NSString *)username {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[engine setUsername:username Password:[defaults valueForKey:kPaswordSettingsKey]];
+}
+
+	//Server
+- (void)errorCommunicateWithTeambox:(NSError *)error {
+	
 }
 
 @end

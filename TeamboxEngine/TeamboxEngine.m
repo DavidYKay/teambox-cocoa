@@ -13,10 +13,22 @@
 #import "TeamboxActivitiesParser.h"
 #import "TeamboxProjectsParser.h"
 #import "TeamboxEngineConnection.h"
+#import "TeamboxEngineKeychain.h"
+#import "ASIHTTPRequest.h"
+
+@interface TeamboxEngine (PrivateMethods)
+
+	//Authentication
+
+@end
+
 
 @implementation TeamboxEngine
 
 @synthesize typeUser;
+@synthesize managedObjectModel;
+@synthesize managedObjectContext;
+@synthesize persistentStoreCoordinator;
 
 + (TeamboxEngine *)teamboxEngineWithDelegate:(NSObject *)delegate {
 	return [[[TeamboxEngine alloc] initWithDelegate:delegate] autorelease];
@@ -25,16 +37,18 @@
 - (TeamboxEngine *)initWithDelegate:(NSObject *)delegate {
 	if (self = [super init]) {
         engineDelegate = delegate;
-		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-		username = [defaults valueForKey:kUserNameSettingsKey];
-		#if TARGET_OS_MAC
-			password = [defaults valueForKey:kPaswordSettingsKey];
-		#else
-			password = [defaults valueForKey:kPaswordSettingsKey];
-		#endif
 		managedObjectContext = self.managedObjectContext;
     }
     return self;
+}
+
+	//Configuration
+- (void)setUsername:(NSString *)userName Password:(NSString *)Password {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	[defaults setValue:userName forKey:kUserNameSettingsKey];
+	[defaults synchronize];
+	[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nil];
+	[self authenticate];
 }
 
 - (void)getActivitiesAll:(NSManagedObjectContext *)managedObjectContext {
@@ -168,16 +182,6 @@
 	NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     if (![persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeUrl options:nil error:&error]) {
-		/*
-		 Replace this implementation with code to handle the error appropriately.
-		 
-		 abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development. If it is not possible to recover from the error, display an alert panel that instructs the user to quit the application by pressing the Home button.
-		 
-		 Typical reasons for an error here include:
-		 * The persistent store is not accessible
-		 * The schema for the persistent store is incompatible with current managed object model
-		 Check the error message to determine what the actual problem was.
-		 */
 		NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
 		abort();
     }    
@@ -185,6 +189,27 @@
     return persistentStoreCoordinator;
 }
 
+- (void)authenticate {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	username = [defaults valueForKey:kUserNameSettingsKey];
+	if ([username isEqualToString:@""]) {
+		[engineDelegate notHaveUser];
+	} else {
+		password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
+		NSString *userURL = [NSString stringWithFormat:KTeamboxURL];
+		NSURL *url = [NSURL URLWithString:userURL];
+		ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
+		[request setShouldRedirect:NO];
+		[request setUsername:username];
+		[request setPassword:password];
+		[request startSynchronous];
+		if ([request responseStatusCode] == 200)
+			[engineDelegate correctAuthentication];
+		else
+			[engineDelegate notCorrectUserOrPassword:username];
+	}
+
+}
 
 #pragma mark -
 #pragma mark Application's Documents directory

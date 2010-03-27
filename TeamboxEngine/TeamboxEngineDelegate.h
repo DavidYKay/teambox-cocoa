@@ -9,9 +9,23 @@
 
 @protocol TeamboxEngineDelegate
 
+@optional
+
 - (void)activitiesReceivedAll:(NSArray *)activities;
 - (void)activitiesReceivedAllNew:(NSArray *)activities;
 - (void)activitiesReceivedAllMore:(NSArray *)activities;
 - (void)projectsReceived:(NSManagedObjectContext *)managedObjectContext;
 - (void)activitiesReceivedNothing:(NSString *)type;
+
+
+
+@required
+	//Authenticate
+- (void)correctAuthentication;
+- (void)notHaveUser;
+- (void)notCorrectUserOrPassword:(NSString *)username;
+
+	//Server
+- (void)errorCommunicateWithTeambox:(NSError *)error;
+
 @end

@@ -14,6 +14,8 @@
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		A4773E85115E577400F9588C /* TeamboxEngineKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A4773E84115E577400F9588C /* TeamboxEngineKeychain.m */; };
+		A4773EDD115E5EE700F9588C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4773EDC115E5EE700F9588C /* Security.framework */; };
 		A4DA257F115D1D2C00853B0D /* Teambox.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */; };
 		A4DA25B4115D1DB000853B0D /* TeamboxParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25A8115D1DB000853B0D /* TeamboxParser.m */; };
 		A4DA25B5115D1DB000853B0D /* TeamboxActivitiesParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25AB115D1DB000853B0D /* TeamboxActivitiesParser.m */; };
@@ -52,6 +54,9 @@
 		7788DA0506752A1600599AAD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Teambox_Engine-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Teambox_Engine-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Teambox-Engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Teambox-Engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4773E83115E577400F9588C /* TeamboxEngineKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineKeychain.h; sourceTree = "<group>"; };
+		A4773E84115E577400F9588C /* TeamboxEngineKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxEngineKeychain.m; sourceTree = "<group>"; };
+		A4773EDC115E5EE700F9588C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Teambox.xcdatamodel; sourceTree = "<group>"; };
 		A4DA25A7115D1DB000853B0D /* TeamboxParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxParser.h; sourceTree = "<group>"; };
 		A4DA25A8115D1DB000853B0D /* TeamboxParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxParser.m; sourceTree = "<group>"; };
@@ -106,6 +111,7 @@
 				A4DA26CD115D231B00853B0D /* SystemConfiguration.framework in Frameworks */,
 				A4DA26CF115D232A00853B0D /* CoreServices.framework in Frameworks */,
 				A4DA26D1115D234600853B0D /* libz.1.2.3.dylib in Frameworks */,
+				A4773EDD115E5EE700F9588C /* Security.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -123,6 +129,7 @@
 		1058C7A8FEA54F5311CA2CBB /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A4773EDC115E5EE700F9588C /* Security.framework */,
 				A4DA26CC115D231B00853B0D /* SystemConfiguration.framework */,
 				A4DA26CE115D232A00853B0D /* CoreServices.framework */,
 				A4DA26D0115D234600853B0D /* libz.1.2.3.dylib */,
@@ -205,6 +212,8 @@
 				A4DA25B2115D1DB000853B0D /* TeamboxEngineConnection.h */,
 				A4DA25B3115D1DB000853B0D /* TeamboxEngineConnection.m */,
 				A4DA27CD115D258600853B0D /* TeamboxEngineConnectionDelegate.h */,
+				A4773E83115E577400F9588C /* TeamboxEngineKeychain.h */,
+				A4773E84115E577400F9588C /* TeamboxEngineKeychain.m */,
 				A4DA25A6115D1DB000853B0D /* Parser */,
 			);
 			path = TeamboxEngine;
@@ -360,6 +369,7 @@
 				A4DA27AB115D23A800853B0D /* Project_UserModel.m in Sources */,
 				A4DA27AC115D23A800853B0D /* CommentModel.m in Sources */,
 				A4DA27AD115D23A800853B0D /* ActivityModel.m in Sources */,
+				A4773E85115E577400F9588C /* TeamboxEngineKeychain.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

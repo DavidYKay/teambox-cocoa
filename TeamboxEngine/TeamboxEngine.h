@@ -40,6 +40,9 @@
 	// Teambox API methods
 	//===============================
 
+	//Configuration
+- (void)setUsername:(NSString *)username Password:(NSString *)password;
+
 	//Recover the Activities of All Projects
 - (void)getActivitiesAll:(NSManagedObjectContext *)managedObjectContext;
 - (void)getActivitiesAllNew:(NSString *)activityID;
@@ -64,5 +67,6 @@
 	//Sending a Comment
 - (void)postCommentWithProject:(NSString *)comment projectName:(NSString *)name;
 
+- (void)authenticate;
 
 @end
