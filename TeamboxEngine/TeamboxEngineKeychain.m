@@ -1,5 +1,4 @@
-#if TARGET_OS_MAC
-	//
+//
 //  TeamboxEngineKeychain.m
 //  Teambox-Engine
 //
@@ -157,6 +156,23 @@
 + (void)deleteKeyForUsername:(NSString *)username error:(NSError **)error {
 	
 }
+#else
++ (BOOL)storePasswordForUsername: (NSString *)username Password:(NSString *)password error:(NSError **)error {
+	return YES;
+}
+
++ (BOOL)existanceOfKeychainForUsername:(NSString *)username {
+	return YES;
+}
+
++ (NSString *)getPasswordForUsername:(NSString *)username error:(NSError **)error {
+	return @"dadsd";
+}
+
++ (void)deleteKeyForUsername:(NSString *)username error:(NSError **)error {
+	
+}
+
 #endif
 @end
 

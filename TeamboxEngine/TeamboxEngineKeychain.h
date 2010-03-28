@@ -17,4 +17,3 @@
 + (void)deleteKeyForUsername:(NSString *)username error:(NSError **)error;
 
 @end
-#endif
