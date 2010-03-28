@@ -13,8 +13,6 @@
 
 @implementation Project_UserModel 
 
-@dynamic project_id;
-@dynamic user_id;
 @dynamic created_at;
 @dynamic User;
 @dynamic Project;

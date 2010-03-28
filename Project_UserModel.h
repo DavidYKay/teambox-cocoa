@@ -15,8 +15,6 @@
 {
 }
 
-@property (nonatomic, retain) NSNumber * project_id;
-@property (nonatomic, retain) NSNumber * user_id;
 @property (nonatomic, retain) NSNumber * created_at;
 @property (nonatomic, retain) UserModel * User;
 @property (nonatomic, retain) ProjectModel * Project;
