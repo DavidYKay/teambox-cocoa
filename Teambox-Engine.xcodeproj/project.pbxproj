@@ -37,6 +37,8 @@
 		A4DA27AB115D23A800853B0D /* Project_UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA27A4115D23A800853B0D /* Project_UserModel.m */; };
 		A4DA27AC115D23A800853B0D /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA27A6115D23A800853B0D /* CommentModel.m */; };
 		A4DA27AD115D23A800853B0D /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA27A8115D23A800853B0D /* ActivityModel.m */; };
+		A4E5F166115FC8940021AD87 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E5F165115FC8940021AD87 /* ASIAuthenticationDialog.m */; };
+		A4E5F17E115FC9220021AD87 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E5F17C115FC9220021AD87 /* Reachability.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -100,6 +102,10 @@
 		A4DA27A7115D23A800853B0D /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
 		A4DA27A8115D23A800853B0D /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
 		A4DA27CD115D258600853B0D /* TeamboxEngineConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineConnectionDelegate.h; sourceTree = "<group>"; };
+		A4E5F164115FC8940021AD87 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
+		A4E5F165115FC8940021AD87 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
+		A4E5F17A115FC9220021AD87 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
+		A4E5F17C115FC9220021AD87 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -231,7 +237,7 @@
 				A4DA25AC115D1DB000853B0D /* TeamboxProjectsParser.h */,
 				A4DA25AD115D1DB000853B0D /* TeamboxProjectsParser.m */,
 			);
-			name = Parser;
+			path = Parser;
 			sourceTree = "<group>";
 		};
 		A4DA25B9115D1DD800853B0D /* Libraries */ = {
@@ -256,6 +262,25 @@
 		A4DA25C2115D1DD800853B0D /* ASIHTTPRequest */ = {
 			isa = PBXGroup;
 			children = (
+			);
+			path = ASIHTTPRequest;
+			sourceTree = "<group>";
+		};
+		A4E5F104115FC42B0021AD87 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				A4E5F13F115FC6640021AD87 /* ASIHTTPRequest */,
+				A4DA25BA115D1DD800853B0D /* TBXML */,
+			);
+			path = Libraries;
+			sourceTree = "<group>";
+		};
+		A4E5F13F115FC6640021AD87 /* ASIHTTPRequest */ = {
+			isa = PBXGroup;
+			children = (
+				A4E5F177115FC9150021AD87 /* Reachability */,
+				A4E5F164115FC8940021AD87 /* ASIAuthenticationDialog.h */,
+				A4E5F165115FC8940021AD87 /* ASIAuthenticationDialog.m */,
 				A4DA25C3115D1DD800853B0D /* ASIFormDataRequest.h */,
 				A4DA25C4115D1DD800853B0D /* ASIHTTPRequest.h */,
 				A4DA25C5115D1DD800853B0D /* ASIHTTPRequestConfig.h */,
@@ -271,12 +296,13 @@
 			path = ASIHTTPRequest;
 			sourceTree = "<group>";
 		};
-		A4E5F104115FC42B0021AD87 /* Libraries */ = {
+		A4E5F177115FC9150021AD87 /* Reachability */ = {
 			isa = PBXGroup;
 			children = (
-				A4DA25BA115D1DD800853B0D /* TBXML */,
+				A4E5F17A115FC9220021AD87 /* Reachability.h */,
+				A4E5F17C115FC9220021AD87 /* Reachability.m */,
 			);
-			path = Libraries;
+			name = Reachability;
 			sourceTree = "<group>";
 		};
 		E1B74B1A0667B4A90069E3BA /* Models */ = {
@@ -378,6 +404,8 @@
 				A4DA27AC115D23A800853B0D /* CommentModel.m in Sources */,
 				A4DA27AD115D23A800853B0D /* ActivityModel.m in Sources */,
 				A4773E85115E577400F9588C /* TeamboxEngineKeychain.m in Sources */,
+				A4E5F166115FC8940021AD87 /* ASIAuthenticationDialog.m in Sources */,
+				A4E5F17E115FC9220021AD87 /* Reachability.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
