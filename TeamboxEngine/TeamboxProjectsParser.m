@@ -125,7 +125,9 @@
 					Boolean enc=NO;
 					for (int i=0;i<[projects_usersArray count];i++){
 						pum = [projects_usersArray objectAtIndex:i];
-						if ([pum.project_id intValue]==[aProject.project_id intValue]) {
+						/*int pumId = [pum.project_id intValue];
+						int projId = [aProject.project_id intValue];*/
+						if ([pum.Project.project_id intValue]==[aProject.project_id intValue]) {
 							enc=YES;
 						}
 					}
@@ -135,8 +137,7 @@
 						[aProject addProject_UserObject:aProject_User];
 						[aUser addProject_UserObject:aProject_User];
 					}
-				
-
+	
 				}
 				
 				TBXMLElement * desc = [TBXML childElementNamed:@"username" parentElement:person];

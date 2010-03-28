@@ -76,7 +76,7 @@
 		NSArray* projects_usersArray = [[NSArray alloc] initWithArray:[aProject.Project_User allObjects]];
 		for (int j=0;j<[projects_usersArray count];j++)
 		{
-			Project_UserModel* pum=[projects_usersArray objectAtIndex:i];
+			Project_UserModel* pum=[projects_usersArray objectAtIndex:j];
 			
 			sLog = [NSString stringWithFormat:@"User %i:%@   user_id:%i",j,pum.User.username ,[pum.User.person_id intValue]];
 			NSLog(@"%@",sLog);
