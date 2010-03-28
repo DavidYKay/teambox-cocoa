@@ -86,6 +86,8 @@
 			TBXMLElement* person = [TBXML childElementNamed:@"person" parentElement:people];
 			while (person != nil) {
 				
+				NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
+				
 				//first we search the person for update if exists
 				NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 				
@@ -100,14 +102,16 @@
 				[fetchRequest release];
 				
 				UserModel *aUser;
+				
 				//Verify relationship with Projet
 				if ([items count]==0) {
 					//The user don't's exists 
 					
 					//first create de object Project_user
 					Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
-					//we create the user
+					//then create the user
 					aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
+					aUser.person_id=[NSNumber numberWithInt:[nId intValue]];
 					//add the ProjectUser to the project and to the user
 					[aProject addProject_UserObject:aProject_User];
 					[aUser addProject_UserObject:aProject_User];
@@ -134,8 +138,6 @@
 				
 
 				}
-				NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
-				aUser.person_id=[NSNumber numberWithInt:[nId intValue]];		
 				
 				TBXMLElement * desc = [TBXML childElementNamed:@"username" parentElement:person];
 				// if we found a description
@@ -145,13 +147,7 @@
 				}
 				person = [TBXML nextSiblingNamed:@"person" searchFromElement:person];
 				
-				//SAVE the object
-				if (![managedObjectContext save:&error]) {
-					// Handle the error.
-				}
-				
 			}
-			
 			
 			
 				//SAVE the object
