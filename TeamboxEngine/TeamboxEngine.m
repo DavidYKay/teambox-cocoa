@@ -13,7 +13,9 @@
 #import "TeamboxActivitiesParser.h"
 #import "TeamboxProjectsParser.h"
 #import "TeamboxEngineConnection.h"
-#import "TeamboxEngineKeychain.h"
+#if TARGET_OS_MAC
+	#import "TeamboxEngineKeychain.h"
+#endif
 #import "ASIHTTPRequest.h"
 
 @interface TeamboxEngine (PrivateMethods)
@@ -46,8 +48,13 @@
 - (void)setUsername:(NSString *)userName Password:(NSString *)Password {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:userName forKey:kUserNameSettingsKey];
+	#if TARGET_OS_MAC
+		[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nil];
+	#else
+		[defaults valueForKey:kUserPassSettingsKey];
+		[defaults setValue:Password forKey:kUserPassSettingsKey];
+	#endif
 	[defaults synchronize];
-	[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nil];
 	[self authenticate];
 }
 
@@ -195,7 +202,11 @@
 	if ([username isEqualToString:@""]) {
 		[engineDelegate notHaveUser];
 	} else {
-		password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
+		#if TARGET_OS_MAC
+			password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
+		#else
+			password = [defaults valueForKey:kUserPassSettingsKey];
+		#endif
 		NSString *userURL = [NSString stringWithFormat:KTeamboxURL];
 		NSURL *url = [NSURL URLWithString:userURL];
 		ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
