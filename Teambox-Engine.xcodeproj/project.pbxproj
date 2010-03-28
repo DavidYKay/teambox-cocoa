@@ -210,6 +210,7 @@
 		A4DA25A5115D1DB000853B0D /* TeamboxEngine */ = {
 			isa = PBXGroup;
 			children = (
+				A4E5F1C3115FCECF0021AD87 /* Model */,
 				A4E5F104115FC42B0021AD87 /* Libraries */,
 				A4DA25AE115D1DB000853B0D /* TeamboxEngine.h */,
 				A4DA25AF115D1DB000853B0D /* TeamboxEngine.m */,
@@ -289,7 +290,7 @@
 			name = Reachability;
 			sourceTree = "<group>";
 		};
-		E1B74B1A0667B4A90069E3BA /* Models */ = {
+		A4E5F1C3115FCECF0021AD87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
 				A4DA279F115D23A800853B0D /* UserModel.h */,
@@ -303,6 +304,13 @@
 				A4DA27A7115D23A800853B0D /* ActivityModel.h */,
 				A4DA27A8115D23A800853B0D /* ActivityModel.m */,
 				A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E1B74B1A0667B4A90069E3BA /* Models */ = {
+			isa = PBXGroup;
+			children = (
 			);
 			name = Models;
 			sourceTree = "<group>";
