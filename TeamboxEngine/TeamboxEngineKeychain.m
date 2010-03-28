@@ -5,7 +5,7 @@
 //  Created by Alejandro JL on 27/03/10.
 //  Copyright 2010 Teambox. All rights reserved.
 //
-
+#if TARGET_OS_MAC
 #import "TeamboxEngineKeychain.h"
 #import <Security/Security.h>
 
@@ -102,43 +102,16 @@
 }
 
 + (NSString *)getPasswordForUsername:(NSString *)username error:(NSError **)error {
-	SecKeychainSearchRef search;
-    SecKeychainItemRef item;
-    SecKeychainAttributeList list;
-    SecKeychainAttribute attributes[3];
-    OSErr result;
-	
-	attributes[0].tag = kSecAccountItemAttr;
-	attributes[0].data = (void *)[username UTF8String];
-	attributes[0].length = [username length];
-	
-	attributes[1].tag = kSecLabelItemAttr;
-	attributes[1].data = (void *)[@"Teambox Mac" UTF8String];
-	attributes[1].length = [@"Teambox Mac" length];
-	
-	attributes[2].tag = kSecServiceItemAttr;
-	attributes[2].data = (void *)[@"Teambox password data" UTF8String];
-	attributes[2].length = [@"Teambox password data" length];
-	
-    list.count = 3;
-    list.attr = attributes;
-	
-    result = SecKeychainSearchCreateFromAttributes(NULL, kSecGenericPasswordItemClass, &list, &search);
-	
-    if (result != noErr) {
-        NSLog (@"status %d from SecKeychainSearchCreateFromAttributes\n", result);
-    }
-	
-	NSString *password = @"";
-    if (SecKeychainSearchCopyNext (search, &item) == noErr) {
-		password = [self getPasswordFromSecKeychainItemRef:item];
-		if(!password) {
-			password = @"";
-		}
-		CFRelease(item);
-		CFRelease (search);
-	}
-	return password;	
+	UInt32 passwordLength;
+	void *passwordData;
+	SecKeychainItemRef loginItem;
+	passwordData = nil;
+	SecKeychainFindGenericPassword(NULL, 6, APP_CNAME, 
+									   [username lengthOfBytesUsingEncoding:NSASCIIStringEncoding],
+									   [username cStringUsingEncoding:NSASCIIStringEncoding], 
+									   &passwordLength, &passwordData, &loginItem);
+	NSString *passwod = [[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSASCIIStringEncoding];
+	return [[NSString alloc] initWithBytes:passwordData length:passwordLength encoding:NSASCIIStringEncoding];
 }
 
 + (NSString *)getPasswordFromSecKeychainItemRef:(SecKeychainItemRef)item {
@@ -184,3 +157,4 @@
 }
 
 @end
+#endif
