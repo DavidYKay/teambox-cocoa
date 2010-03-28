@@ -11,8 +11,6 @@
 
 @interface  TeamboxActivitiesParser (Private)
 
-- (NSString *)prettyDate:(NSString *)dateString;
-
 @end
 
 
@@ -24,9 +22,8 @@
 	[delegate parserFinished:parsedElements typeParse:typeParse];
 	
 }
-
+/*
 - (NSString *)prettyDate:(NSString *)dateString {
-	#if TARGET_OS_MAC
 		NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
 		[formatter setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"UTC"]];
 		[formatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
@@ -58,9 +55,8 @@
 			[formatter setDateFormat:@"yyyy MMM d"];
 			return [NSString stringWithFormat:@"%@", [formatter stringFromDate:date]];
 		}
-	#endif
 }
-
+#endif*/
 - (void) dealloc {
 	[super dealloc];
 }

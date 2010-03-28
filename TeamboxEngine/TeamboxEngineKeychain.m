@@ -1,11 +1,12 @@
-//
+#if TARGET_OS_MAC
+	//
 //  TeamboxEngineKeychain.m
 //  Teambox-Engine
 //
 //  Created by Alejandro JL on 27/03/10.
 //  Copyright 2010 Teambox. All rights reserved.
 //
-#if TARGET_OS_MAC
+
 #import "TeamboxEngineKeychain.h"
 #import <Security/Security.h>
 
@@ -17,6 +18,7 @@
 
 @implementation TeamboxEngineKeychain
 
+#if TARGET_OS_MAC
 + (BOOL)storePasswordForUsername: (NSString *)username Password:(NSString *)password error:(NSError **)error {
 	SecKeychainAttribute attributes[3];
 	SecKeychainAttributeList list;
@@ -155,6 +157,7 @@
 + (void)deleteKeyForUsername:(NSString *)username error:(NSError **)error {
 	
 }
-
-@end
 #endif
+@end
+
+
