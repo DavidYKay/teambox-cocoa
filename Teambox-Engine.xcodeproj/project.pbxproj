@@ -205,6 +205,7 @@
 		A4DA25A5115D1DB000853B0D /* TeamboxEngine */ = {
 			isa = PBXGroup;
 			children = (
+				A4E5F104115FC42B0021AD87 /* Libraries */,
 				A4DA25AE115D1DB000853B0D /* TeamboxEngine.h */,
 				A4DA25AF115D1DB000853B0D /* TeamboxEngine.m */,
 				A4DA25B0115D1DB000853B0D /* TeamboxEngineDelegate.h */,
@@ -237,7 +238,6 @@
 			isa = PBXGroup;
 			children = (
 				A4DA25C2115D1DD800853B0D /* ASIHTTPRequest */,
-				A4DA25BA115D1DD800853B0D /* TBXML */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -250,7 +250,7 @@
 				A4DA25BD115D1DD800853B0D /* TBXML.h */,
 				A4DA25BE115D1DD800853B0D /* TBXML.m */,
 			);
-			name = TBXML;
+			path = TBXML;
 			sourceTree = "<group>";
 		};
 		A4DA25C2115D1DD800853B0D /* ASIHTTPRequest */ = {
@@ -269,6 +269,14 @@
 				A4DA25CD115D1DD800853B0D /* ASINSStringAdditions.m */,
 			);
 			path = ASIHTTPRequest;
+			sourceTree = "<group>";
+		};
+		A4E5F104115FC42B0021AD87 /* Libraries */ = {
+			isa = PBXGroup;
+			children = (
+				A4DA25BA115D1DD800853B0D /* TBXML */,
+			);
+			path = Libraries;
 			sourceTree = "<group>";
 		};
 		E1B74B1A0667B4A90069E3BA /* Models */ = {

@@ -11,8 +11,7 @@
 @class ProjectModel;
 @class UserModel;
 
-@interface Project_UserModel :  NSManagedObject  
-{
+@interface Project_UserModel :  NSManagedObject {
 }
 
 @property (nonatomic, retain) NSNumber * created_at;
