@@ -170,7 +170,6 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A4DA25B9115D1DD800853B0D /* Libraries */,
 				A4DA25A5115D1DB000853B0D /* TeamboxEngine */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
@@ -240,14 +239,6 @@
 			path = Parser;
 			sourceTree = "<group>";
 		};
-		A4DA25B9115D1DD800853B0D /* Libraries */ = {
-			isa = PBXGroup;
-			children = (
-				A4DA25C2115D1DD800853B0D /* ASIHTTPRequest */,
-			);
-			path = Libraries;
-			sourceTree = "<group>";
-		};
 		A4DA25BA115D1DD800853B0D /* TBXML */ = {
 			isa = PBXGroup;
 			children = (
@@ -257,13 +248,6 @@
 				A4DA25BE115D1DD800853B0D /* TBXML.m */,
 			);
 			path = TBXML;
-			sourceTree = "<group>";
-		};
-		A4DA25C2115D1DD800853B0D /* ASIHTTPRequest */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = ASIHTTPRequest;
 			sourceTree = "<group>";
 		};
 		A4E5F104115FC42B0021AD87 /* Libraries */ = {
