@@ -30,7 +30,6 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)windowController 
 {
     [super windowControllerDidLoadNib:windowController];
-	[engine authenticate];
     // user interface preparation code
 }
 

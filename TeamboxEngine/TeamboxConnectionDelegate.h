@@ -8,8 +8,10 @@
 
 #import "TeamboxEngineHeaders.h"
 
-@protocol TeamboxEngineConnectionDelegate
+@protocol TeamboxConnectionDelegate
 
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type;
+- (void)finishedConnectionLogin;
+- (void)errorConnectionLogin;
 
 @end

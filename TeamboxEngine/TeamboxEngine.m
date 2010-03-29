@@ -12,7 +12,7 @@
 #import "TeamboxEngine.h"
 #import "TeamboxActivitiesParser.h"
 #import "TeamboxProjectsParser.h"
-#import "TeamboxEngineConnection.h"
+#import "TeamboxConnection.h"
 #import "TeamboxEngineKeychain.h"
 #import "ASIHTTPRequest.h"
 
@@ -38,6 +38,7 @@
 	if (self = [super init]) {
         engineDelegate = delegate;
 		managedObjectContext = self.managedObjectContext;
+		[self authenticate];
     }
     return self;
 }
@@ -81,7 +82,7 @@
 }
 
 - (void)getProjects {
-	[TeamboxEngineConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KProjectsXML, username, password]] type:@"Projects" delegate:self];
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KProjectsXML, username, password]] type:@"Projects" delegate:self];
 }
 
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
@@ -193,20 +194,17 @@
 		[engineDelegate notHaveUser];
 	} else {
 		password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
-		NSString *userURL = [NSString stringWithFormat:KTeamboxURL];
-		NSURL *url = [NSURL URLWithString:userURL];
-		ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-		[request setShouldRedirect:NO];
-		[request setUsername:username];
-		[request setPassword:password];
-		[request setDidFinishSelector:@selector(requestDone:)];
-		[request startSynchronous];
-		if ([request responseStatusCode] == 200)
-			[engineDelegate correctAuthentication];
-		else
-			[engineDelegate notCorrectUserOrPassword:username];
+		[TeamboxConnection authenticateWithUsername:username andPassword:password url:[NSURL URLWithString:[NSString stringWithFormat:KTeamboxURL]] type:@"Login" delegate:self];
 	}
+}
 
+- (void)finishedConnectionLogin {
+	[engineDelegate correctAuthentication];
+}
+
+- (void)errorConnectionLogin {
+	[engineDelegate notCorrectUserOrPassword:username];
+}
 
 #pragma mark -
 #pragma mark Application's Documents directory

@@ -10,7 +10,7 @@
 //
 
 #import "TeamboxEngineHeaders.h"
-#import "TeamboxEngineConnectionDelegate.h"
+#import "TeamboxConnectionDelegate.h"
 #import "TeamboxParserDelegate.h"
 #import "TeamboxEngineDelegate.h"
 

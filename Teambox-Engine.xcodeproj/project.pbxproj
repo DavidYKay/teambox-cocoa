@@ -21,7 +21,7 @@
 		A4DA25B5115D1DB000853B0D /* TeamboxActivitiesParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25AB115D1DB000853B0D /* TeamboxActivitiesParser.m */; };
 		A4DA25B6115D1DB000853B0D /* TeamboxProjectsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25AD115D1DB000853B0D /* TeamboxProjectsParser.m */; };
 		A4DA25B7115D1DB000853B0D /* TeamboxEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25AF115D1DB000853B0D /* TeamboxEngine.m */; };
-		A4DA25B8115D1DB000853B0D /* TeamboxEngineConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25B3115D1DB000853B0D /* TeamboxEngineConnection.m */; };
+		A4DA25B8115D1DB000853B0D /* TeamboxConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25B3115D1DB000853B0D /* TeamboxConnection.m */; };
 		A4DA25CE115D1DD800853B0D /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25BC115D1DD800853B0D /* NSDataAdditions.m */; };
 		A4DA25CF115D1DD800853B0D /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25BE115D1DD800853B0D /* TBXML.m */; };
 		A4DA25D1115D1DD800853B0D /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25C9115D1DD800853B0D /* ASIFormDataRequest.m */; };
@@ -71,8 +71,8 @@
 		A4DA25AF115D1DB000853B0D /* TeamboxEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxEngine.m; sourceTree = "<group>"; };
 		A4DA25B0115D1DB000853B0D /* TeamboxEngineDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineDelegate.h; sourceTree = "<group>"; };
 		A4DA25B1115D1DB000853B0D /* TeamboxEngineHeaders.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineHeaders.h; sourceTree = "<group>"; };
-		A4DA25B2115D1DB000853B0D /* TeamboxEngineConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineConnection.h; sourceTree = "<group>"; };
-		A4DA25B3115D1DB000853B0D /* TeamboxEngineConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxEngineConnection.m; sourceTree = "<group>"; };
+		A4DA25B2115D1DB000853B0D /* TeamboxConnection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamboxConnection.h; path = ../TeamboxConnection.h; sourceTree = "<group>"; };
+		A4DA25B3115D1DB000853B0D /* TeamboxConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TeamboxConnection.m; path = ../TeamboxConnection.m; sourceTree = "<group>"; };
 		A4DA25BB115D1DD800853B0D /* NSDataAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSDataAdditions.h; sourceTree = "<group>"; };
 		A4DA25BC115D1DD800853B0D /* NSDataAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSDataAdditions.m; sourceTree = "<group>"; };
 		A4DA25BD115D1DD800853B0D /* TBXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TBXML.h; sourceTree = "<group>"; };
@@ -101,7 +101,7 @@
 		A4DA27A6115D23A800853B0D /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
 		A4DA27A7115D23A800853B0D /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
 		A4DA27A8115D23A800853B0D /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
-		A4DA27CD115D258600853B0D /* TeamboxEngineConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineConnectionDelegate.h; sourceTree = "<group>"; };
+		A4DA27CD115D258600853B0D /* TeamboxConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamboxConnectionDelegate.h; path = ../TeamboxConnectionDelegate.h; sourceTree = "<group>"; };
 		A4E5F164115FC8940021AD87 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		A4E5F165115FC8940021AD87 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		A4E5F17A115FC9220021AD87 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -170,7 +170,7 @@
 		2A37F4ABFDCFA73011CA2CEA /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				A4DA25A5115D1DB000853B0D /* TeamboxEngine */,
+				A4DA25A5115D1DB000853B0D /* Teambox Engine */,
 				2A37F4AEFDCFA73011CA2CEA /* MyDocument.h */,
 				2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */,
 			);
@@ -207,22 +207,31 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		A4DA25A5115D1DB000853B0D /* TeamboxEngine */ = {
+		A475677D1160CF2D00E97EC7 /* Connection */ = {
 			isa = PBXGroup;
 			children = (
-				A4E5F1C3115FCECF0021AD87 /* Model */,
+				A4DA25B2115D1DB000853B0D /* TeamboxConnection.h */,
+				A4DA25B3115D1DB000853B0D /* TeamboxConnection.m */,
+				A4DA27CD115D258600853B0D /* TeamboxConnectionDelegate.h */,
+			);
+			path = Connection;
+			sourceTree = "<group>";
+		};
+		A4DA25A5115D1DB000853B0D /* Teambox Engine */ = {
+			isa = PBXGroup;
+			children = (
 				A4E5F104115FC42B0021AD87 /* Libraries */,
+				A4E5F1C3115FCECF0021AD87 /* Model */,
+				A4DA25A6115D1DB000853B0D /* Parser */,
+				A475677D1160CF2D00E97EC7 /* Connection */,
 				A4DA25AE115D1DB000853B0D /* TeamboxEngine.h */,
 				A4DA25AF115D1DB000853B0D /* TeamboxEngine.m */,
 				A4DA25B0115D1DB000853B0D /* TeamboxEngineDelegate.h */,
 				A4DA25B1115D1DB000853B0D /* TeamboxEngineHeaders.h */,
-				A4DA25B2115D1DB000853B0D /* TeamboxEngineConnection.h */,
-				A4DA25B3115D1DB000853B0D /* TeamboxEngineConnection.m */,
-				A4DA27CD115D258600853B0D /* TeamboxEngineConnectionDelegate.h */,
 				A4D4D0D91160B659008D6C62 /* TeamboxEngineKeychain.h */,
 				A4D4D0DA1160B659008D6C62 /* TeamboxEngineKeychain.m */,
-				A4DA25A6115D1DB000853B0D /* Parser */,
 			);
+			name = "Teambox Engine";
 			path = TeamboxEngine;
 			sourceTree = "<group>";
 		};
@@ -382,7 +391,7 @@
 				A4DA25B5115D1DB000853B0D /* TeamboxActivitiesParser.m in Sources */,
 				A4DA25B6115D1DB000853B0D /* TeamboxProjectsParser.m in Sources */,
 				A4DA25B7115D1DB000853B0D /* TeamboxEngine.m in Sources */,
-				A4DA25B8115D1DB000853B0D /* TeamboxEngineConnection.m in Sources */,
+				A4DA25B8115D1DB000853B0D /* TeamboxConnection.m in Sources */,
 				A4DA25CE115D1DD800853B0D /* NSDataAdditions.m in Sources */,
 				A4DA25CF115D1DD800853B0D /* TBXML.m in Sources */,
 				A4DA25D1115D1DD800853B0D /* ASIFormDataRequest.m in Sources */,

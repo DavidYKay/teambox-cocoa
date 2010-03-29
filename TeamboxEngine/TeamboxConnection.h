@@ -11,15 +11,16 @@
 
 #import "TeamboxEngineHeaders.h"
 #import "ASIHTTPRequest.h"
-#import "TeamboxEngineConnectionDelegate.h"
+#import "TeamboxConnectionDelegate.h"
 
-@interface TeamboxEngineConnection : NSObject {
-	NSObject <TeamboxEngineConnectionDelegate> *delegate;
+@interface TeamboxConnection : NSObject {
+	NSObject <TeamboxConnectionDelegate> *delegate;
 	ASIHTTPRequest *request;
 	NSString *typeGet;
 }
 
 @property (nonatomic, retain) ASIHTTPRequest *request;
 + (id)getDataWithURL:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate;
++ (id)authenticateWithUsername:(NSString *)username andPassword:(NSString *)password url:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate;
 
 @end
