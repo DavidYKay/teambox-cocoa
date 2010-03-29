@@ -215,8 +215,8 @@
 	[engineDelegate correctAuthentication];
 }
 
-- (void)errorConnectionLogin {
-	[engineDelegate notCorrectUserOrPassword:username];
+- (void)errorConnectionLogin:(NSError *)error {
+	[engineDelegate errorCommunicateWithTeambox:error];
 }
 
 #pragma mark -

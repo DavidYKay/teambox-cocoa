@@ -75,7 +75,7 @@
 		if ([self.request responseStatusCode] == 200)
 			[delegate finishedConnectionLogin];
 		else
-			[delegate errorConnectionLogin];
+			[delegate errorConnectionLogin:nil];
 		
 	else
 		[delegate finishedGetData:[self.request responseData] withType:typeGet];
@@ -84,7 +84,7 @@
 - (void)requestWentWrong:(ASIHTTPRequest *)request {
 	NSError *error = [self.request error];
 	if ([typeGet isEqualToString:@"Login"])
-		[delegate errorConnectionLogin];
+		[delegate errorConnectionLogin:error];
 }
 
 @end
