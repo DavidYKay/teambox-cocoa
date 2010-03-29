@@ -200,9 +200,9 @@
 	} else {
 		#if TARGET_OS_IPHONE
 			NSError *nError;
-			password = [TeamboxEngineKeychain getPasswordForUsername:username error:nError];
+			password = [TeamboxEngineKeychain getPasswordForUsername:username error:&nError];
 		#else
-			password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
+			password = [TeamboxEngineKeychain getPasswordForUsername:username error:&nError];
 		#endif
 		if ([password isEqualToString:@""])
 			[engineDelegate notCorrectUserOrPassword:username];
