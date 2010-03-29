@@ -46,13 +46,9 @@
 - (void)setUsername:(NSString *)userName Password:(NSString *)Password {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:userName forKey:kUserNameSettingsKey];
-	#if TARGET_OS_MAC
-		[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nil];
-	#else
-		[defaults valueForKey:kUserPassSettingsKey];
-		[defaults setValue:Password forKey:kUserPassSettingsKey];
-	#endif
 	[defaults synchronize];
+	NSError *error;
+	[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:error];
 	[self authenticate];
 }
 
@@ -200,11 +196,8 @@
 	if ([username isEqualToString:@""]) {
 		[engineDelegate notHaveUser];
 	} else {
-		#if TARGET_OS_MAC
-			password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
-		#else
-			password = [defaults valueForKey:kUserPassSettingsKey];
-		#endif
+		NSError *error;
+		password = [TeamboxEngineKeychain getPasswordForUsername:username error:error];
 		NSString *userURL = [NSString stringWithFormat:KTeamboxURL];
 		NSURL *url = [NSURL URLWithString:userURL];
 		ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];

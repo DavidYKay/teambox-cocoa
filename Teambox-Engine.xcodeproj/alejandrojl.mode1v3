@@ -229,8 +229,6 @@
 			<key>Layout</key>
 			<array>
 				<dict>
-					<key>BecomeActive</key>
-					<true/>
 					<key>ContentConfiguration</key>
 					<dict>
 						<key>PBXBottomSmartGroupGIDs</key>
@@ -278,13 +276,14 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>30</integer>
+									<integer>26</integer>
+									<integer>3</integer>
 									<integer>2</integer>
 									<integer>0</integer>
 								</array>
 							</array>
 							<key>PBXSmartGroupTreeModuleOutlineStateVisibleRectKey</key>
-							<string>{{0, 0}, {412, 735}}</string>
+							<string>{{0, 2}, {412, 735}}</string>
 						</dict>
 						<key>PBXTopSmartGroupGIDs</key>
 						<array/>
@@ -314,12 +313,14 @@
 					<key>Dock</key>
 					<array>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>MyDocument.m</string>
+								<string>TeamboxEngineKeychain.m</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -327,11 +328,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>MyDocument.m</string>
+										<string>TeamboxEngineKeychain.m</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A4D4D0D41160B4F6008D6C62</string>
+										<string>A4D4D1011160BBA2008D6C62</string>
 										<key>history</key>
 										<array>
 											<string>A4DA2650115D213E00853B0D</string>
@@ -347,12 +348,8 @@
 											<string>A477415D115E941F00F9588C</string>
 											<string>A477415E115E941F00F9588C</string>
 											<string>A4E5F074115FBB890021AD87</string>
-											<string>A4E5F079115FBB890021AD87</string>
-											<string>A4E5F07A115FBB890021AD87</string>
-											<string>A4E5F07B115FBB890021AD87</string>
 											<string>A4E5F07C115FBB890021AD87</string>
 											<string>A4E5F081115FBB890021AD87</string>
-											<string>A4E5F0AF115FBCE10021AD87</string>
 											<string>A4E5F0B5115FBF330021AD87</string>
 											<string>A4E5F0C2115FC1260021AD87</string>
 											<string>A4E5F0D1115FC1860021AD87</string>
@@ -370,10 +367,16 @@
 											<string>A4E5F1D0115FCF440021AD87</string>
 											<string>A4E5F1E8115FCFAB0021AD87</string>
 											<string>A4E5F3AE115FD54B0021AD87</string>
-											<string>A4E5F3B6115FD6880021AD87</string>
-											<string>A4E5F3BA115FD6D70021AD87</string>
 											<string>A4E5F3BB115FD6D70021AD87</string>
-											<string>A4D4D0D31160B4F6008D6C62</string>
+											<string>A4D4D0DC1160B6DC008D6C62</string>
+											<string>A4D4D0DD1160B6DC008D6C62</string>
+											<string>A4D4D0DE1160B6DC008D6C62</string>
+											<string>A4D4D0E61160BB05008D6C62</string>
+											<string>A4D4D0E91160BB05008D6C62</string>
+											<string>A4D4D0EB1160BB05008D6C62</string>
+											<string>A4D4D0EC1160BB05008D6C62</string>
+											<string>A4D4D0FE1160BBA2008D6C62</string>
+											<string>A4D4D0FF1160BBA2008D6C62</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -571,6 +574,7 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>A4DA261B115D1EC100853B0D</string>
 		<string>/Users/alejandrojl/Proyectos/Mac/Teambox-Engine/Teambox-Engine.xcodeproj</string>
 	</array>
@@ -774,13 +778,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>A4E5F1D2115FCF440021AD87</string>
+				<string>A4D4D0EF1160BB05008D6C62</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>A4E5F1D3115FCF440021AD87</string>
-				<string>A4E5F1D4115FCF440021AD87</string>
-				<string>A4E5F1D5115FCF440021AD87</string>
-				<string>A4E5F1D6115FCF440021AD87</string>
-				<string>A4E5F1D7115FCF440021AD87</string>
+				<string>A4D4D0F01160BB05008D6C62</string>
+				<string>A4D4D0F11160BB05008D6C62</string>
+				<string>A4D4D0F21160BB05008D6C62</string>
+				<string>A4D4D0F31160BB05008D6C62</string>
+				<string>A4D4D0F41160BB05008D6C62</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
