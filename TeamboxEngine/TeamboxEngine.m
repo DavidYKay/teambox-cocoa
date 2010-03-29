@@ -48,7 +48,12 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:userName forKey:kUserNameSettingsKey];
 	[defaults synchronize];
-	[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nil];
+	#if TARGET_OS_IPHONE
+		NSError *nError;
+		[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nError];
+	#else
+		[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nil];
+	#endif
 	[self authenticate];
 }
 
@@ -193,7 +198,12 @@
 	if (username == nil) {
 		[engineDelegate notHaveUser];
 	} else {
-		password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
+		#if TARGET_OS_IPHONE
+			NSError *nError;
+			password = [TeamboxEngineKeychain getPasswordForUsername:username error:nError];
+		#else
+			password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
+		#endif
 		if ([password isEqualToString:@""])
 			[engineDelegate notCorrectUserOrPassword:username];
 		else
