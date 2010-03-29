@@ -190,11 +190,14 @@
 - (void)authenticate {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	username = [defaults valueForKey:kUserNameSettingsKey];
-	if ([username isEqualToString:@""]) {
+	if (username == nil) {
 		[engineDelegate notHaveUser];
 	} else {
 		password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
-		[TeamboxConnection authenticateWithUsername:username andPassword:password url:[NSURL URLWithString:[NSString stringWithFormat:KTeamboxURL]] type:@"Login" delegate:self];
+		if ([password isEqualToString:@""])
+			[engineDelegate notCorrectUserOrPassword:username];
+		else
+			[TeamboxConnection authenticateWithUsername:username andPassword:password url:[NSURL URLWithString:[NSString stringWithFormat:KTeamboxURL]] type:@"Login" delegate:self];
 	}
 }
 
