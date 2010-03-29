@@ -47,8 +47,7 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:userName forKey:kUserNameSettingsKey];
 	[defaults synchronize];
-	NSError *error;
-	[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:error];
+	[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nil];
 	[self authenticate];
 }
 
@@ -57,9 +56,6 @@
 		//[TeamboxActivitiesParser parserWithURL:url delegate:self typeParse:@"ActivitiesAll"];
 }
 
-- (void)requestDone:(ASIHTTPRequest *)request {
-
-}
 - (void)getActivitiesAllNew:(NSString *)activityID {
 	NSString *path = [NSString stringWithFormat:KActivitiesAllNewXML, username, password, activityID];
 }
@@ -196,14 +192,14 @@
 	if ([username isEqualToString:@""]) {
 		[engineDelegate notHaveUser];
 	} else {
-		NSError *error;
-		password = [TeamboxEngineKeychain getPasswordForUsername:username error:error];
+		password = [TeamboxEngineKeychain getPasswordForUsername:username error:nil];
 		NSString *userURL = [NSString stringWithFormat:KTeamboxURL];
 		NSURL *url = [NSURL URLWithString:userURL];
 		ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
 		[request setShouldRedirect:NO];
 		[request setUsername:username];
 		[request setPassword:password];
+		[request setDidFinishSelector:@selector(requestDone:)];
 		[request startSynchronous];
 		if ([request responseStatusCode] == 200)
 			[engineDelegate correctAuthentication];
@@ -211,7 +207,6 @@
 			[engineDelegate notCorrectUserOrPassword:username];
 	}
 
-}
 
 #pragma mark -
 #pragma mark Application's Documents directory
