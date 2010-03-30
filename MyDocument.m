@@ -37,7 +37,7 @@
 }
 
 
-- (void)activitiesReceivedAll:(NSArray *)activities {
+- (void)activitiesReceivedAll:(NSManagedObjectContext *)managedObjectContext {
 
 }
 
@@ -77,11 +77,12 @@
 		{
 			Project_UserModel* pum=[projects_usersArray objectAtIndex:j];
 			
-			sLog = [NSString stringWithFormat:@"User %i:%@   user_id:%i",j,pum.User.username ,[pum.User.person_id intValue]];
+			sLog = [NSString stringWithFormat:@"User %i:%@   user_id:%i",j,pum.User.username ,[pum.User.user_id intValue]];
 			NSLog(@"%@",sLog);
 		}
 		NSLog(@"------------------------------------------------------");
 	}
+	[engine getActivitiesAll];
 }
 
 - (void)activitiesReceivedNothing:(NSString *)type {

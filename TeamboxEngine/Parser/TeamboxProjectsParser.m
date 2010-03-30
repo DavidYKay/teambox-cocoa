@@ -14,8 +14,6 @@
 @implementation TeamboxProjectsParser
 
 - (void)parse {
-	
-	
 		// Obtain root element
 	TBXMLElement * root = parser.rootXMLElement;	
 	
@@ -94,7 +92,7 @@
 				NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext];
 				[fetchRequest setEntity:entity];
 				
-				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"person_id=%i",[nId intValue]];
+				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user_id=%i",[nId intValue]];
 				[fetchRequest setPredicate:predicate];
 				
 				NSError *error;
@@ -111,12 +109,11 @@
 					Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
 					//then create the user
 					aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
-					aUser.person_id=[NSNumber numberWithInt:[nId intValue]];
+					aUser.user_id=[NSNumber numberWithInt:[nId intValue]];
 					//add the ProjectUser to the project and to the user
 					[aProject addProject_UserObject:aProject_User];
 					[aUser addProject_UserObject:aProject_User];
-
-				}else{
+				} else {
 					aUser =[items objectAtIndex:0];
 					//if the user exists, we have to check if the project_user for that project and that user exists.
 

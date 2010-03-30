@@ -8,10 +8,8 @@
 
 #import "TeamboxEngineHeaders.h"
 #import "TeamboxParser.h"
-#import "ProjectModel.h"
 
 @interface TeamboxActivitiesParser : TeamboxParser {
-	ProjectModel* selectedProject;
 }
 
 @end

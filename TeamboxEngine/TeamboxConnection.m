@@ -76,7 +76,6 @@
 			[delegate finishedConnectionLogin];
 		else
 			[delegate errorConnectionLogin:nil];
-		
 	else
 		[delegate finishedGetData:[self.request responseData] withType:typeGet];
 }

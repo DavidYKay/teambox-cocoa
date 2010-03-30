@@ -11,7 +11,7 @@
 
 @optional
 
-- (void)activitiesReceivedAll:(NSArray *)activities;
+- (void)activitiesReceivedAll:(NSManagedObjectContext *)managedObjectContext;
 - (void)activitiesReceivedAllNew:(NSArray *)activities;
 - (void)activitiesReceivedAllMore:(NSArray *)activities;
 - (void)projectsReceived:(NSManagedObjectContext *)managedObjectContext;

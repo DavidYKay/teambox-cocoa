@@ -44,7 +44,7 @@
 - (void)setUsername:(NSString *)username Password:(NSString *)password;
 
 	//Recover the Activities of All Projects
-- (void)getActivitiesAll:(NSManagedObjectContext *)managedObjectContext;
+- (void)getActivitiesAll;
 - (void)getActivitiesAllNew:(NSString *)activityID;
 - (void)getActivitiesAllMore:(NSString *)activityID;
 

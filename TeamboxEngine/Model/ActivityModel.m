@@ -2,7 +2,7 @@
 //  ActivityModel.m
 //  Teambox-Engine
 //
-//  Created by Alejandro JL on 26/03/10.
+//  Created by Alejandro JL on 30/03/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -15,14 +15,15 @@
 @implementation ActivityModel 
 
 @dynamic action;
+@dynamic target_id;
 @dynamic deleted_at;
 @dynamic target_type;
 @dynamic created_at;
 @dynamic update_at;
 @dynamic comment_type;
-@dynamic target_id;
-@dynamic user;
+@dynamic activity_id;
 @dynamic Comment;
 @dynamic project;
+@dynamic user;
 
 @end

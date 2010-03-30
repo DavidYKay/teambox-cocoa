@@ -45,20 +45,17 @@
 
 	//Configuration
 - (void)setUsername:(NSString *)userName Password:(NSString *)Password {
+	NSError *nError;
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	[defaults setValue:userName forKey:kUserNameSettingsKey];
 	[defaults synchronize];
-	#if TARGET_OS_IPHONE
-		NSError *nError;
-		[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nError];
-	#else
-		[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:nil];
-	#endif
+	
+	[TeamboxEngineKeychain storePasswordForUsername:userName Password:Password error:&nError];
 	[self authenticate];
 }
 
-- (void)getActivitiesAll:(NSManagedObjectContext *)managedObjectContext {
-	NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllXML, username, password]];
+- (void)getActivitiesAll {
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllXML, username, password]] type:@"ActivitiesAll" delegate:self];
 		//[TeamboxActivitiesParser parserWithURL:url delegate:self typeParse:@"ActivitiesAll"];
 }
 
@@ -91,7 +88,10 @@
 }
 
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
-	[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+	if ([type isEqualToString:@"Projects"])
+		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+	else if ([type isEqualToString:@"ActivitiesAll"])
+		[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 }
 
 - (void)setUseSecureConnection:(BOOL)useSecure {
@@ -122,6 +122,11 @@
 }
 
 - (void)parserFinishedType:(NSString *)type {
+	if ([type isEqualToString:@"Projects"])
+		[engineDelegate projectsReceived:managedObjectContext];
+	else if ([type isEqualToString:@"ActivitiesAll"])
+		[engineDelegate activitiesReceivedAll:managedObjectContext];
+		
 		/*if ([type isEqualToString:@"ActivitiesAll"])
 			[engineDelegate activitiesReceivedAll:parsedElements];
 		else if ([type isEqualToString:@"ActivitiesAllNew"])
@@ -131,7 +136,6 @@
 		else if ([type isEqualToString:@"Projects"])
 			[engineDelegate projectsReceived:parsedElements];
 		//[engineDelegate activitiesReceivedNothing:type]; */
-	[engineDelegate projectsReceived:managedObjectContext];
 }
 
 - (NSManagedObjectContext *) managedObjectContext {
@@ -198,12 +202,8 @@
 	if (username == nil) {
 		[engineDelegate notHaveUser];
 	} else {
-		#if TARGET_OS_IPHONE
 			NSError *nError;
 			password = [TeamboxEngineKeychain getPasswordForUsername:username error:&nError];
-		#else
-			password = [TeamboxEngineKeychain getPasswordForUsername:username error:&nError];
-		#endif
 		if ([password isEqualToString:@""])
 			[engineDelegate notCorrectUserOrPassword:username];
 		else
