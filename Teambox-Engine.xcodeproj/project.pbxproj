@@ -15,11 +15,6 @@
 		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
 		A4773EDD115E5EE700F9588C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4773EDC115E5EE700F9588C /* Security.framework */; };
-		A4D0C89711617B730078CE12 /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C88E11617B730078CE12 /* ActivityModel.m */; };
-		A4D0C89811617B730078CE12 /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C89011617B730078CE12 /* ProjectModel.m */; };
-		A4D0C89911617B730078CE12 /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C89211617B730078CE12 /* CommentModel.m */; };
-		A4D0C89A11617B730078CE12 /* Project_UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C89411617B730078CE12 /* Project_UserModel.m */; };
-		A4D0C89B11617B730078CE12 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D0C89611617B730078CE12 /* UserModel.m */; };
 		A4D4D0DB1160B659008D6C62 /* TeamboxEngineKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D4D0DA1160B659008D6C62 /* TeamboxEngineKeychain.m */; };
 		A4DA257F115D1D2C00853B0D /* Teambox.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */; };
 		A4DA25B4115D1DB000853B0D /* TeamboxParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25A8115D1DB000853B0D /* TeamboxParser.m */; };
@@ -37,6 +32,11 @@
 		A4DA26CD115D231B00853B0D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DA26CC115D231B00853B0D /* SystemConfiguration.framework */; };
 		A4DA26CF115D232A00853B0D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DA26CE115D232A00853B0D /* CoreServices.framework */; };
 		A4DA26D1115D234600853B0D /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DA26D0115D234600853B0D /* libz.1.2.3.dylib */; };
+		A4E12D951162120300CE77FF /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D8C1162120300CE77FF /* ActivityModel.m */; };
+		A4E12D961162120300CE77FF /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D8E1162120300CE77FF /* ProjectModel.m */; };
+		A4E12D971162120300CE77FF /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D901162120300CE77FF /* CommentModel.m */; };
+		A4E12D981162120300CE77FF /* Project_UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D921162120300CE77FF /* Project_UserModel.m */; };
+		A4E12D991162120300CE77FF /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D941162120300CE77FF /* UserModel.m */; };
 		A4E5F166115FC8940021AD87 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E5F165115FC8940021AD87 /* ASIAuthenticationDialog.m */; };
 		A4E5F17E115FC9220021AD87 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E5F17C115FC9220021AD87 /* Reachability.m */; };
 /* End PBXBuildFile section */
@@ -57,16 +57,6 @@
 		8D15AC360486D014006FF6A4 /* Teambox_Engine-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Teambox_Engine-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Teambox-Engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Teambox-Engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4773EDC115E5EE700F9588C /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
-		A4D0C88D11617B730078CE12 /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
-		A4D0C88E11617B730078CE12 /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
-		A4D0C88F11617B730078CE12 /* ProjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectModel.h; sourceTree = "<group>"; };
-		A4D0C89011617B730078CE12 /* ProjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
-		A4D0C89111617B730078CE12 /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
-		A4D0C89211617B730078CE12 /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
-		A4D0C89311617B730078CE12 /* Project_UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project_UserModel.h; sourceTree = "<group>"; };
-		A4D0C89411617B730078CE12 /* Project_UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project_UserModel.m; sourceTree = "<group>"; };
-		A4D0C89511617B730078CE12 /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
-		A4D0C89611617B730078CE12 /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		A4D4D0D91160B659008D6C62 /* TeamboxEngineKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineKeychain.h; sourceTree = "<group>"; };
 		A4D4D0DA1160B659008D6C62 /* TeamboxEngineKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxEngineKeychain.m; sourceTree = "<group>"; };
 		A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Teambox.xcdatamodel; sourceTree = "<group>"; };
@@ -102,6 +92,16 @@
 		A4DA26CE115D232A00853B0D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		A4DA26D0115D234600853B0D /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		A4DA27CD115D258600853B0D /* TeamboxConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamboxConnectionDelegate.h; path = ../TeamboxConnectionDelegate.h; sourceTree = "<group>"; };
+		A4E12D8B1162120300CE77FF /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
+		A4E12D8C1162120300CE77FF /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
+		A4E12D8D1162120300CE77FF /* ProjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectModel.h; sourceTree = "<group>"; };
+		A4E12D8E1162120300CE77FF /* ProjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
+		A4E12D8F1162120300CE77FF /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
+		A4E12D901162120300CE77FF /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
+		A4E12D911162120300CE77FF /* Project_UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project_UserModel.h; sourceTree = "<group>"; };
+		A4E12D921162120300CE77FF /* Project_UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project_UserModel.m; sourceTree = "<group>"; };
+		A4E12D931162120300CE77FF /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		A4E12D941162120300CE77FF /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		A4E5F164115FC8940021AD87 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		A4E5F165115FC8940021AD87 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		A4E5F17A115FC9220021AD87 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -302,16 +302,16 @@
 		A4E5F1C3115FCECF0021AD87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A4D0C88D11617B730078CE12 /* ActivityModel.h */,
-				A4D0C88E11617B730078CE12 /* ActivityModel.m */,
-				A4D0C88F11617B730078CE12 /* ProjectModel.h */,
-				A4D0C89011617B730078CE12 /* ProjectModel.m */,
-				A4D0C89111617B730078CE12 /* CommentModel.h */,
-				A4D0C89211617B730078CE12 /* CommentModel.m */,
-				A4D0C89311617B730078CE12 /* Project_UserModel.h */,
-				A4D0C89411617B730078CE12 /* Project_UserModel.m */,
-				A4D0C89511617B730078CE12 /* UserModel.h */,
-				A4D0C89611617B730078CE12 /* UserModel.m */,
+				A4E12D8B1162120300CE77FF /* ActivityModel.h */,
+				A4E12D8C1162120300CE77FF /* ActivityModel.m */,
+				A4E12D8D1162120300CE77FF /* ProjectModel.h */,
+				A4E12D8E1162120300CE77FF /* ProjectModel.m */,
+				A4E12D8F1162120300CE77FF /* CommentModel.h */,
+				A4E12D901162120300CE77FF /* CommentModel.m */,
+				A4E12D911162120300CE77FF /* Project_UserModel.h */,
+				A4E12D921162120300CE77FF /* Project_UserModel.m */,
+				A4E12D931162120300CE77FF /* UserModel.h */,
+				A4E12D941162120300CE77FF /* UserModel.m */,
 				A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */,
 			);
 			path = Model;
@@ -402,11 +402,11 @@
 				A4E5F166115FC8940021AD87 /* ASIAuthenticationDialog.m in Sources */,
 				A4E5F17E115FC9220021AD87 /* Reachability.m in Sources */,
 				A4D4D0DB1160B659008D6C62 /* TeamboxEngineKeychain.m in Sources */,
-				A4D0C89711617B730078CE12 /* ActivityModel.m in Sources */,
-				A4D0C89811617B730078CE12 /* ProjectModel.m in Sources */,
-				A4D0C89911617B730078CE12 /* CommentModel.m in Sources */,
-				A4D0C89A11617B730078CE12 /* Project_UserModel.m in Sources */,
-				A4D0C89B11617B730078CE12 /* UserModel.m in Sources */,
+				A4E12D951162120300CE77FF /* ActivityModel.m in Sources */,
+				A4E12D961162120300CE77FF /* ProjectModel.m in Sources */,
+				A4E12D971162120300CE77FF /* CommentModel.m in Sources */,
+				A4E12D981162120300CE77FF /* Project_UserModel.m in Sources */,
+				A4E12D991162120300CE77FF /* UserModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -507,6 +507,38 @@
 			};
 			name = Release;
 		};
+		A4E12DD61162134D00CE77FF /* Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PREBINDING = NO;
+				SDKROOT = macosx10.6;
+			};
+			name = Local;
+		};
+		A4E12DD71162134D00CE77FF /* Local */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_FIX_AND_CONTINUE = YES;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = Teambox_Engine_Prefix.pch;
+				INFOPLIST_FILE = "Teambox_Engine-Info.plist";
+				INSTALL_PATH = "$(HOME)/Applications";
+				PRODUCT_NAME = "Teambox-Engine";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Local;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -514,6 +546,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				26FC0AA60875C8B900E6366F /* Debug */,
+				A4E12DD71162134D00CE77FF /* Local */,
 				26FC0AA70875C8B900E6366F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -523,6 +556,7 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				26FC0AAA0875C8B900E6366F /* Debug */,
+				A4E12DD61162134D00CE77FF /* Local */,
 				26FC0AAB0875C8B900E6366F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;

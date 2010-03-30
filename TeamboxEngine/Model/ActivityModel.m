@@ -14,16 +14,18 @@
 
 @implementation ActivityModel 
 
-@dynamic action;
-@dynamic target_id;
-@dynamic deleted_at;
-@dynamic target_type;
-@dynamic created_at;
-@dynamic update_at;
 @dynamic comment_type;
+@dynamic created_at;
+@dynamic user_id;
+@dynamic deleted_at;
+@dynamic action;
 @dynamic activity_id;
-@dynamic Comment;
+@dynamic type;
+@dynamic update_at;
+@dynamic target_id;
+@dynamic project_id;
 @dynamic project;
+@dynamic Comment;
 @dynamic user;
 
 @end

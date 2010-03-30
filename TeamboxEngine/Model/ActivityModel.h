@@ -16,16 +16,18 @@
 {
 }
 
-@property (nonatomic, retain) NSString * action;
-@property (nonatomic, retain) NSNumber * target_id;
-@property (nonatomic, retain) NSDate * deleted_at;
-@property (nonatomic, retain) NSString * target_type;
-@property (nonatomic, retain) NSDate * created_at;
-@property (nonatomic, retain) NSDate * update_at;
 @property (nonatomic, retain) NSString * comment_type;
+@property (nonatomic, retain) NSDate * created_at;
+@property (nonatomic, retain) NSNumber * user_id;
+@property (nonatomic, retain) NSDate * deleted_at;
+@property (nonatomic, retain) NSString * action;
 @property (nonatomic, retain) NSNumber * activity_id;
-@property (nonatomic, retain) CommentModel * Comment;
+@property (nonatomic, retain) NSString * type;
+@property (nonatomic, retain) NSDate * update_at;
+@property (nonatomic, retain) NSNumber * target_id;
+@property (nonatomic, retain) NSNumber * project_id;
 @property (nonatomic, retain) ProjectModel * project;
+@property (nonatomic, retain) CommentModel * Comment;
 @property (nonatomic, retain) UserModel * user;
 
 @end

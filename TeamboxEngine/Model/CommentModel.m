@@ -17,12 +17,10 @@
 @dynamic body_html;
 @dynamic created_at;
 @dynamic assigned_id;
-@dynamic user_id;
 @dynamic deleted_at;
 @dynamic target_id;
 @dynamic target_type;
 @dynamic updated_at;
-@dynamic project_id;
 @dynamic status;
 @dynamic Activity;
 

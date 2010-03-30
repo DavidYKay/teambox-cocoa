@@ -58,21 +58,44 @@
 			
 				//Target
 			TBXMLElement *target = [TBXML childElementNamed:@"target" parentElement:activity];
-			aActivity.target_type = [TBXML textForElement:[TBXML childElementNamed:@"type" parentElement:target]];
+			aActivity.type = [TBXML textForElement:[TBXML childElementNamed:@"type" parentElement:target]];
 			CommentModel *aComment;
 			aComment = (CommentModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:managedObjectContext];
 			
 				//Create
 			if ([aActivity.action isEqualToString:@"create"]) {
-				if ([aActivity.target_type isEqualToString:@"Comment"]) {
+				if ([aActivity.type isEqualToString:@"Comment"]) {
 					TBXMLElement *comment = [TBXML childElementNamed:@"comment" parentElement:target];
 					aComment.body = [TBXML textForElement:[TBXML childElementNamed:@"body" parentElement:comment]];
+					aComment.body_html = [TBXML textForElement:[TBXML childElementNamed:@"body-html" parentElement:comment]];
+					aComment.target_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"target-id" forElement:comment] intValue]];
+					aComment.target_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
+					if ([aComment.target_type isEqualToString:@"Project"]) {
+						TBXMLElement *files = [TBXML childElementNamed:@"file" parentElement:comment];
+						if (files != nil) {
+							
+						}
+					} else if ([aComment.target_type isEqualToString:@"Task"]) {
+						
+					} else if ([aComment.target_type isEqualToString:@"TaskList"]) {
+						
+					}
+				} else if ([aActivity.type isEqualToString:@"Task"]) {
+					
+				} else if ([aActivity.type isEqualToString:@"TaskList"]) {
+					
+				} else if ([aActivity.type isEqualToString:@"Person"]) {
+					aComment.body_html = aUser.full_name;
+				} else if ([aActivity.type isEqualToString:@"Page"]) {
+					
+				} else if ([aActivity.type isEqualToString:@"Conversation"]) {
+					aComment.body_html = aUser.full_name;
 				}
 				//Delete
 			} else if ([aActivity.action isEqualToString:@"delete"]) {
 				
 			}
-			[aComment addActivityObject:aActivity];
+			aActivity.Comment = aComment;
 			[aUser addActivityObject:aActivity];
 				//SAVE the object
 			if (![managedObjectContext save:&error]) {
