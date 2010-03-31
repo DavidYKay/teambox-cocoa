@@ -2,14 +2,17 @@
 //  ActivityModel.m
 //  Teambox-Engine
 //
-//  Created by Alejandro JL on 30/03/10.
+//  Created by Alejandro JL on 31/03/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
 #import "ActivityModel.h"
 
 #import "CommentModel.h"
+#import "ConversationModel.h"
 #import "ProjectModel.h"
+#import "TaskListModel.h"
+#import "TaskModel.h"
 #import "UserModel.h"
 
 @implementation ActivityModel 
@@ -20,12 +23,15 @@
 @dynamic deleted_at;
 @dynamic action;
 @dynamic activity_id;
-@dynamic type;
+@dynamic target_type;
 @dynamic update_at;
 @dynamic target_id;
 @dynamic project_id;
-@dynamic project;
+@dynamic User;
+@dynamic Task;
+@dynamic Project;
 @dynamic Comment;
-@dynamic user;
+@dynamic TaskList;
+@dynamic Conversation;
 
 @end

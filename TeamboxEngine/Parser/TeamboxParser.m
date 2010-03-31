@@ -37,6 +37,7 @@
     return self;
 }
 
+
 - (void) dealloc {
 	delegate = nil;
 	[super dealloc];

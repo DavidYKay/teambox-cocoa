@@ -2,13 +2,14 @@
 //  CommentModel.m
 //  Teambox-Engine
 //
-//  Created by Alejandro JL on 30/03/10.
+//  Created by Alejandro JL on 31/03/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
 #import "CommentModel.h"
 
 #import "ActivityModel.h"
+#import "UploadModel.h"
 
 @implementation CommentModel 
 
@@ -21,7 +22,9 @@
 @dynamic target_id;
 @dynamic target_type;
 @dynamic updated_at;
+@dynamic previous_assigned_id;
 @dynamic status;
 @dynamic Activity;
+@dynamic Upload;
 
 @end

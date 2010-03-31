@@ -28,7 +28,7 @@
 				//first we search the project for update if exists
 			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 			
-			NSEntityDescription *entity = [NSEntityDescription entityForName:@"Project"	  inManagedObjectContext:managedObjectContext];
+			NSEntityDescription *entity = [NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext];
 			[fetchRequest setEntity:entity];
 			
 			NSPredicate *predicate = [NSPredicate predicateWithFormat:@"project_id=%i",[nId intValue]];

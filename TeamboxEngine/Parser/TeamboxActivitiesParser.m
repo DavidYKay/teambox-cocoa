@@ -12,6 +12,17 @@
 #import "ProjectModel.h"
 #import "UserModel.h"
 #import "Project_UserModel.h"
+#import "TaskModel.h"
+#import "TaskListModel.h"
+#import "PageModel.h"
+#import "ConversationModel.h"
+#import "UploadModel.h"
+
+@interface  TeamboxActivitiesParser (Private)
+
+- (void)addUser:(NSNumber *)userID WithUsername:(NSString *)username ForProject:(NSNumber *)projectID projectName:(NSString *)projectName permalink:(NSString *)permalink;
+
+@end
 
 @implementation TeamboxActivitiesParser
 
@@ -20,6 +31,7 @@
 	TBXMLElement *root = parser.rootXMLElement;	
 	
 		// if root element is valid
+	NSError *error;
 	if (root) {
 		TBXMLElement *activity = [TBXML childElementNamed:@"activity" parentElement:root];
 			// if an author element was found
@@ -43,7 +55,7 @@
 			*/
 			
 				//Get the USER in the activity
-			NSError *error;
+			
 				//User
 			TBXMLElement *user = [TBXML childElementNamed:@"user" parentElement:activity];
 			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -58,44 +70,69 @@
 			
 				//Target
 			TBXMLElement *target = [TBXML childElementNamed:@"target" parentElement:activity];
-			aActivity.type = [TBXML textForElement:[TBXML childElementNamed:@"type" parentElement:target]];
-			CommentModel *aComment;
-			aComment = (CommentModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:managedObjectContext];
+			aActivity.target_type = [TBXML textForElement:[TBXML childElementNamed:@"type" parentElement:target]];
 			
 				//Create
 			if ([aActivity.action isEqualToString:@"create"]) {
-				if ([aActivity.type isEqualToString:@"Comment"]) {
+				if ([aActivity.target_type isEqualToString:@"Comment"]) {
+					CommentModel *aComment;
 					TBXMLElement *comment = [TBXML childElementNamed:@"comment" parentElement:target];
+					aActivity.comment_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
+					aComment = (CommentModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:managedObjectContext];
 					aComment.body = [TBXML textForElement:[TBXML childElementNamed:@"body" parentElement:comment]];
 					aComment.body_html = [TBXML textForElement:[TBXML childElementNamed:@"body-html" parentElement:comment]];
 					aComment.target_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"target-id" forElement:comment] intValue]];
 					aComment.target_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
+					//aComment.created_at 
+					aActivity.user_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:comment]] intValue]];
+					aActivity.project_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"project-id" parentElement:comment]] intValue]];
 					if ([aComment.target_type isEqualToString:@"Project"]) {
-						TBXMLElement *files = [TBXML childElementNamed:@"file" parentElement:comment];
-						if (files != nil) {
-							
-						}
+						
 					} else if ([aComment.target_type isEqualToString:@"Task"]) {
+						
+						aComment.assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"assigned-id" parentElement:comment]] intValue]];
+						aComment.previous_status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-status" parentElement:comment]] intValue]];
+						aComment.previous_assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-assigned-id" parentElement:comment]] intValue]];
+						aComment.status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:comment]] intValue]];
 						
 					} else if ([aComment.target_type isEqualToString:@"TaskList"]) {
 						
 					}
-				} else if ([aActivity.type isEqualToString:@"Task"]) {
+					/*TBXMLElement *files = [TBXML childElementNamed:@"files" parentElement:comment];
+					 if (files != nil) {
+						TBXMLElement *file = [TBXML childElementNamed:@"file" parentElement:files];
+							while (file != nil) {
+							UploadModel *aUpload = (UploadModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Upload" inManagedObjectContext:managedObjectContext];
+							aUpload.asset_file_name = [TBXML textForElement:[TBXML childElementNamed:@"filename" parentElement:file]];
+							//[aComment addUploadObject:aUpload];
+							[TBXML nextSiblingNamed:@"file" searchFromElement:file];
+						}
+					 }*/
 					
-				} else if ([aActivity.type isEqualToString:@"TaskList"]) {
+					aActivity.Comment = aComment;
+				} else if ([aActivity.target_type isEqualToString:@"Task"]) {
+					TBXMLElement *task = [TBXML childElementNamed:@"task" parentElement:target];
 					
-				} else if ([aActivity.type isEqualToString:@"Person"]) {
-					aComment.body_html = aUser.full_name;
-				} else if ([aActivity.type isEqualToString:@"Page"]) {
+				} else if ([aActivity.target_type isEqualToString:@"TaskList"]) {
 					
-				} else if ([aActivity.type isEqualToString:@"Conversation"]) {
-					aComment.body_html = aUser.full_name;
+				} else if ([aActivity.target_type isEqualToString:@"Person"]) {
+					TBXMLElement *project = [TBXML childElementNamed:@"project" parentElement:activity];
+					TBXMLElement *person = [TBXML childElementNamed:@"person" parentElement:target];
+					[self addUser:[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person] intValue]] 
+					 WithUsername:[TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:person]]
+					   ForProject:[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]] 
+					  projectName:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:project]] 
+						permalink:[TBXML textForElement:[TBXML childElementNamed:@"permalink" parentElement:project]]];
+				} else if ([aActivity.target_type isEqualToString:@"Page"]) {
+					
+				} else if ([aActivity.target_type isEqualToString:@"Conversation"]) {
+					
 				}
 				//Delete
 			} else if ([aActivity.action isEqualToString:@"delete"]) {
 				
 			}
-			aActivity.Comment = aComment;
+			
 			[aUser addActivityObject:aActivity];
 				//SAVE the object
 			if (![managedObjectContext save:&error]) {
@@ -108,6 +145,59 @@
 	}
 	
 	[delegate parserFinishedType:typeParse];
+}
+
+- (void)addUser:(NSNumber *)userID WithUsername:(NSString *)username ForProject:(NSNumber *)projectID projectName:(NSString *)projectName permalink:(NSString *)permalink {
+		//Check project
+	
+		//first we search the project for update if exists
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	
+	NSEntityDescription *entity = [NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext];
+	[fetchRequest setEntity:entity];
+	
+	NSPredicate *predicate = [NSPredicate predicateWithFormat:@"project_id=%i",[projectID intValue]];
+	[fetchRequest setPredicate:predicate];
+	
+	NSError *error;
+	NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
+	
+	ProjectModel *aProject;
+	if ([items count]==0) {
+		aProject = (ProjectModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project" inManagedObjectContext:managedObjectContext];
+		aProject.project_id = projectID;
+		aProject.name = projectName;
+		aProject.permalink = permalink;
+			//first we search the person for update if exists
+	} else 
+		aProject =[items objectAtIndex:0];
+	
+	fetchRequest = [[NSFetchRequest alloc] init];
+	
+	entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext];
+	[fetchRequest setEntity:entity];
+	
+	predicate = [NSPredicate predicateWithFormat:@"user_id=%i",[userID intValue]];
+	[fetchRequest setPredicate:predicate];
+	[items release];
+	items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
+	if ([items count]==0) {
+		UserModel *aUser;
+		Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
+			//then create the user
+		aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
+		aUser.user_id = userID;
+		aUser.username = username;
+			//add the ProjectUser to the project and to the user
+		[aProject addProject_UserObject:aProject_User];
+		[aUser addProject_UserObject:aProject_User];
+	}
+	
+	if (![managedObjectContext save:&error]) {
+			// Handle the error.
+	}
 }
 
 - (void) dealloc {

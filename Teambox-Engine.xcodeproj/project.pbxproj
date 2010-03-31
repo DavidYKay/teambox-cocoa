@@ -32,11 +32,16 @@
 		A4DA26CD115D231B00853B0D /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DA26CC115D231B00853B0D /* SystemConfiguration.framework */; };
 		A4DA26CF115D232A00853B0D /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DA26CE115D232A00853B0D /* CoreServices.framework */; };
 		A4DA26D1115D234600853B0D /* libz.1.2.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = A4DA26D0115D234600853B0D /* libz.1.2.3.dylib */; };
-		A4E12D951162120300CE77FF /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D8C1162120300CE77FF /* ActivityModel.m */; };
-		A4E12D961162120300CE77FF /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D8E1162120300CE77FF /* ProjectModel.m */; };
-		A4E12D971162120300CE77FF /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D901162120300CE77FF /* CommentModel.m */; };
-		A4E12D981162120300CE77FF /* Project_UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D921162120300CE77FF /* Project_UserModel.m */; };
-		A4E12D991162120300CE77FF /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E12D941162120300CE77FF /* UserModel.m */; };
+		A4E265401162B35D004271BD /* UploadModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E2652D1162B35D004271BD /* UploadModel.m */; };
+		A4E265411162B35D004271BD /* ActivityModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E2652F1162B35D004271BD /* ActivityModel.m */; };
+		A4E265421162B35D004271BD /* ProjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E265311162B35D004271BD /* ProjectModel.m */; };
+		A4E265431162B35D004271BD /* CommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E265331162B35D004271BD /* CommentModel.m */; };
+		A4E265441162B35D004271BD /* TaskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E265351162B35D004271BD /* TaskModel.m */; };
+		A4E265451162B35D004271BD /* Project_UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E265371162B35D004271BD /* Project_UserModel.m */; };
+		A4E265461162B35D004271BD /* TaskListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E265391162B35D004271BD /* TaskListModel.m */; };
+		A4E265471162B35D004271BD /* ConversationModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E2653B1162B35D004271BD /* ConversationModel.m */; };
+		A4E265481162B35D004271BD /* PageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E2653D1162B35D004271BD /* PageModel.m */; };
+		A4E265491162B35D004271BD /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E2653F1162B35D004271BD /* UserModel.m */; };
 		A4E5F166115FC8940021AD87 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E5F165115FC8940021AD87 /* ASIAuthenticationDialog.m */; };
 		A4E5F17E115FC9220021AD87 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A4E5F17C115FC9220021AD87 /* Reachability.m */; };
 /* End PBXBuildFile section */
@@ -92,16 +97,26 @@
 		A4DA26CE115D232A00853B0D /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		A4DA26D0115D234600853B0D /* libz.1.2.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.3.dylib; path = usr/lib/libz.1.2.3.dylib; sourceTree = SDKROOT; };
 		A4DA27CD115D258600853B0D /* TeamboxConnectionDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TeamboxConnectionDelegate.h; path = ../TeamboxConnectionDelegate.h; sourceTree = "<group>"; };
-		A4E12D8B1162120300CE77FF /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
-		A4E12D8C1162120300CE77FF /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
-		A4E12D8D1162120300CE77FF /* ProjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectModel.h; sourceTree = "<group>"; };
-		A4E12D8E1162120300CE77FF /* ProjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
-		A4E12D8F1162120300CE77FF /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
-		A4E12D901162120300CE77FF /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
-		A4E12D911162120300CE77FF /* Project_UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project_UserModel.h; sourceTree = "<group>"; };
-		A4E12D921162120300CE77FF /* Project_UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project_UserModel.m; sourceTree = "<group>"; };
-		A4E12D931162120300CE77FF /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
-		A4E12D941162120300CE77FF /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		A4E2652C1162B35D004271BD /* UploadModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UploadModel.h; sourceTree = "<group>"; };
+		A4E2652D1162B35D004271BD /* UploadModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UploadModel.m; sourceTree = "<group>"; };
+		A4E2652E1162B35D004271BD /* ActivityModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActivityModel.h; sourceTree = "<group>"; };
+		A4E2652F1162B35D004271BD /* ActivityModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActivityModel.m; sourceTree = "<group>"; };
+		A4E265301162B35D004271BD /* ProjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProjectModel.h; sourceTree = "<group>"; };
+		A4E265311162B35D004271BD /* ProjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProjectModel.m; sourceTree = "<group>"; };
+		A4E265321162B35D004271BD /* CommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentModel.h; sourceTree = "<group>"; };
+		A4E265331162B35D004271BD /* CommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentModel.m; sourceTree = "<group>"; };
+		A4E265341162B35D004271BD /* TaskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskModel.h; sourceTree = "<group>"; };
+		A4E265351162B35D004271BD /* TaskModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskModel.m; sourceTree = "<group>"; };
+		A4E265361162B35D004271BD /* Project_UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Project_UserModel.h; sourceTree = "<group>"; };
+		A4E265371162B35D004271BD /* Project_UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Project_UserModel.m; sourceTree = "<group>"; };
+		A4E265381162B35D004271BD /* TaskListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TaskListModel.h; sourceTree = "<group>"; };
+		A4E265391162B35D004271BD /* TaskListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TaskListModel.m; sourceTree = "<group>"; };
+		A4E2653A1162B35D004271BD /* ConversationModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConversationModel.h; sourceTree = "<group>"; };
+		A4E2653B1162B35D004271BD /* ConversationModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConversationModel.m; sourceTree = "<group>"; };
+		A4E2653C1162B35D004271BD /* PageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageModel.h; sourceTree = "<group>"; };
+		A4E2653D1162B35D004271BD /* PageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageModel.m; sourceTree = "<group>"; };
+		A4E2653E1162B35D004271BD /* UserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		A4E2653F1162B35D004271BD /* UserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
 		A4E5F164115FC8940021AD87 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		A4E5F165115FC8940021AD87 /* ASIAuthenticationDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASIAuthenticationDialog.m; sourceTree = "<group>"; };
 		A4E5F17A115FC9220021AD87 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
@@ -238,9 +253,9 @@
 		A4DA25A6115D1DB000853B0D /* Parser */ = {
 			isa = PBXGroup;
 			children = (
+				A4DA25A9115D1DB000853B0D /* TeamboxParserDelegate.h */,
 				A4DA25A7115D1DB000853B0D /* TeamboxParser.h */,
 				A4DA25A8115D1DB000853B0D /* TeamboxParser.m */,
-				A4DA25A9115D1DB000853B0D /* TeamboxParserDelegate.h */,
 				A4DA25AA115D1DB000853B0D /* TeamboxActivitiesParser.h */,
 				A4DA25AB115D1DB000853B0D /* TeamboxActivitiesParser.m */,
 				A4DA25AC115D1DB000853B0D /* TeamboxProjectsParser.h */,
@@ -302,16 +317,26 @@
 		A4E5F1C3115FCECF0021AD87 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				A4E12D8B1162120300CE77FF /* ActivityModel.h */,
-				A4E12D8C1162120300CE77FF /* ActivityModel.m */,
-				A4E12D8D1162120300CE77FF /* ProjectModel.h */,
-				A4E12D8E1162120300CE77FF /* ProjectModel.m */,
-				A4E12D8F1162120300CE77FF /* CommentModel.h */,
-				A4E12D901162120300CE77FF /* CommentModel.m */,
-				A4E12D911162120300CE77FF /* Project_UserModel.h */,
-				A4E12D921162120300CE77FF /* Project_UserModel.m */,
-				A4E12D931162120300CE77FF /* UserModel.h */,
-				A4E12D941162120300CE77FF /* UserModel.m */,
+				A4E2652C1162B35D004271BD /* UploadModel.h */,
+				A4E2652D1162B35D004271BD /* UploadModel.m */,
+				A4E2652E1162B35D004271BD /* ActivityModel.h */,
+				A4E2652F1162B35D004271BD /* ActivityModel.m */,
+				A4E265301162B35D004271BD /* ProjectModel.h */,
+				A4E265311162B35D004271BD /* ProjectModel.m */,
+				A4E265321162B35D004271BD /* CommentModel.h */,
+				A4E265331162B35D004271BD /* CommentModel.m */,
+				A4E265341162B35D004271BD /* TaskModel.h */,
+				A4E265351162B35D004271BD /* TaskModel.m */,
+				A4E265361162B35D004271BD /* Project_UserModel.h */,
+				A4E265371162B35D004271BD /* Project_UserModel.m */,
+				A4E265381162B35D004271BD /* TaskListModel.h */,
+				A4E265391162B35D004271BD /* TaskListModel.m */,
+				A4E2653A1162B35D004271BD /* ConversationModel.h */,
+				A4E2653B1162B35D004271BD /* ConversationModel.m */,
+				A4E2653C1162B35D004271BD /* PageModel.h */,
+				A4E2653D1162B35D004271BD /* PageModel.m */,
+				A4E2653E1162B35D004271BD /* UserModel.h */,
+				A4E2653F1162B35D004271BD /* UserModel.m */,
 				A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */,
 			);
 			path = Model;
@@ -402,11 +427,16 @@
 				A4E5F166115FC8940021AD87 /* ASIAuthenticationDialog.m in Sources */,
 				A4E5F17E115FC9220021AD87 /* Reachability.m in Sources */,
 				A4D4D0DB1160B659008D6C62 /* TeamboxEngineKeychain.m in Sources */,
-				A4E12D951162120300CE77FF /* ActivityModel.m in Sources */,
-				A4E12D961162120300CE77FF /* ProjectModel.m in Sources */,
-				A4E12D971162120300CE77FF /* CommentModel.m in Sources */,
-				A4E12D981162120300CE77FF /* Project_UserModel.m in Sources */,
-				A4E12D991162120300CE77FF /* UserModel.m in Sources */,
+				A4E265401162B35D004271BD /* UploadModel.m in Sources */,
+				A4E265411162B35D004271BD /* ActivityModel.m in Sources */,
+				A4E265421162B35D004271BD /* ProjectModel.m in Sources */,
+				A4E265431162B35D004271BD /* CommentModel.m in Sources */,
+				A4E265441162B35D004271BD /* TaskModel.m in Sources */,
+				A4E265451162B35D004271BD /* Project_UserModel.m in Sources */,
+				A4E265461162B35D004271BD /* TaskListModel.m in Sources */,
+				A4E265471162B35D004271BD /* ConversationModel.m in Sources */,
+				A4E265481162B35D004271BD /* PageModel.m in Sources */,
+				A4E265491162B35D004271BD /* UserModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
