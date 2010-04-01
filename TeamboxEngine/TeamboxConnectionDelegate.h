@@ -12,6 +12,7 @@
 
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type;
 - (void)finishedConnectionLogin;
+- (void)errorAuthentication;
 - (void)errorConnectionLogin:(NSError *)error;
 
 @end

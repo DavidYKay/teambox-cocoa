@@ -215,6 +215,12 @@
 	[engineDelegate correctAuthentication];
 }
 
+- (void)errorAuthentication {
+	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+	username = [defaults valueForKey:kUserNameSettingsKey];
+	[engineDelegate notCorrectUserOrPassword:username];
+}
+
 - (void)errorConnectionLogin:(NSError *)error {
 	[engineDelegate errorCommunicateWithTeambox:error];
 }

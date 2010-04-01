@@ -71,19 +71,32 @@
 }
 
 - (void)requestDone:(ASIHTTPRequest *)request {
-	if ([typeGet isEqualToString:@"Login"])
-		if ([self.request responseStatusCode] == 200)
-			[delegate finishedConnectionLogin];
-		else
-			[delegate errorConnectionLogin:nil];
+	int statusCode;
+	if ([typeGet isEqualToString:@"Login"]){
+		statusCode = [self.request responseStatusCode];
+		if (statusCode==302) {
+			[delegate errorAuthentication];
+		}else
+			if ([self.request responseStatusCode] == 200)
+					[delegate finishedConnectionLogin];
+				else
+					[delegate errorConnectionLogin:nil];
+	}
 	else
 		[delegate finishedGetData:[self.request responseData] withType:typeGet];
 }
 
 - (void)requestWentWrong:(ASIHTTPRequest *)request {
 	NSError *error = [self.request error];
-	if ([typeGet isEqualToString:@"Login"])
-		[delegate errorConnectionLogin:error];
-}
+	int statusCode = [self.request responseStatusCode];
+	if (statusCode==302) {
+		[delegate errorAuthentication];
+	}else {
+		if ([typeGet isEqualToString:@"Login"])
+			[delegate errorConnectionLogin:error];
+
+	}
+
+	}
 
 @end
