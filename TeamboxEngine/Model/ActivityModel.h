@@ -27,6 +27,7 @@
 @property (nonatomic, retain) NSNumber * activity_id;
 @property (nonatomic, retain) NSString * target_type;
 @property (nonatomic, retain) NSDate * update_at;
+@property (nonatomic, retain) NSString *created_at_string;
 @property (nonatomic, retain) NSNumber * target_id;
 @property (nonatomic, retain) NSNumber * project_id;
 @property (nonatomic, retain) UserModel * User;

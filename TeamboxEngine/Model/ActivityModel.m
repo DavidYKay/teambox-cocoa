@@ -25,6 +25,7 @@
 @dynamic activity_id;
 @dynamic target_type;
 @dynamic update_at;
+@dynamic created_at_string;
 @dynamic target_id;
 @dynamic project_id;
 @dynamic User;

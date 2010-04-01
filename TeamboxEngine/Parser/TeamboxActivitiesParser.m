@@ -44,15 +44,22 @@
 			TBXMLElement *desc = [TBXML childElementNamed:@"action" parentElement:activity];
 			if (desc != nil)
 				aActivity.action = [TBXML textForElement:desc];
-			/*
-			desc = [TBXML childElementNamed:@"created-at" parentElement:activity];
-			if (desc != nil)
-				aActivity.created_at = [TBXML textForElement:desc];
 			
-			desc = [TBXML childElementNamed:@"updated-at" parentElement:activity];
-			if (desc != nil)
-				aActivity.updated_at = [TBXML textForElement:desc];
-			*/
+			
+			[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
+			NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+			[dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT: 0]];
+			[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+				// find the description child 
+			
+			desc = [TBXML childElementNamed:@"created-at" parentElement:activity];
+			if (desc != nil) {
+				aActivity.created_at = [dateFormatter dateFromString:[TBXML textForElement:desc]];
+				aActivity.created_at_string = [TBXML textForElement:desc];
+			}
+				//desc = [TBXML childElementNamed:@"updated-at" parentElement:activity];
+				//if (desc != nil)
+					//aActivity.updated_at = [dateFormatter dateFromString:[TBXML textForElement:desc]];
 			
 				//Get the USER in the activity
 			
@@ -143,7 +150,7 @@
 			activity = [TBXML nextSiblingNamed:@"activity" searchFromElement:activity];
 		}
 	}
-	
+	NSLog(@"Salgo");
 	[delegate parserFinishedType:typeParse];
 }
 

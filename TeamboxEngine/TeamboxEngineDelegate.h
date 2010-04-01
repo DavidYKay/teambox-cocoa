@@ -17,8 +17,6 @@
 - (void)projectsReceived:(NSManagedObjectContext *)managedObjectContext;
 - (void)activitiesReceivedNothing:(NSString *)type;
 
-
-
 @required
 	//Authenticate
 - (void)correctAuthentication;

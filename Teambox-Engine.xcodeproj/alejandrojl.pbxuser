@@ -43,8 +43,8 @@
 					PBXFileDataSource_Target_ColumnID,
 				);
 			};
-			PBXPerProjectTemplateStateSaveDate = 291721056;
-			PBXWorkspaceStateSaveDate = 291721056;
+			PBXPerProjectTemplateStateSaveDate = 291721203;
+			PBXWorkspaceStateSaveDate = 291721203;
 		};
 		perUserProjectItems = {
 			A47567261160CBCF00E97EC7 /* PBXTextBookmark */ = A47567261160CBCF00E97EC7 /* PBXTextBookmark */;
@@ -63,8 +63,8 @@
 			A4D2FA4311634F5D0094D459 /* PBXTextBookmark */ = A4D2FA4311634F5D0094D459 /* PBXTextBookmark */;
 			A4D2FA4411634F5D0094D459 /* PBXTextBookmark */ = A4D2FA4411634F5D0094D459 /* PBXTextBookmark */;
 			A4D2FA4511634F5D0094D459 /* PBXTextBookmark */ = A4D2FA4511634F5D0094D459 /* PBXTextBookmark */;
-			A4D2FA4D11634F620094D459 /* PBXTextBookmark */ = A4D2FA4D11634F620094D459 /* PBXTextBookmark */;
-			A4D2FA4E11634F620094D459 /* PBXTextBookmark */ = A4D2FA4E11634F620094D459 /* PBXTextBookmark */;
+			A4D2FA5811634FF90094D459 /* PBXTextBookmark */ = A4D2FA5811634FF90094D459 /* PBXTextBookmark */;
+			A4D2FA5D1163506D0094D459 /* PBXTextBookmark */ = A4D2FA5D1163506D0094D459 /* PBXTextBookmark */;
 			A4DA2650115D213E00853B0D /* PBXTextBookmark */ = A4DA2650115D213E00853B0D /* PBXTextBookmark */;
 			A4DA282A115D27E200853B0D /* PBXTextBookmark */ = A4DA282A115D27E200853B0D /* PBXTextBookmark */;
 			A4DA282E115D27FC00853B0D /* PlistBookmark */ = A4DA282E115D27FC00853B0D /* PlistBookmark */;
@@ -308,7 +308,7 @@
 		vrLen = 1102;
 		vrLoc = 0;
 	};
-	A4D2FA4D11634F620094D459 /* PBXTextBookmark */ = {
+	A4D2FA5811634FF90094D459 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
 		fRef = A4E2652F1162B35D004271BD /* ActivityModel.m */;
 		name = "ActivityModel.m: 1";
@@ -318,15 +318,15 @@
 		vrLen = 679;
 		vrLoc = 0;
 	};
-	A4D2FA4E11634F620094D459 /* PBXTextBookmark */ = {
+	A4D2FA5D1163506D0094D459 /* PBXTextBookmark */ = {
 		isa = PBXTextBookmark;
-		fRef = A4E2652F1162B35D004271BD /* ActivityModel.m */;
-		name = "ActivityModel.m: 1";
+		fRef = A4DA25AB115D1DB000853B0D /* TeamboxActivitiesParser.m */;
+		name = "TeamboxActivitiesParser.m: 97";
 		rLen = 0;
-		rLoc = 0;
+		rLoc = 4997;
 		rType = 0;
-		vrLen = 679;
-		vrLoc = 0;
+		vrLen = 4604;
+		vrLoc = 1823;
 	};
 	A4D4D0D91160B659008D6C62 /* TeamboxEngineKeychain.h */ = {
 		uiCtxt = {
@@ -579,9 +579,9 @@
 	};
 	A4DA25AB115D1DB000853B0D /* TeamboxActivitiesParser.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1546, 2613}}";
-			sepNavSelRange = "{5889, 0}";
-			sepNavVisRange = "{2380, 4592}";
+			sepNavIntBoundsRect = "{{0, 0}, {1546, 2691}}";
+			sepNavSelRange = "{4997, 0}";
+			sepNavVisRange = "{1823, 4604}";
 			sepNavWindowFrame = "{{19, 516}, {1229, 537}}";
 		};
 	};
@@ -781,7 +781,7 @@
 	};
 	A4E2652F1162B35D004271BD /* ActivityModel.m */ = {
 		uiCtxt = {
-			sepNavIntBoundsRect = "{{0, 0}, {1546, 874}}";
+			sepNavIntBoundsRect = "{{0, 0}, {1546, 873}}";
 			sepNavSelRange = "{0, 0}";
 			sepNavVisRange = "{0, 679}";
 		};
