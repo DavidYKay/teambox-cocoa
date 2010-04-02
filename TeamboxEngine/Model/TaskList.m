@@ -9,7 +9,7 @@
 #import "TaskList.h"
 
 #import "ActivityModel.h"
-#import "Task.h"
+#import "TaskModel.h"
 
 @implementation TaskList 
 

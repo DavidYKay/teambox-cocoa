@@ -139,7 +139,12 @@
 			} else if ([aActivity.action isEqualToString:@"delete"]) {
 				
 			}
-			
+			TBXMLElement *project = [TBXML childElementNamed:@"project" parentElement:activity];
+			fetchRequest = [[NSFetchRequest alloc] init];
+			[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
+			[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"project_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]]];
+			ProjectModel *aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+			aActivity.Project = aProject;
 			[aUser addActivityObject:aActivity];
 				//SAVE the object
 			if (![managedObjectContext save:&error]) {

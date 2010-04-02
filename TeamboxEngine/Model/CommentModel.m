@@ -2,7 +2,7 @@
 //  CommentModel.m
 //  Teambox-Engine
 //
-//  Created by Alejandro JL on 31/03/10.
+//  Created by Alejandro JL on 01/04/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 

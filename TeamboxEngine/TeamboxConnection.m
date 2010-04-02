@@ -81,9 +81,11 @@
 					[delegate finishedConnectionLogin];
 				else
 					[delegate errorConnectionLogin:nil];
-	}
-	else
+	} else {
 		[delegate finishedGetData:[self.request responseData] withType:typeGet];
+		NSLog(@"%@",[self.request responseString]);
+	}
+	
 }
 
 - (void)requestWentWrong:(ASIHTTPRequest *)request {

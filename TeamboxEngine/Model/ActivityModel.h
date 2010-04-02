@@ -2,7 +2,7 @@
 //  ActivityModel.h
 //  Teambox-Engine
 //
-//  Created by Alejandro JL on 31/03/10.
+//  Created by Alejandro JL on 01/04/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -27,9 +27,9 @@
 @property (nonatomic, retain) NSNumber * activity_id;
 @property (nonatomic, retain) NSString * target_type;
 @property (nonatomic, retain) NSDate * update_at;
-@property (nonatomic, retain) NSString *created_at_string;
 @property (nonatomic, retain) NSNumber * target_id;
 @property (nonatomic, retain) NSNumber * project_id;
+@property (nonatomic, retain) NSString * created_at_string;
 @property (nonatomic, retain) UserModel * User;
 @property (nonatomic, retain) TaskModel * Task;
 @property (nonatomic, retain) ProjectModel * Project;
