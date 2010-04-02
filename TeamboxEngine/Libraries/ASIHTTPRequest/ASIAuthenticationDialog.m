@@ -5,7 +5,7 @@
 //  Created by Ben Copsey on 21/08/2009.
 //  Copyright 2009 All-Seeing Interactive. All rights reserved.
 //
-#ifdef IPHONEOS_DEPLOYMENT_TARGET
+#if TARGET_OS_IPHONE
 #import "ASIAuthenticationDialog.h"
 #import "ASIHTTPRequest.h"
 

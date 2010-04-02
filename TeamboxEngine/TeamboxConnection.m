@@ -36,8 +36,14 @@
 		typeGet = type;
 		request = [ASIHTTPRequest requestWithURL:url];
 		[request setDelegate:self];
-		if (![typeGet isEqualToString:@"file"])
+		if (![typeGet isEqualToString:@"file"]) {
 			[request addRequestHeader:@"Accept" value:@"application/xml"];
+			#if TARGET_OS_IPHONE
+				[request addRequestHeader:@"User-Agent" value:@"Teambox iPhone"];
+			#else
+				[request addRequestHeader:@"User-Agent" value:@"Teambox Mac"];
+			#endif
+		}
 		
 		[request setDidStartSelector:@selector (requestStart:)];
 		[request setDidFinishSelector:@selector(requestDone:)];
