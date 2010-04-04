@@ -39,12 +39,12 @@
 		if (![typeGet isEqualToString:@"file"]) {
 			[request addRequestHeader:@"Accept" value:@"application/xml"];
 			#if TARGET_OS_IPHONE
-				[request addRequestHeader:@"User-Agent" value:@"Teambox iPhone"];
+				[request addRequestHeader:@"User-Agent" value:@"Teambox cocoa touch"];
 			#else
 				[request addRequestHeader:@"User-Agent" value:@"Teambox Mac"];
 			#endif
 		}
-		
+	
 		[request setDidStartSelector:@selector (requestStart:)];
 		[request setDidFinishSelector:@selector(requestDone:)];
 		[request setDidFailSelector:@selector(requestWentWrong:)];

@@ -90,8 +90,9 @@
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
 	if ([type isEqualToString:@"Projects"])
 		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"ActivitiesAll"])
+	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"])
 		[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+		
 }
 
 - (void)setUseSecureConnection:(BOOL)useSecure {
@@ -223,6 +224,10 @@
 
 - (void)errorConnectionLogin:(NSError *)error {
 	[engineDelegate errorCommunicateWithTeambox:error];
+}
+
+- (void)setFirstActivityID {
+	
 }
 
 #pragma mark -
