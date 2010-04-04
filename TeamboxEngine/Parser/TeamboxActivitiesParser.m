@@ -37,9 +37,34 @@
 			// if an author element was found
 		while (activity != nil) {
 			ActivityModel *aActivity;
+			NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
 				//first we search the project for update if exists
-			aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
-			aActivity.activity_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
+			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+			
+			NSEntityDescription *entity = [NSEntityDescription entityForName:@"Activity" inManagedObjectContext:managedObjectContext];
+			[fetchRequest setEntity:entity];
+			
+			NSPredicate *predicate = [NSPredicate predicateWithFormat:@"activity_id=%i",[nId intValue]];
+			[fetchRequest setPredicate:predicate];
+			
+
+			NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
+			[fetchRequest release];
+			
+			
+			if ([items count]==0) {
+				aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
+				aActivity.activity_id = nId;
+				
+			}else{
+				
+				aActivity =[items objectAtIndex:0];
+			}
+			
+			
+			
+			/*aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
+			aActivity.activity_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];*/
 			
 			TBXMLElement *desc = [TBXML childElementNamed:@"action" parentElement:activity];
 			if (desc != nil)
@@ -65,7 +90,6 @@
 			
 				//User
 			TBXMLElement *user = [TBXML childElementNamed:@"user" parentElement:activity];
-			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 			[fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext]];
 			[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"user_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue]]];
 			NSArray *item = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
