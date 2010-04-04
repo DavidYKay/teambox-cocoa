@@ -38,7 +38,6 @@
 	if (self = [super init]) {
         engineDelegate = delegate;
 		managedObjectContext = self.managedObjectContext;
-		[self authenticate];
     }
     return self;
 }
