@@ -90,9 +90,10 @@
 			
 				//User
 			TBXMLElement *user = [TBXML childElementNamed:@"user" parentElement:activity];
-			[fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext]];
-			[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"user_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue]]];
-			NSArray *item = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
+			NSFetchRequest *fetchUser = [[NSFetchRequest alloc] init];
+			[fetchUser setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext]];
+			[fetchUser setPredicate:[NSPredicate predicateWithFormat:@"user_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue]]];
+			NSArray *item = [managedObjectContext  executeFetchRequest:fetchUser error:&error];
 			UserModel *aUser = [item objectAtIndex:0];
 			
 			aUser.first_name = [TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]];
@@ -164,6 +165,7 @@
 				
 			}
 			TBXMLElement *project = [TBXML childElementNamed:@"project" parentElement:activity];
+			
 			fetchRequest = [[NSFetchRequest alloc] init];
 			[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
 			[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"project_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]]];
