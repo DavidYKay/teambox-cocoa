@@ -23,7 +23,6 @@
     NSManagedObjectContext *managedObjectContext;	    
     NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	BOOL secureConnection;
-	NSInteger *firstActivityID;
 	NSTimer *refreshTimer;
 }
 #pragma mark Accessors

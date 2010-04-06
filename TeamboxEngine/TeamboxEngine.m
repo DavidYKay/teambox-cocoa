@@ -14,7 +14,7 @@
 #import "TeamboxProjectsParser.h"
 #import "TeamboxConnection.h"
 #import "TeamboxEngineKeychain.h"
-#import "ASIHTTPRequest.h"
+#import "ActivityModel.h"
 
 @interface TeamboxEngine (PrivateMethods)
 
@@ -56,6 +56,20 @@
 - (void)getActivitiesAll {
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllXML, username, password]] type:@"ActivitiesAll" delegate:self];
 		//[TeamboxActivitiesParser parserWithURL:url delegate:self typeParse:@"ActivitiesAll"];
+}
+
+- (void)getActivitiesAllNew {
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Activity" inManagedObjectContext:managedObjectContext]];
+	[fetchRequest setFetchLimit:1];
+	[fetchRequest setSortDescriptors:[NSArray arrayWithObject: [[[NSSortDescriptor alloc] initWithKey: @"activity_id" ascending: NO] autorelease]]];
+	NSError *error;
+	NSArray *results = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	if ([results count] >= 1) {
+		ActivityModel* aActivity = [results objectAtIndex:0];
+		NSNumber *activityID = aActivity.activity_id;
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [activityID stringValue]]] type:@"ActivitiesAllNew" delegate:self];
+	}
 }
 
 - (void)getActivitiesAllNew:(NSString *)activityID {
@@ -126,6 +140,8 @@
 		[engineDelegate projectsReceived:managedObjectContext];
 	else if ([type isEqualToString:@"ActivitiesAll"])
 		[engineDelegate activitiesReceivedAll:managedObjectContext];
+	else if ([type isEqualToString:@"ActivitiesAllNew"])
+		[engineDelegate activitiesReceivedAllNew:managedObjectContext];
 		
 		/*if ([type isEqualToString:@"ActivitiesAll"])
 			[engineDelegate activitiesReceivedAll:parsedElements];
@@ -212,6 +228,9 @@
 }
 
 - (void)finishedConnectionLogin {
+	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:20 //180
+													target:self selector:@selector(getActivitiesAllNew) userInfo:nil 
+												   repeats:YES];
 	[engineDelegate correctAuthentication];
 }
 

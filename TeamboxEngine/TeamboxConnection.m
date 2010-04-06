@@ -89,7 +89,7 @@
 					[delegate errorConnectionLogin:nil];
 	} else {
 		[delegate finishedGetData:[self.request responseData] withType:typeGet];
-		NSLog(@"%@",[self.request responseString]);
+			//NSLog(@"%@",[self.request responseString]);
 	}
 	
 }
