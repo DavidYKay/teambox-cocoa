@@ -22,5 +22,6 @@
 @property (nonatomic, retain) ASIHTTPRequest *request;
 + (id)getDataWithURL:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate;
 + (id)authenticateWithUsername:(NSString *)username andPassword:(NSString *)password url:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate;
-
++ (id)postCommentWithUrl:(NSURL *)url comment:(NSString *)comment delegate:(NSObject *)theDelegate;
+-(id)initWithUrlAndPostData:(NSURL *)url delegate:(NSObject *)theDelegate postData:(NSData*)postData;
 @end

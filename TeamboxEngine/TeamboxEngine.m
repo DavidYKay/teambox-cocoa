@@ -119,16 +119,10 @@
 - (void)postCommentWithProject:(NSString *)comment projectName:(NSString *)name {
 	name = [[name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""];
 	NSString *urlString = [NSString stringWithFormat:KPostComment, username, password, name]; 
-	
 	NSURL *url = [NSURL URLWithString:urlString];
-	comment = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><comment><body>%@</body></comment>", comment];
 	
-	ASIHTTPRequest *request = [ASIHTTPRequest requestWithURL:url];
-	[request addRequestHeader:@"Accept" value:@"application/xml"];
-	[request addRequestHeader:@"Content-Type" value:@"application/xml"];
-	[request addRequestHeader:@"User-Agent" value:@"Teambox Mac 0.1"];
-	[request appendPostData:[comment dataUsingEncoding:NSUTF8StringEncoding]];
-	[request startAsynchronous];
+	[TeamboxConnection postCommentWithUrl:url comment:comment delegate:self];
+	
 }
 
 - (void)parserFailedWithError:(NSError *)errorMsg {

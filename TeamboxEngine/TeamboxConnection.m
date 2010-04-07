@@ -30,6 +30,15 @@
 
 }
 
++ (id)postCommentWithUrl:(NSURL *)url comment:(NSString *)comment delegate:(NSObject *)theDelegate{
+	comment = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><comment><body>%@</body></comment>", comment];
+
+	
+	
+	id request = [[self alloc] initWithUrlAndPostData:url delegate:theDelegate postData:[comment dataUsingEncoding:NSUTF8StringEncoding]];
+	return request = nil;
+}
+
 - (id)initWithURL:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate {
 	if (self = [super init]) {
 		delegate = theDelegate;
@@ -50,10 +59,37 @@
 		[request setDidFailSelector:@selector(requestWentWrong:)];
 		[request startAsynchronous];
 	}
+	
+	
     
     return self;
 }
 
+-(id)initWithUrlAndPostData:(NSURL *)url delegate:(NSObject *)theDelegate postData:(NSData*)postData {
+	
+
+	if (self = [super init]) {
+		delegate = theDelegate;
+		request = [ASIHTTPRequest requestWithURL:url];
+		[request setDelegate:self];
+		
+		[request addRequestHeader:@"Accept" value:@"application/xml"];
+		[request addRequestHeader:@"Content-Type" value:@"application/xml"];
+		#if TARGET_OS_IPHONE
+			[request addRequestHeader:@"User-Agent" value:@"Teambox cocoa touch"];
+		#else
+			[request addRequestHeader:@"User-Agent" value:@"Teambox Mac"];
+		#endif
+		
+		[request appendPostData:postData];
+		[request setDidStartSelector:@selector (requestStart:)];
+		[request setDidFinishSelector:@selector(requestDone:)];
+		[request setDidFailSelector:@selector(requestWentWrong:)];
+		[request startAsynchronous];
+	}
+
+	return self;
+}
 - (id)initWithAuthenticateWithUsername:(NSString *)username andPassword:(NSString *)password url:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate {
 	if (self = [super init]) {
 		delegate = theDelegate;
