@@ -117,7 +117,7 @@
 }
 
 - (void)postCommentWithProject:(NSString *)comment projectName:(NSString *)name {
-	/*name = [[name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""];
+	name = [[name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""];
 	NSString *urlString = [NSString stringWithFormat:KPostComment, username, password, name]; 
 	
 	NSURL *url = [NSURL URLWithString:urlString];
@@ -128,7 +128,7 @@
 	[request addRequestHeader:@"Content-Type" value:@"application/xml"];
 	[request addRequestHeader:@"User-Agent" value:@"Teambox Mac 0.1"];
 	[request appendPostData:[comment dataUsingEncoding:NSUTF8StringEncoding]];
-	[request startSynchronous]; */
+	[request startAsynchronous];
 }
 
 - (void)parserFailedWithError:(NSError *)errorMsg {
