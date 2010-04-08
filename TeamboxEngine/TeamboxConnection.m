@@ -72,7 +72,6 @@
 		delegate = theDelegate;
 		request = [ASIHTTPRequest requestWithURL:url];
 		[request setDelegate:self];
-		
 		[request addRequestHeader:@"Accept" value:@"application/xml"];
 		[request addRequestHeader:@"Content-Type" value:@"application/xml"];
 		#if TARGET_OS_IPHONE

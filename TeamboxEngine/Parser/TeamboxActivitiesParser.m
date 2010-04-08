@@ -21,6 +21,7 @@
 @interface  TeamboxActivitiesParser (Private)
 
 - (void)addUser:(NSNumber *)userID WithUsername:(NSString *)username ForProject:(NSNumber *)projectID projectName:(NSString *)projectName permalink:(NSString *)permalink;
+- (void)addUser:(int)userID WithUsername:(NSString *)username AndFirstName:(NSString *)firstname AndLastName:(NSString *)lastname;
 
 @end
 
@@ -94,6 +95,13 @@
 			[fetchUser setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext]];
 			[fetchUser setPredicate:[NSPredicate predicateWithFormat:@"user_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue]]];
 			NSArray *item = [managedObjectContext  executeFetchRequest:fetchUser error:&error];
+			if ([item count] == 0) {
+				[self addUser:[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue] 
+				 WithUsername:[TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:user]] 
+				 AndFirstName:[TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]] 
+				  AndLastName:[TBXML textForElement:[TBXML childElementNamed:@"last-name" parentElement:user]]];
+				item = [managedObjectContext  executeFetchRequest:fetchUser error:&error];
+			}
 			UserModel *aUser = [item objectAtIndex:0];
 			
 			aUser.first_name = [TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]];
@@ -236,6 +244,24 @@
 	if (![managedObjectContext save:&error]) {
 			// Handle the error.
 	}
+}
+
+- (void)addUser:(int)userID WithUsername:(NSString *)username AndFirstName:(NSString *)firstname AndLastName:(NSString *)lastname {
+
+	
+	NSError *error;
+	UserModel *aUser;
+	aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
+	aUser.user_id = [NSNumber numberWithInt:userID];
+	aUser.username = username;
+	aUser.first_name = firstname;
+	aUser.last_name = lastname;
+	aUser.full_name = [NSString stringWithFormat:@"%@ %@", firstname, lastname];
+			//first we search the person for update if exists
+		if (![managedObjectContext save:&error]) {
+				// Handle the error.
+		}
+	
 }
 
 - (void) dealloc {

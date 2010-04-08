@@ -36,6 +36,8 @@
 
 - (TeamboxEngine *)initWithDelegate:(NSObject *)delegate {
 	if (self = [super init]) {
+		username = [NSString alloc];
+		password = [NSString alloc];
         engineDelegate = delegate;
 		managedObjectContext = self.managedObjectContext;
     }
@@ -56,6 +58,7 @@
 - (void)getActivitiesAll {
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllXML, username, password]] type:@"ActivitiesAll" delegate:self];
 		//[TeamboxActivitiesParser parserWithURL:url delegate:self typeParse:@"ActivitiesAll"];
+	NSLog(@"getActivitiesAll");
 }
 
 - (void)getActivitiesAllNew {
@@ -105,7 +108,8 @@
 		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"])
 		[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-		
+	
+	NSLog(@"Exit finishedGetData %@", type);
 }
 
 - (void)setUseSecureConnection:(BOOL)useSecure {
@@ -122,7 +126,7 @@
 	NSURL *url = [NSURL URLWithString:urlString];
 	
 	[TeamboxConnection postCommentWithUrl:url comment:comment delegate:self];
-	
+	NSLog(@"Exit postCommentWithProject");
 }
 
 - (void)parserFailedWithError:(NSError *)errorMsg {
@@ -146,6 +150,7 @@
 		else if ([type isEqualToString:@"Projects"])
 			[engineDelegate projectsReceived:parsedElements];
 		//[engineDelegate activitiesReceivedNothing:type]; */
+	NSLog(@"Exit parserFinishedType %@", type);
 }
 
 - (NSManagedObjectContext *) managedObjectContext {
