@@ -54,6 +54,10 @@
 - (void)getActivitiesNew:(NSString *)projectID sinceActivityID:(NSString *)firstID;
 - (void)getActivitiesMore:(NSString *)projectID sinceActivityID:(NSString *)lastID;
 
+	//Recover the Task List of a Project
+- (void)getTaskList;
+- (void)getTaskListWithProject:(NSString *)projectName;
+
 	//Recover a User
 - (void)getUser:(NSString *)username;
 

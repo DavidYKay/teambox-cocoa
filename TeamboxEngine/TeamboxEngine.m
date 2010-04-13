@@ -12,6 +12,7 @@
 #import "TeamboxEngine.h"
 #import "TeamboxActivitiesParser.h"
 #import "TeamboxProjectsParser.h"
+#import "TeamboxTaskListsParser.h"
 #import "TeamboxConnection.h"
 #import "TeamboxEngineKeychain.h"
 #import "ActivityModel.h"
@@ -73,16 +74,16 @@
 		NSNumber *activityID = aActivity.activity_id;
 		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [activityID stringValue]]] type:@"ActivitiesAllNew" delegate:self];
 	}
+	[]
 }
 
 - (void)getActivitiesAllNew:(NSString *)activityID {
-	NSString *path = [NSString stringWithFormat:KActivitiesAllNewXML, username, password, activityID];
+		//NSString *path = [NSString stringWithFormat:KActivitiesAllNewXML, username, password, activityID];
 }
 
 - (void)getActivitiesAllMore:(NSNumber *)activityID {
-	NSString *path = [NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [activityID intValue]];
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:path] type:@"ActivitiesAll" delegate:self];
-	NSLog([NSString stringWithFormat:@"getActivitiesAllMore activity:%i",[activityID intValue]]);
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [activityID intValue]]] type:@"ActivitiesAll" delegate:self];
+	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%i",[activityID intValue]]);
 }
 
 - (void)getActivities:(NSString *)projectID {
@@ -95,6 +96,15 @@
 
 - (void)getActivitiesMore:(NSString *)projectID sinceActivityID:(NSString *)lastID {
 	
+}
+
+- (void)getTaskList {
+	
+}
+
+- (void)getTaskListWithProject:(NSString *)projectName {
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KTaskListWithProjectXML, username, password, projectName]] type:@"TaskListProject" delegate:self];
+	NSLog(@"%@",[NSString stringWithFormat:@"getTaskListWithProject project:%@", projectName]);
 }
 
 - (void)getUser:(NSString *)username {
@@ -110,6 +120,8 @@
 		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"])
 		[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+	else if ([type isEqualToString:@"TaskListProject"])
+		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	
 	NSLog(@"Exit finishedGetData %@", type);
 }
@@ -142,7 +154,9 @@
 		[engineDelegate activitiesReceivedAll:managedObjectContext];
 	else if ([type isEqualToString:@"ActivitiesAllNew"])
 		[engineDelegate activitiesReceivedAllNew:managedObjectContext];
-		
+	else if ([type isEqualToString:@"TaskListProject"])
+		[engineDelegate taskListReceivedProject:managedObjectContext];
+	
 		/*if ([type isEqualToString:@"ActivitiesAll"])
 			[engineDelegate activitiesReceivedAll:parsedElements];
 		else if ([type isEqualToString:@"ActivitiesAllNew"])

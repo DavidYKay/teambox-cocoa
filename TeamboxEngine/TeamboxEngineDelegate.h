@@ -17,6 +17,8 @@
 - (void)projectsReceived:(NSManagedObjectContext *)managedObjectContext;
 - (void)activitiesReceivedNothing:(NSString *)type;
 
+- (void)taskListReceivedProject:(NSManagedObjectContext *)managedObjectContext;
+
 @required
 	//Authenticate
 - (void)correctAuthentication;
