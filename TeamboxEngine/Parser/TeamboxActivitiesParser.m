@@ -248,8 +248,6 @@
 }
 
 - (void)addUser:(int)userID WithUsername:(NSString *)username AndFirstName:(NSString *)firstname AndLastName:(NSString *)lastname {
-
-	
 	NSError *error;
 	UserModel *aUser;
 	aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
@@ -262,7 +260,6 @@
 		if (![managedObjectContext save:&error]) {
 				// Handle the error.
 		}
-	
 }
 
 - (void) dealloc {
