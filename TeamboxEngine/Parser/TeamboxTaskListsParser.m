@@ -44,23 +44,26 @@
 			} else
 				aTaskList = [items objectAtIndex:0];
 				
-			TBXMLElement *task = [TBXML childElementNamed:@"task_list" parentElement:taskList];
-			while (task != nil) {
-				TaskModel *aTask;
-				nId = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:task] intValue]];
-				fetchRequest = [[NSFetchRequest alloc] init];
-				[fetchRequest setEntity:[NSEntityDescription entityForName:@"Task" inManagedObjectContext:managedObjectContext]];
-				[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"task_id=%i",[nId intValue]]];
-				items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
-				[fetchRequest release];
-				if ([items count]==0) {
-					aTask.name = [TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:task]];
-					[aTaskList addTaskObject:aTask];
-				}
-				
-				task = [TBXML nextSiblingNamed:@"task" searchFromElement:task];
+			TBXMLElement *tasks = [TBXML childElementNamed:@"task-list" parentElement:taskList];
+			if (tasks != nil) {
+				TBXMLElement *task = [TBXML childElementNamed:@"task" parentElement:tasks];
+				while (task != nil) {
+					TaskModel *aTask;
+					nId = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:task] intValue]];
+					fetchRequest = [[NSFetchRequest alloc] init];
+					[fetchRequest setEntity:[NSEntityDescription entityForName:@"Task" inManagedObjectContext:managedObjectContext]];
+					[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"task_id=%i",[nId intValue]]];
+					items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
+					[fetchRequest release];
+					if ([items count]==0) {
+						aTask = (TaskModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
+						aTask.name = [TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:task]];
+						[aTaskList addTaskObject:aTask];
+					}
+					task = [TBXML nextSiblingNamed:@"task" searchFromElement:task];
+				}				
 			}
-				//SAVE the object
+							//SAVE the object
 			if (![managedObjectContext save:&error]) {
 					// Handle the error.
 			}
