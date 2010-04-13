@@ -1,8 +1,8 @@
 //
 //  Project_UserModel.h
-//  Teambox-Engine
+//  Teambox
 //
-//  Created by Alejandro JL on 01/04/10.
+//  Created by Alejandro JL on 13/04/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 

@@ -1,8 +1,8 @@
 // 
 //  TaskModel.m
-//  Teambox-Engine
+//  Teambox
 //
-//  Created by Alejandro JL on 01/04/10.
+//  Created by Alejandro JL on 13/04/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -18,6 +18,7 @@
 @dynamic created_at;
 @dynamic archived;
 @dynamic deleted_at;
+@dynamic task_id;
 @dynamic task_list_id;
 @dynamic due_on;
 @dynamic updated_at;

@@ -1,8 +1,8 @@
 //
 //  TaskModel.h
-//  Teambox-Engine
+//  Teambox
 //
-//  Created by Alejandro JL on 01/04/10.
+//  Created by Alejandro JL on 13/04/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -20,6 +20,7 @@
 @property (nonatomic, retain) NSDate * created_at;
 @property (nonatomic, retain) NSNumber * archived;
 @property (nonatomic, retain) NSDate * deleted_at;
+@property (nonatomic, retain) NSNumber * task_id;
 @property (nonatomic, retain) NSNumber * task_list_id;
 @property (nonatomic, retain) NSDate * due_on;
 @property (nonatomic, retain) NSDate * updated_at;
