@@ -119,7 +119,8 @@
 					TBXMLElement *comment = [TBXML childElementNamed:@"comment" parentElement:target];
 					aActivity.comment_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
 					aComment = (CommentModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:managedObjectContext];
-					aComment.body = [TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"body" parentElement:comment]]];
+					aComment.body = [[[TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"body" parentElement:comment]]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@" "];
+					
 					aComment.body_html = [TBXML textForElement:[TBXML childElementNamed:@"body-html" parentElement:comment]];
 					aComment.target_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"target-id" forElement:comment] intValue]];
 					aComment.target_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
