@@ -69,12 +69,12 @@
 	[fetchRequest setSortDescriptors:[NSArray arrayWithObject: [[[NSSortDescriptor alloc] initWithKey: @"activity_id" ascending: NO] autorelease]]];
 	NSError *error;
 	NSArray *results = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
+	[fetchRequest release];
 	if ([results count] >= 1) {
 		ActivityModel* aActivity = [results objectAtIndex:0];
 		NSNumber *activityID = aActivity.activity_id;
 		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [activityID stringValue]]] type:@"ActivitiesAllNew" delegate:self];
 	}
-	[]
 }
 
 - (void)getActivitiesAllNew:(NSString *)activityID {
