@@ -113,6 +113,7 @@
 
 - (void)getProjects {
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KProjectsXML, username, password]] type:@"Projects" delegate:self];
+	NSLog(@"getProjects");
 }
 
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
