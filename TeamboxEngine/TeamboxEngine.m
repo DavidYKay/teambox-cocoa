@@ -82,7 +82,7 @@
 }
 
 - (void)getActivitiesAllMore:(NSNumber *)activityID {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [activityID intValue]]] type:@"ActivitiesAll" delegate:self];
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [activityID intValue]]] type:@"ActivitiesAllMore" delegate:self];
 	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%i",[activityID intValue]]);
 }
 
@@ -118,7 +118,7 @@
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
 	if ([type isEqualToString:@"Projects"])
 		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"])
+	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || [type isEqualToString:@"ActivitiesAllMore"])
 		[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	else if ([type isEqualToString:@"TaskListProject"])
 		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
@@ -154,6 +154,8 @@
 		[engineDelegate activitiesReceivedAll:managedObjectContext];
 	else if ([type isEqualToString:@"ActivitiesAllNew"])
 		[engineDelegate activitiesReceivedAllNew:managedObjectContext];
+	else if ([type isEqualToString:@"ActivitiesAllMore"])
+		[engineDelegate activitiesReceivedAllMore:managedObjectContext];
 	else if ([type isEqualToString:@"TaskListProject"])
 		[engineDelegate taskListReceivedProject:managedObjectContext];
 	
@@ -243,7 +245,7 @@
 }
 
 - (void)finishedConnectionLogin {
-	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:20 //180
+	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:2000000 //180
 													target:self selector:@selector(getActivitiesAllNew) userInfo:nil 
 												   repeats:YES];
 	[engineDelegate correctAuthentication];
