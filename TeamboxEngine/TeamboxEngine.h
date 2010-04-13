@@ -47,7 +47,7 @@
 	//Recover the Activities of All Projects
 - (void)getActivitiesAll;
 - (void)getActivitiesAllNew:(NSString *)activityID;
-- (void)getActivitiesAllMore:(NSString *)activityID;
+- (void)getActivitiesAllMore:(NSNumber *)activityID;
 
 	//Recover the Activities of a Project
 - (void)getActivities:(NSString *)projectID;

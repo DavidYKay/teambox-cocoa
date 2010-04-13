@@ -40,7 +40,7 @@
 #else
 #define KActivitiesAllXML @"http://%@:%@@app.teambox.com/activities.xml"
 #define KActivitiesAllNewXML @"http://%@:%@@app.teambox.com/activities/%@/show_new.xml"
-#define KActivitiesAllMoreXML @"http://%@:%@@app.teambox.com/activities/%@/show_more.xml"
+#define KActivitiesAllMoreXML @"http://%@:%@@app.teambox.com/activities/%i/show_more.xml"
 #define KActivitiesProjectAllXML @"http://%@:%@@app.teambox.com/projects/%@/activities.xml"
 #define KActivitiesProjectNewXML @"http://%@:%@@app.teambox.com/projects/%@/activities/%@/show_new.xml"
 #define KActivitiesProjectMoreXML @"http://%@:%@@app.teambox.com/projects/%@/activities/%@/show_more.xml"
