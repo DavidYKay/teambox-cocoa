@@ -18,7 +18,7 @@
 #import "ConversationModel.h"
 #import "UploadModel.h"
 
-@interface  TeamboxActivitiesParser (Private)
+@interface  TeamboxActivitiesParser (Private) 
 
 - (void)addUser:(NSNumber *)userID WithUsername:(NSString *)username ForProject:(NSNumber *)projectID projectName:(NSString *)projectName permalink:(NSString *)permalink;
 - (void)addUser:(int)userID WithUsername:(NSString *)username AndFirstName:(NSString *)firstname AndLastName:(NSString *)lastname;
@@ -30,7 +30,11 @@
 - (void)parse {
 		// Obtain root element
 	TBXMLElement *root = parser.rootXMLElement;	
-	
+	//NSString* sOlder=[[NSUserDefaults standardUserDefaults] integerForKey:@"lastActivityParsed"];
+	int olderActivity =  [[NSUserDefaults standardUserDefaults] integerForKey:@"lastActivityParsed"];
+	if (olderActivity==0) {
+		olderActivity = INT_MAX;
+	}
 		// if root element is valid
 	NSError *error;
 	if (root) {
@@ -187,10 +191,17 @@
 			}
 			
 				// find the next sibling element named "project"
+			if ([aActivity.activity_id intValue]<olderActivity) {
+				olderActivity =[aActivity.activity_id intValue];
+			}
 			activity = [TBXML nextSiblingNamed:@"activity" searchFromElement:activity];
 		}
 	}
 	NSLog(@"Salgo");
+	//guardamos la últimaactividad parseada
+	//NSString* sO=[NSString stringWithFormat:@"%d", olderActivity];
+	[[NSUserDefaults standardUserDefaults] setInteger:olderActivity forKey:@"lastActivityParsed"];
+	[[NSUserDefaults standardUserDefaults] synchronize];
 	[delegate parserFinishedType:typeParse];
 }
 
