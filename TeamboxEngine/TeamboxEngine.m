@@ -79,8 +79,10 @@
 	NSString *path = [NSString stringWithFormat:KActivitiesAllNewXML, username, password, activityID];
 }
 
-- (void)getActivitiesAllMore:(NSString *)activityID {
-	NSString *path = [NSString stringWithFormat:KActivitiesAllMoreXML, username, password, activityID];
+- (void)getActivitiesAllMore:(NSNumber *)activityID {
+	NSString *path = [NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [activityID intValue]];
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:path] type:@"ActivitiesAll" delegate:self];
+	NSLog([NSString stringWithFormat:@"getActivitiesAllMore activity:%i",[activityID intValue]]);
 }
 
 - (void)getActivities:(NSString *)projectID {
