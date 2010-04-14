@@ -39,7 +39,8 @@
 	if (self = [super init]) {
 		username = [NSString alloc];
 		password = [NSString alloc];
-        engineDelegate = delegate;
+		engineDelegate = delegate;
+
 		managedObjectContext = self.managedObjectContext;
     }
     return self;
@@ -63,6 +64,7 @@
 }
 
 - (void)getActivitiesAllNew {
+	NSLog(@"getActivitiesAllNew");
 	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Activity" inManagedObjectContext:managedObjectContext]];
 	[fetchRequest setFetchLimit:1];
@@ -82,8 +84,9 @@
 }
 
 - (void)getActivitiesAllMore:(NSNumber *)activityID {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [activityID intValue]]] type:@"ActivitiesAllMore" delegate:self];
 	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%i",[activityID intValue]]);
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [activityID intValue]]] type:@"ActivitiesAllMore" delegate:self];
+	
 }
 
 - (void)getActivities:(NSString *)projectID {
@@ -123,8 +126,7 @@
 		[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	else if ([type isEqualToString:@"TaskListProject"])
 		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	
-	NSLog(@"Exit finishedGetData %@", type);
+	NSLog(@"Exit finishedGetData %@ \n ", type);
 }
 
 - (void)setUseSecureConnection:(BOOL)useSecure {
@@ -150,15 +152,15 @@
 
 - (void)parserFinishedType:(NSString *)type {
 	if ([type isEqualToString:@"Projects"])
-		[engineDelegate projectsReceived:managedObjectContext];
+		[engineDelegate projectsReceived];
 	else if ([type isEqualToString:@"ActivitiesAll"])
-		[engineDelegate activitiesReceivedAll:managedObjectContext];
+		[engineDelegate activitiesReceivedAll];
 	else if ([type isEqualToString:@"ActivitiesAllNew"])
-		[engineDelegate activitiesReceivedAllNew:managedObjectContext];
+		[engineDelegate activitiesReceivedAllNew];
 	else if ([type isEqualToString:@"ActivitiesAllMore"])
-		[engineDelegate activitiesReceivedAllMore:managedObjectContext];
+		[engineDelegate activitiesReceivedAllMore];
 	else if ([type isEqualToString:@"TaskListProject"])
-		[engineDelegate taskListReceivedProject:managedObjectContext];
+		[engineDelegate taskListReceivedProject];
 	
 		/*if ([type isEqualToString:@"ActivitiesAll"])
 			[engineDelegate activitiesReceivedAll:parsedElements];
@@ -169,7 +171,7 @@
 		else if ([type isEqualToString:@"Projects"])
 			[engineDelegate projectsReceived:parsedElements];
 		//[engineDelegate activitiesReceivedNothing:type]; */
-	NSLog(@"Exit parserFinishedType %@", type);
+	NSLog(@"Exit parserFinishedType %@ ", type);
 }
 
 - (NSManagedObjectContext *) managedObjectContext {

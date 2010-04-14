@@ -11,13 +11,13 @@
 
 @optional
 
-- (void)activitiesReceivedAll:(NSManagedObjectContext *)managedObjectContext;
-- (void)activitiesReceivedAllNew:(NSManagedObjectContext *)managedObjectContext;
-- (void)activitiesReceivedAllMore:(NSManagedObjectContext *)managedObjectContext;
-- (void)projectsReceived:(NSManagedObjectContext *)managedObjectContext;
+- (void)activitiesReceivedAll;
+- (void)activitiesReceivedAllNew;
+- (void)activitiesReceivedAllMore;
+- (void)projectsReceived;
 - (void)activitiesReceivedNothing:(NSString *)type;
 
-- (void)taskListReceivedProject:(NSManagedObjectContext *)managedObjectContext;
+- (void)taskListReceivedProject;
 
 @required
 	//Authenticate

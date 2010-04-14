@@ -20,8 +20,8 @@
 	NSString *password;
 	NSString *typeUser;
 	NSManagedObjectModel *managedObjectModel;
-    NSManagedObjectContext *managedObjectContext;	    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+	NSManagedObjectContext *managedObjectContext;	    
+	NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	BOOL secureConnection;
 	NSTimer *refreshTimer;
 }

@@ -72,7 +72,6 @@
 			taskList = [TBXML nextSiblingNamed:@"task_list" searchFromElement:taskList];
 		}
 	}
-	NSLog(@"Salgo");
 	[delegate parserFinishedType:typeParse];
 }
 

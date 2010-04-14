@@ -189,7 +189,6 @@
 			activity = [TBXML nextSiblingNamed:@"activity" searchFromElement:activity];
 		}
 	}
-	NSLog(@"Salgo");
 	//guardamos la últimaactividad parseada
 	//NSString* sO=[NSString stringWithFormat:@"%d", olderActivity];
 	[[NSUserDefaults standardUserDefaults] setInteger:olderActivity forKey:@"lastActivityParsed"];
