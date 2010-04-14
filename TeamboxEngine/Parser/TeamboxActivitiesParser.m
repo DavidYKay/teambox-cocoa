@@ -35,13 +35,13 @@
 	if (olderActivity==0) {
 		olderActivity = INT_MAX;
 	}
-		// if root element is valid
+		//if root element is valid
 	NSError *error;
 	if (root) {
 		TBXMLElement *activity = [TBXML childElementNamed:@"activity" parentElement:root];
 			// if an author element was found
 		while (activity != nil) {
-			ActivityModel *aActivity;
+			
 			NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
 				//first we search the project for update if exists
 			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
@@ -52,8 +52,9 @@
 			NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
 			[fetchRequest release];
 			
-			
 			if ([items count] == 0) {
+				NSLog(@"Parseando actividad");
+				ActivityModel *aActivity;
 				aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
 				aActivity.activity_id = nId;
 				/*aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
@@ -174,9 +175,7 @@
 				aActivity.Project = aProject;
 				[aUser addActivityObject:aActivity];
 					//SAVE the object
-				if (![managedObjectContext save:&error]) {
-						// Handle the error.
-				}
+				
 				
 					// find the next sibling element named "project"
 				if ([aActivity.activity_id intValue]<olderActivity) {
@@ -184,10 +183,14 @@
 				}
 				
 			}else{
-				aActivity =[items objectAtIndex:0];
+	
+				
 			}
 			activity = [TBXML nextSiblingNamed:@"activity" searchFromElement:activity];
 		}
+	}
+	if (![managedObjectContext save:&error]) {
+			// Handle the error.
 	}
 	//guardamos la últimaactividad parseada
 	//NSString* sO=[NSString stringWithFormat:@"%d", olderActivity];

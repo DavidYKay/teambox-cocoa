@@ -64,13 +64,14 @@
 				}				
 			}
 							//SAVE the object
-			if (![managedObjectContext save:&error]) {
-					// Handle the error.
-			}
+			
 			
 				// find the next sibling element named "project"
 			taskList = [TBXML nextSiblingNamed:@"task_list" searchFromElement:taskList];
 		}
+	}
+	if (![managedObjectContext save:&error]) {
+			// Handle the error.
 	}
 	[delegate parserFinishedType:typeParse];
 }

@@ -248,7 +248,7 @@
 }
 
 - (void)finishedConnectionLogin {
-	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60 //180
+	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:33333 //180
 													target:self selector:@selector(getActivitiesAllNew) userInfo:nil 
 												   repeats:YES];
 	[engineDelegate correctAuthentication];
