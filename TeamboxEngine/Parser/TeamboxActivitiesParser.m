@@ -45,154 +45,146 @@
 			NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
 				//first we search the project for update if exists
 			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-			
 			NSEntityDescription *entity = [NSEntityDescription entityForName:@"Activity" inManagedObjectContext:managedObjectContext];
 			[fetchRequest setEntity:entity];
-			
 			NSPredicate *predicate = [NSPredicate predicateWithFormat:@"activity_id=%i",[nId intValue]];
 			[fetchRequest setPredicate:predicate];
-			
-
 			NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
 			[fetchRequest release];
 			
 			
-			if ([items count]==0) {
+			if ([items count] == 0) {
 				aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
 				aActivity.activity_id = nId;
+				/*aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
+				 aActivity.activity_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];*/
 				
-			}else{
+				TBXMLElement *desc = [TBXML childElementNamed:@"action" parentElement:activity];
+				if (desc != nil)
+					aActivity.action = [TBXML textForElement:desc];
 				
-				aActivity =[items objectAtIndex:0];
-			}
-			
-			
-			
-			/*aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
-			aActivity.activity_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];*/
-			
-			TBXMLElement *desc = [TBXML childElementNamed:@"action" parentElement:activity];
-			if (desc != nil)
-				aActivity.action = [TBXML textForElement:desc];
-			
-			
-			[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
-			NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
-			[dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT: 0]];
-			[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-				// find the description child 
-			
-			desc = [TBXML childElementNamed:@"created-at" parentElement:activity];
-			if (desc != nil) {
-				aActivity.created_at = [dateFormatter dateFromString:[TBXML textForElement:desc]];
-				aActivity.created_at_string = [TBXML textForElement:desc];
-			}
-				//desc = [TBXML childElementNamed:@"updated-at" parentElement:activity];
-				//if (desc != nil)
+				
+				[NSDateFormatter setDefaultFormatterBehavior:NSDateFormatterBehavior10_4];
+				NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+				[dateFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT: 0]];
+				[dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+					// find the description child 
+				
+				desc = [TBXML childElementNamed:@"created-at" parentElement:activity];
+				if (desc != nil) {
+					aActivity.created_at = [dateFormatter dateFromString:[TBXML textForElement:desc]];
+					aActivity.created_at_string = [TBXML textForElement:desc];
+				}
+					//desc = [TBXML childElementNamed:@"updated-at" parentElement:activity];
+					//if (desc != nil)
 					//aActivity.updated_at = [dateFormatter dateFromString:[TBXML textForElement:desc]];
-			
-				//Get the USER in the activity
-			
-				//User
-			TBXMLElement *user = [TBXML childElementNamed:@"user" parentElement:activity];
-			NSFetchRequest *fetchUser = [[NSFetchRequest alloc] init];
-			[fetchUser setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext]];
-			[fetchUser setPredicate:[NSPredicate predicateWithFormat:@"user_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue]]];
-			NSArray *item = [managedObjectContext  executeFetchRequest:fetchUser error:&error];
-			if ([item count] == 0) {
-				[self addUser:[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue] 
-				 WithUsername:[TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:user]] 
-				 AndFirstName:[TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]] 
-				  AndLastName:[TBXML textForElement:[TBXML childElementNamed:@"last-name" parentElement:user]]];
-				item = [managedObjectContext  executeFetchRequest:fetchUser error:&error];
-			}
-			UserModel *aUser = [item objectAtIndex:0];
-			
-			aUser.first_name = [TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]];
-			aUser.last_name = [TBXML textForElement:[TBXML childElementNamed:@"last-name" parentElement:user]];
-			aUser.full_name = [NSString stringWithFormat:@"%@ %@", aUser.first_name, aUser.last_name];
-			
-				//Target
-			TBXMLElement *target = [TBXML childElementNamed:@"target" parentElement:activity];
-			aActivity.target_type = [TBXML textForElement:[TBXML childElementNamed:@"type" parentElement:target]];
-			
-				//Create
-			if ([aActivity.action isEqualToString:@"create"]) {
-				if ([aActivity.target_type isEqualToString:@"Comment"]) {
-					CommentModel *aComment;
-					TBXMLElement *comment = [TBXML childElementNamed:@"comment" parentElement:target];
-					aActivity.comment_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
-					aComment = (CommentModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:managedObjectContext];
-					aComment.body = [[[TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"body" parentElement:comment]]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@" "];
-					
-					aComment.body_html = [TBXML textForElement:[TBXML childElementNamed:@"body-html" parentElement:comment]];
-					aComment.target_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"target-id" forElement:comment] intValue]];
-					aComment.target_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
-					//aComment.created_at 
-					aActivity.user_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:comment]] intValue]];
-					aActivity.project_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"project-id" parentElement:comment]] intValue]];
-					if ([aComment.target_type isEqualToString:@"Project"]) {
+				
+					//Get the USER in the activity
+				
+					//User
+				TBXMLElement *user = [TBXML childElementNamed:@"user" parentElement:activity];
+				NSFetchRequest *fetchUser = [[NSFetchRequest alloc] init];
+				[fetchUser setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext]];
+				[fetchUser setPredicate:[NSPredicate predicateWithFormat:@"user_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue]]];
+				NSArray *item = [managedObjectContext  executeFetchRequest:fetchUser error:&error];
+				if ([item count] == 0) {
+					[self addUser:[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue] 
+					 WithUsername:[TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:user]] 
+					 AndFirstName:[TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]] 
+					  AndLastName:[TBXML textForElement:[TBXML childElementNamed:@"last-name" parentElement:user]]];
+					item = [managedObjectContext  executeFetchRequest:fetchUser error:&error];
+				}
+				UserModel *aUser = [item objectAtIndex:0];
+				
+				aUser.first_name = [TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]];
+				aUser.last_name = [TBXML textForElement:[TBXML childElementNamed:@"last-name" parentElement:user]];
+				aUser.full_name = [NSString stringWithFormat:@"%@ %@", aUser.first_name, aUser.last_name];
+				
+					//Target
+				TBXMLElement *target = [TBXML childElementNamed:@"target" parentElement:activity];
+				aActivity.target_type = [TBXML textForElement:[TBXML childElementNamed:@"type" parentElement:target]];
+				
+					//Create
+				if ([aActivity.action isEqualToString:@"create"]) {
+					if ([aActivity.target_type isEqualToString:@"Comment"]) {
+						CommentModel *aComment;
+						TBXMLElement *comment = [TBXML childElementNamed:@"comment" parentElement:target];
+						aActivity.comment_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
+						aComment = (CommentModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:managedObjectContext];
+						aComment.body = [[[TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"body" parentElement:comment]]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@" "];
 						
-					} else if ([aComment.target_type isEqualToString:@"Task"]) {
+						aComment.body_html = [TBXML textForElement:[TBXML childElementNamed:@"body-html" parentElement:comment]];
+						aComment.target_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"target-id" forElement:comment] intValue]];
+						aComment.target_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
+							//aComment.created_at 
+						aActivity.user_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:comment]] intValue]];
+						aActivity.project_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"project-id" parentElement:comment]] intValue]];
+						if ([aComment.target_type isEqualToString:@"Project"]) {
+							
+						} else if ([aComment.target_type isEqualToString:@"Task"]) {
+							
+							aComment.assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"assigned-id" parentElement:comment]] intValue]];
+							aComment.previous_status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-status" parentElement:comment]] intValue]];
+							aComment.previous_assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-assigned-id" parentElement:comment]] intValue]];
+							aComment.status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:comment]] intValue]];
+							
+						} else if ([aComment.target_type isEqualToString:@"TaskList"]) {
+							
+						}
+						/*TBXMLElement *files = [TBXML childElementNamed:@"files" parentElement:comment];
+						 if (files != nil) {
+						 TBXMLElement *file = [TBXML childElementNamed:@"file" parentElement:files];
+						 while (file != nil) {
+						 UploadModel *aUpload = (UploadModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Upload" inManagedObjectContext:managedObjectContext];
+						 aUpload.asset_file_name = [TBXML textForElement:[TBXML childElementNamed:@"filename" parentElement:file]];
+						 //[aComment addUploadObject:aUpload];
+						 [TBXML nextSiblingNamed:@"file" searchFromElement:file];
+						 }
+						 }*/
 						
-						aComment.assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"assigned-id" parentElement:comment]] intValue]];
-						aComment.previous_status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-status" parentElement:comment]] intValue]];
-						aComment.previous_assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-assigned-id" parentElement:comment]] intValue]];
-						aComment.status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:comment]] intValue]];
+						aActivity.Comment = aComment;
+					} else if ([aActivity.target_type isEqualToString:@"Task"]) {
+						TBXMLElement *task = [TBXML childElementNamed:@"task" parentElement:target];
 						
-					} else if ([aComment.target_type isEqualToString:@"TaskList"]) {
+					} else if ([aActivity.target_type isEqualToString:@"TaskList"]) {
+						
+					} else if ([aActivity.target_type isEqualToString:@"Person"]) {
+						TBXMLElement *project = [TBXML childElementNamed:@"project" parentElement:activity];
+						TBXMLElement *person = [TBXML childElementNamed:@"person" parentElement:target];
+						[self addUser:[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person] intValue]] 
+						 WithUsername:[TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:person]]
+						   ForProject:[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]] 
+						  projectName:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:project]] 
+							permalink:[TBXML textForElement:[TBXML childElementNamed:@"permalink" parentElement:project]]];
+					} else if ([aActivity.target_type isEqualToString:@"Page"]) {
+						
+					} else if ([aActivity.target_type isEqualToString:@"Conversation"]) {
 						
 					}
-					/*TBXMLElement *files = [TBXML childElementNamed:@"files" parentElement:comment];
-					 if (files != nil) {
-						TBXMLElement *file = [TBXML childElementNamed:@"file" parentElement:files];
-							while (file != nil) {
-							UploadModel *aUpload = (UploadModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Upload" inManagedObjectContext:managedObjectContext];
-							aUpload.asset_file_name = [TBXML textForElement:[TBXML childElementNamed:@"filename" parentElement:file]];
-							//[aComment addUploadObject:aUpload];
-							[TBXML nextSiblingNamed:@"file" searchFromElement:file];
-						}
-					 }*/
-					
-					aActivity.Comment = aComment;
-				} else if ([aActivity.target_type isEqualToString:@"Task"]) {
-					TBXMLElement *task = [TBXML childElementNamed:@"task" parentElement:target];
-					
-				} else if ([aActivity.target_type isEqualToString:@"TaskList"]) {
-					
-				} else if ([aActivity.target_type isEqualToString:@"Person"]) {
-					TBXMLElement *project = [TBXML childElementNamed:@"project" parentElement:activity];
-					TBXMLElement *person = [TBXML childElementNamed:@"person" parentElement:target];
-					[self addUser:[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person] intValue]] 
-					 WithUsername:[TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:person]]
-					   ForProject:[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]] 
-					  projectName:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:project]] 
-						permalink:[TBXML textForElement:[TBXML childElementNamed:@"permalink" parentElement:project]]];
-				} else if ([aActivity.target_type isEqualToString:@"Page"]) {
-					
-				} else if ([aActivity.target_type isEqualToString:@"Conversation"]) {
+						//Delete
+				} else if ([aActivity.action isEqualToString:@"delete"]) {
 					
 				}
-				//Delete
-			} else if ([aActivity.action isEqualToString:@"delete"]) {
+				TBXMLElement *project = [TBXML childElementNamed:@"project" parentElement:activity];
 				
-			}
-			TBXMLElement *project = [TBXML childElementNamed:@"project" parentElement:activity];
-			
-			fetchRequest = [[NSFetchRequest alloc] init];
-			[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
-			[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"project_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]]];
-			ProjectModel *aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
-			aActivity.Project = aProject;
-			[aUser addActivityObject:aActivity];
-				//SAVE the object
-			if (![managedObjectContext save:&error]) {
-					// Handle the error.
-			}
-			
-				// find the next sibling element named "project"
-			if ([aActivity.activity_id intValue]<olderActivity) {
-				olderActivity =[aActivity.activity_id intValue];
+				fetchRequest = [[NSFetchRequest alloc] init];
+				[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
+				[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"project_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]]];
+				ProjectModel *aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+				aActivity.Project = aProject;
+				[aUser addActivityObject:aActivity];
+					//SAVE the object
+				if (![managedObjectContext save:&error]) {
+						// Handle the error.
+				}
+				
+					// find the next sibling element named "project"
+				if ([aActivity.activity_id intValue]<olderActivity) {
+					olderActivity =[aActivity.activity_id intValue];
+				}
+				
+			}else{
+				aActivity =[items objectAtIndex:0];
 			}
 			activity = [TBXML nextSiblingNamed:@"activity" searchFromElement:activity];
 		}
