@@ -126,6 +126,7 @@ typedef struct _TBXMLAttributeBuffer {
 + (NSString*) attributeValue:(TBXMLAttribute*)aXMLAttribute;
 
 + (TBXMLElement*) nextSiblingNamed:(NSString*)aName searchFromElement:(TBXMLElement*)aXMLElement;
++ (TBXMLElement *)previousSiblingNamed:(NSString*)aName searchFromElement:(TBXMLElement*)aXMLElement;
 + (TBXMLElement*) childElementNamed:(NSString*)aName parentElement:(TBXMLElement*)aParentXMLElement;
 + (NSString *)stringByDecodingXMLEntities:(NSString*)sSource;
 

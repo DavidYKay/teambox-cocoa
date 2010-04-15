@@ -39,7 +39,7 @@
 				aTaskList.project_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"project-id" parentElement:taskList]] intValue]];
 				aTaskList.user_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:taskList]] intValue]];
 				aTaskList.position = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"position" parentElement:taskList]] intValue]];
-				aTaskList.name = [TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:taskList]];
+				aTaskList.name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:taskList]]];
 					//aTaskList.archived = [[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:taskList]] boolValue];
 			} else
 				aTaskList = [items objectAtIndex:0];
@@ -53,11 +53,11 @@
 					fetchRequest = [[NSFetchRequest alloc] init];
 					[fetchRequest setEntity:[NSEntityDescription entityForName:@"Task" inManagedObjectContext:managedObjectContext]];
 					[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"task_id=%i",[nId intValue]]];
-					items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
+					items = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
 					[fetchRequest release];
 					if ([items count]==0) {
 						aTask = (TaskModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
-						aTask.name = [TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:task]];
+						aTask.name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:task]]];
 						[aTaskList addTaskObject:aTask];
 					}
 					task = [TBXML nextSiblingNamed:@"task" searchFromElement:task];

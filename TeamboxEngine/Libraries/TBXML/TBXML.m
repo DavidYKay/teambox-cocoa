@@ -215,6 +215,18 @@
 	return nil;
 }
 
++ (TBXMLElement *)previousSiblingNamed:(NSString*)aName searchFromElement:(TBXMLElement*)aXMLElement{
+	TBXMLElement * xmlElement = aXMLElement->previousSibling;
+	const char * name = [aName cStringUsingEncoding:NSUTF8StringEncoding];
+	while (xmlElement) {
+		if (strlen(xmlElement->name) == strlen(name) && memcmp(xmlElement->name,name,strlen(name)) == 0) {
+			return xmlElement;
+		}
+		xmlElement = xmlElement->previousSibling;
+	}
+	return nil;
+}
+
 + (NSString *)stringByDecodingXMLEntities:(NSString*)sSource {
     NSUInteger myLength = [sSource length];
     NSUInteger ampIndex = [sSource rangeOfString:@"&" options:NSLiteralSearch].location;
