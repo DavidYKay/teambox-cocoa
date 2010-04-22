@@ -59,9 +59,6 @@
 		[request setDidFailSelector:@selector(requestWentWrong:)];
 		[request startAsynchronous];
 	}
-	
-	
-    
     return self;
 }
 
@@ -123,8 +120,8 @@
 				else
 					[delegate errorConnectionLogin:nil];
 	} else {
+			//NSLog(@"XML %@",[self.request responseString]);
 		[delegate finishedGetData:[self.request responseData] withType:typeGet];
-			//NSLog(@"%@",[self.request responseString]);
 	}
 	
 }

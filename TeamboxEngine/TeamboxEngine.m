@@ -19,10 +19,7 @@
 
 @interface TeamboxEngine (PrivateMethods)
 
-	//Authentication
-
 @end
-
 
 @implementation TeamboxEngine
 
@@ -65,27 +62,16 @@
 
 - (void)getActivitiesAllNew {
 	NSLog(@"getActivitiesAllNew");
-	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Activity" inManagedObjectContext:managedObjectContext]];
-	[fetchRequest setFetchLimit:1];
-	[fetchRequest setSortDescriptors:[NSArray arrayWithObject: [[[NSSortDescriptor alloc] initWithKey: @"activity_id" ascending: NO] autorelease]]];
-	NSError *error;
-	NSArray *results = [managedObjectContext executeFetchRequest:fetchRequest error:&error];
-	[fetchRequest release];
-	if ([results count] >= 1) {
-		ActivityModel* aActivity = [results objectAtIndex:0];
-		NSNumber *activityID = aActivity.activity_id;
-		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [activityID stringValue]]] type:@"ActivitiesAllNew" delegate:self];
-	}
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
 }
 
 - (void)getActivitiesAllNew:(NSString *)activityID {
 		//NSString *path = [NSString stringWithFormat:KActivitiesAllNewXML, username, password, activityID];
 }
 
-- (void)getActivitiesAllMore:(NSNumber *)activityID {
-	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%i",[activityID intValue]]);
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [activityID intValue]]] type:@"ActivitiesAllMore" delegate:self];
+- (void)getActivitiesAllMore {
+	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%i",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]);
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
 	
 }
 
@@ -122,9 +108,13 @@
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
 	if ([type isEqualToString:@"Projects"])
 		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || [type isEqualToString:@"ActivitiesAllMore"])
-		[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"TaskListProject"])
+	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || [type isEqualToString:@"ActivitiesAllMore"]) {
+			//temporary solution, must give back 0 (! = nil) 
+		if ([data length] > 67)
+			[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+		else
+			[engineDelegate activitiesReceivedNothing:type];
+	} else if ([type isEqualToString:@"TaskListProject"])
 		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	NSLog(@"Exit finishedGetData %@ \n ", type);
 }
@@ -236,6 +226,9 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	username = [defaults valueForKey:kUserNameSettingsKey];
 	if (username == nil) {
+		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastActivityParsed"];
+		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastMoreActivityParsed"];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 		[engineDelegate notHaveUser];
 	} else {
 			NSError *nError;
@@ -248,7 +241,7 @@
 }
 
 - (void)finishedConnectionLogin {
-	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:33333 //180
+	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:180 //180
 													target:self selector:@selector(getActivitiesAllNew) userInfo:nil 
 												   repeats:YES];
 	[engineDelegate correctAuthentication];

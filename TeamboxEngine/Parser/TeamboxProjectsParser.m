@@ -19,20 +19,13 @@
 	
 		// if root element is valid
 	if (root) {
-		
 		TBXMLElement * project = [TBXML childElementNamed:@"project" parentElement:root];
 			// if an author element was found
 		while (project != nil) {
 			NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:project]intValue]];
-			
-				//first we search the project for update if exists
 			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-			
-			NSEntityDescription *entity = [NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext];
-			[fetchRequest setEntity:entity];
-			
-			NSPredicate *predicate = [NSPredicate predicateWithFormat:@"project_id=%i",[nId intValue]];
-			[fetchRequest setPredicate:predicate];
+			[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
+			[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"project_id=%i",[nId intValue]]];
 			
 			NSError *error;
 			NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
@@ -42,42 +35,25 @@
 			if ([items count]==0) {
 				aProject = (ProjectModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project" inManagedObjectContext:managedObjectContext];
 				aProject.project_id = nId;
-				
-			}else{
-				
-				aProject =[items objectAtIndex:0];
-			}
-			
-			TBXMLElement* desc = [TBXML childElementNamed:@"name" parentElement:project];
-			if (desc != nil) {
-					// obtain the text from the description element
+				TBXMLElement* desc = [TBXML childElementNamed:@"name" parentElement:project];
 				aProject.name = [TBXML textForElement:desc];
-			}
-			
-			desc = [TBXML childElementNamed:@"permalink" parentElement:project];
-			if (desc != nil) {
-					// obtain the text from the description element
+				desc = [TBXML childElementNamed:@"permalink" parentElement:project];
 				aProject.permalink = [TBXML textForElement:desc];
-			}
-			
-			desc = [TBXML childElementNamed:@"archived" parentElement:project];
-			if (desc != nil) {
-					// obtain the text from the description element
-				NSString* sArchived = [TBXML textForElement:desc];
-				if ([sArchived isEqualToString:@"false"]) {
-					aProject.archived = [NSNumber numberWithInt:NO];
-				}else {
-					aProject.archived = [NSNumber numberWithInt:YES];
-				}
+				desc = [TBXML childElementNamed:@"archived" parentElement:project];
 				
+				if ([[TBXML textForElement:desc] isEqualToString:@"false"])
+					aProject.archived = [NSNumber numberWithInt:NO];
+				else
+					aProject.archived = [NSNumber numberWithInt:YES];
+				
+				desc = [TBXML childElementNamed:@"owner-user-id" parentElement:project];
+				aProject.owner_user_id = [NSNumber numberWithInt:[[TBXML textForElement:desc] intValue]];
+				save = YES;
+			} else {
+				aProject =[items objectAtIndex:0];
+				save = NO;
 			}
-			desc = [TBXML childElementNamed:@"owner-user-id" parentElement:project];
-			if (desc != nil) {
-					// obtain the text from the description element
-				NSNumber* nOwner =[NSNumber numberWithInt:[[TBXML textForElement:desc] intValue]];
-				aProject.owner_user_id = nOwner;
-			}
-			
+
 			//Get the PEOPLE in the project
 			
 			TBXMLElement* people = [TBXML childElementNamed:@"people" parentElement:project];
@@ -109,10 +85,12 @@
 					Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
 					//then create the user
 					aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
-					aUser.user_id=[NSNumber numberWithInt:[nId intValue]];
+					aUser.user_id= [NSNumber numberWithInt:[nId intValue]];
+					aUser.username = [TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:person]]];
 					//add the ProjectUser to the project and to the user
 					[aProject addProject_UserObject:aProject_User];
 					[aUser addProject_UserObject:aProject_User];
+					save = YES;
 				} else {
 					aUser =[items objectAtIndex:0];
 					//if the user exists, we have to check if the project_user for that project and that user exists.
@@ -133,25 +111,21 @@
 						Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
 						[aProject addProject_UserObject:aProject_User];
 						[aUser addProject_UserObject:aProject_User];
+						save = YES;
 					}
 	
 				}
-				
-				TBXMLElement * desc = [TBXML childElementNamed:@"username" parentElement:person];
-				// if we found a description
-				if (desc != nil) {
-					// obtain the text from the description element
-					aUser.username =[TBXML stringByDecodingXMLEntities:[TBXML textForElement:desc]];
-				}
 				person = [TBXML nextSiblingNamed:@"person" searchFromElement:person];
-				
 			}
 			
 			
 				//SAVE the object
-			if (![managedObjectContext save:&error]) {
-					// Handle the error.
+			if (save) {
+				if (![managedObjectContext save:&error]) {
+						// Handle the error.
+				}
 			}
+			
 			
 				// find the next sibling element named "project"
 			project = [TBXML nextSiblingNamed:@"project" searchFromElement:project];

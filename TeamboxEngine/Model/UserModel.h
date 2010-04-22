@@ -1,8 +1,8 @@
 //
 //  UserModel.h
-//  Teambox
+//  Teambox Mac
 //
-//  Created by Alejandro JL on 13/04/10.
+//  Created by Alejandro JL on 22/04/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -19,6 +19,7 @@
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSString * full_name;
 @property (nonatomic, retain) NSNumber * user_id;
+@property (nonatomic, retain) NSString * avatar_url;
 @property (nonatomic, retain) NSString * first_name;
 @property (nonatomic, retain) NSSet* Project_User;
 @property (nonatomic, retain) NSSet* activity;

@@ -10,7 +10,7 @@
 #import "TeamboxParser.h"
 
 @interface TeamboxProjectsParser : TeamboxParser {
-
+	bool save;
 }
 
 @end

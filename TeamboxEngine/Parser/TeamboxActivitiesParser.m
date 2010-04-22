@@ -40,6 +40,10 @@
 	if (root) {
 		int countActivities = 0;
 		TBXMLElement *activitx = [TBXML childElementNamed:@"activity" parentElement:root];
+		if (([typeParse isEqualToString:@"ActivitiesAllNew"] || [typeParse isEqualToString:@"ActivitiesAll"]) && activitx != nil) {
+			[[NSUserDefaults standardUserDefaults] setInteger:[[TBXML valueOfAttributeNamed:@"id" forElement:activitx] intValue] forKey:@"lastActivityParsed"];
+			[[NSUserDefaults standardUserDefaults] synchronize];
+		}
 		while (activitx != nil) {
 			countActivities++;
 			activitx = [TBXML nextSiblingNamed:@"activity" searchFromElement:activitx];
@@ -52,9 +56,14 @@
 			activity = [TBXML nextSiblingNamed:@"activity" searchFromElement:activity];
 			x++;
 		}
+		
+		if ([typeParse isEqualToString:@"ActivitiesAllMore"] || [typeParse isEqualToString:@"ActivitiesAll"]) {
+			[[NSUserDefaults standardUserDefaults] setInteger:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue] forKey:@"lastMoreActivityParsed"];
+			[[NSUserDefaults standardUserDefaults] synchronize];
+		}
 			// if an author element was found
 		while (activity != nil) {
-			NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
+			NSNumber* nId = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
 				//first we search the project for update if exists
 			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 			NSEntityDescription *entity = [NSEntityDescription entityForName:@"Activity" inManagedObjectContext:managedObjectContext];
@@ -110,8 +119,9 @@
 				UserModel *aUser = [item objectAtIndex:0];
 				
 				aUser.first_name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]]];
-				aUser.last_name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"last-name" parentElement:user]] ];
+				aUser.last_name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"last-name" parentElement:user]]];
 				aUser.full_name = [NSString stringWithFormat:@"%@ %@", aUser.first_name, aUser.last_name];
+				aUser.avatar_url = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"avatar-url" parentElement:user]] ];
 				
 					//Target
 				TBXMLElement *target = [TBXML childElementNamed:@"target" parentElement:activity];
@@ -126,7 +136,7 @@
 						aComment = (CommentModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Comment" inManagedObjectContext:managedObjectContext];
 						aComment.body = [self stringByDecodingXMLEntities:[[[TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"body" parentElement:comment]]] componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@" "] ];
 						
-						aComment.body_html = [TBXML textForElement:[TBXML childElementNamed:@"body-html" parentElement:comment]];
+						aComment.body_html = [TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"body-html" parentElement:comment]]];
 						aComment.target_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"target-id" forElement:comment] intValue]];
 						aComment.target_type = [TBXML textForElement:[TBXML childElementNamed:@"target-type" parentElement:comment]];
 							//aComment.created_at 
@@ -205,8 +215,6 @@
 	}
 	//guardamos la últimaactividad parseada
 	//NSString* sO=[NSString stringWithFormat:@"%d", olderActivity];
-	[[NSUserDefaults standardUserDefaults] setInteger:olderActivity forKey:@"lastActivityParsed"];
-	[[NSUserDefaults standardUserDefaults] synchronize];
 	[delegate parserFinishedType:typeParse];
 }
 
