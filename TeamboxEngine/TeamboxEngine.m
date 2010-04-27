@@ -37,7 +37,12 @@
 		username = [NSString alloc];
 		password = [NSString alloc];
 		engineDelegate = delegate;
-
+		if (![[NSUserDefaults standardUserDefaults] objectForKey:kLaunchDateSettingsKey]) {
+			[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastActivityParsed"];
+			[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastMoreActivityParsed"];
+		}
+		[[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:kLaunchDateSettingsKey];
+		[[NSUserDefaults standardUserDefaults] synchronize];
 		managedObjectContext = self.managedObjectContext;
     }
     return self;
@@ -61,7 +66,7 @@
 }
 
 - (void)getActivitiesAllNew {
-	NSLog(@"getActivitiesAllNew");
+	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]);
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
 }
 
@@ -70,7 +75,7 @@
 }
 
 - (void)getActivitiesAllMore {
-	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%i",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]);
+	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]);
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
 	
 }

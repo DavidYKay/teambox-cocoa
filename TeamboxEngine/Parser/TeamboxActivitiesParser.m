@@ -63,21 +63,12 @@
 		}
 			// if an author element was found
 		while (activity != nil) {
-			NSNumber* nId = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
-				//first we search the project for update if exists
-			NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
-			NSEntityDescription *entity = [NSEntityDescription entityForName:@"Activity" inManagedObjectContext:managedObjectContext];
-			[fetchRequest setEntity:entity];
-			NSPredicate *predicate = [NSPredicate predicateWithFormat:@"activity_id=%i",[nId intValue]];
-			[fetchRequest setPredicate:predicate];
-			NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
-			[fetchRequest release];
 			
-			if ([items count] == 0) {
+				//if ([items count] == 0 && ![typeParse isNotEqualTo:@"ActivitiesAllMore"]) {
 				NSLog(@"Parseando actividad");
 				ActivityModel *aActivity;
 				aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
-				aActivity.activity_id = nId;
+				aActivity.activity_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
 				/*aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
 				 aActivity.activity_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];*/
 				
@@ -190,10 +181,11 @@
 				}
 				TBXMLElement *project = [TBXML childElementNamed:@"project" parentElement:activity];
 				
-				fetchRequest = [[NSFetchRequest alloc] init];
+				NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 				[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
 				[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"project_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]]];
 				ProjectModel *aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+					[fetchRequest release];
 				aActivity.Project = aProject;
 				[aUser addActivityObject:aActivity];
 					//SAVE the object
@@ -206,10 +198,8 @@
 					olderActivity =[aActivity.activity_id intValue];
 				}
 				
-			}else{
-	
-				
-			}
+				//}else{
+				//}
 			activity = [TBXML previousSiblingNamed:@"activity" searchFromElement:activity];
 		}
 	}

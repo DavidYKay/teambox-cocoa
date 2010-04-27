@@ -58,6 +58,7 @@
 					if ([items count]==0) {
 						aTask = (TaskModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
 						aTask.name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:task]]];
+						aTask.status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:task]] intValue]];
 						[aTaskList addTaskObject:aTask];
 					}
 					task = [TBXML nextSiblingNamed:@"task" searchFromElement:task];
