@@ -136,25 +136,22 @@
 						if ([aComment.target_type isEqualToString:@"Project"]) {
 							
 						} else if ([aComment.target_type isEqualToString:@"Task"]) {
-							
-							aComment.assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"assigned-id" parentElement:comment]] intValue]];
-							aComment.previous_status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-status" parentElement:comment]] intValue]];
-							aComment.previous_assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-assigned-id" parentElement:comment]] intValue]];
-							aComment.status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:comment]] intValue]];
-							
-						} else if ([aComment.target_type isEqualToString:@"TaskList"]) {
+							if ([TBXML childElementNamed:@"status" parentElement:comment] != nil)
+								aComment.status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:comment]] intValue]];
+							if ([TBXML childElementNamed:@"previous-status" parentElement:comment] != nil)
+								aComment.previous_status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-status" parentElement:comment]] intValue]];
+							if ([TBXML childElementNamed:@"assigned-id" parentElement:comment] != nil)
+								aComment.assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"assigned-id" parentElement:comment]] intValue]];
+							if ([TBXML childElementNamed:@"previous-assigned-id" parentElement:comment] != nil)
+								aComment.previous_assigned_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"previous-assigned-id" parentElement:comment]] intValue]];
+							NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+							[fetchRequest setEntity:[NSEntityDescription entityForName:@"Task" inManagedObjectContext:managedObjectContext]];
+							[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"task_id=%@",[TBXML textForElement:[TBXML childElementNamed:@"target-id" parentElement:comment]]]];
+							TaskModel *aTask = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+							[fetchRequest release];
+							aActivity.Task = aTask;
 							
 						}
-						/*TBXMLElement *files = [TBXML childElementNamed:@"files" parentElement:comment];
-						 if (files != nil) {
-						 TBXMLElement *file = [TBXML childElementNamed:@"file" parentElement:files];
-						 while (file != nil) {
-						 UploadModel *aUpload = (UploadModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Upload" inManagedObjectContext:managedObjectContext];
-						 aUpload.asset_file_name = [TBXML textForElement:[TBXML childElementNamed:@"filename" parentElement:file]];
-						 //[aComment addUploadObject:aUpload];
-						 [TBXML nextSiblingNamed:@"file" searchFromElement:file];
-						 }
-						 }*/
 						
 						aActivity.Comment = aComment;
 					} else if ([aActivity.target_type isEqualToString:@"Task"]) {
@@ -185,7 +182,7 @@
 				[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
 				[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"project_id=%i",[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]]];
 				ProjectModel *aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
-					[fetchRequest release];
+				[fetchRequest release];
 				aActivity.Project = aProject;
 				[aUser addActivityObject:aActivity];
 					//SAVE the object

@@ -121,7 +121,8 @@
 			[engineDelegate activitiesReceivedNothing:type];
 	} else if ([type isEqualToString:@"TaskListProject"])
 		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	NSLog(@"Exit finishedGetData %@ \n ", type);
+	else if ([type isEqualToString:@"Comment"])
+		[self getActivitiesAllNew];
 }
 
 - (void)setUseSecureConnection:(BOOL)useSecure {
@@ -133,11 +134,11 @@
 }
 
 - (void)postCommentWithProject:(NSString *)comment projectName:(NSString *)name {
-	name = [[name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""];
-	NSString *urlString = [NSString stringWithFormat:KPostComment, username, password, name]; 
-	NSURL *url = [NSURL URLWithString:urlString];
-	
-	[TeamboxConnection postCommentWithUrl:url comment:comment delegate:self];
+	[TeamboxConnection postCommentWithUrl:[NSURL URLWithString:[NSString stringWithFormat:KPostComment, 
+																username, 
+																password, 
+																[[[name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""] lowercaseString]]] 
+								  comment:comment delegate:self];
 	NSLog(@"Exit postCommentWithProject");
 }
 

@@ -1,8 +1,8 @@
 //
 //  TaskModel.h
-//  Teambox
+//  Teambox Mac
 //
-//  Created by Alejandro JL on 13/04/10.
+//  Created by Alejandro JL on 28/04/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -28,9 +28,16 @@
 @property (nonatomic, retain) NSNumber * status;
 @property (nonatomic, retain) NSString * name;
 @property (nonatomic, retain) TaskListModel * TaskList;
-@property (nonatomic, retain) ActivityModel * Activity;
+@property (nonatomic, retain) NSSet* Activity;
 
 @end
 
 
+@interface TaskModel (CoreDataGeneratedAccessors)
+- (void)addActivityObject:(ActivityModel *)value;
+- (void)removeActivityObject:(ActivityModel *)value;
+- (void)addActivity:(NSSet *)value;
+- (void)removeActivity:(NSSet *)value;
+
+@end
 

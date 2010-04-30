@@ -63,11 +63,10 @@
 }
 
 -(id)initWithUrlAndPostData:(NSURL *)url delegate:(NSObject *)theDelegate postData:(NSData*)postData {
-	
-
 	if (self = [super init]) {
 		delegate = theDelegate;
 		request = [ASIHTTPRequest requestWithURL:url];
+		typeGet = @"Comment";
 		[request setDelegate:self];
 		[request addRequestHeader:@"Accept" value:@"application/xml"];
 		[request addRequestHeader:@"Content-Type" value:@"application/xml"];

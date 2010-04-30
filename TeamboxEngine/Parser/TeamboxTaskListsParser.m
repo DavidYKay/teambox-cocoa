@@ -57,6 +57,8 @@
 					[fetchRequest release];
 					if ([items count]==0) {
 						aTask = (TaskModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
+						aTask.task_id = nId;
+						aTask.task_list_id = aTaskList.tasklist_id;
 						aTask.name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:task]]];
 						aTask.status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:task]] intValue]];
 						[aTaskList addTaskObject:aTask];

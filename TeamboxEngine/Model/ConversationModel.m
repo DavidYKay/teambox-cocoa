@@ -1,8 +1,8 @@
 // 
 //  ConversationModel.m
-//  Teambox
+//  Teambox Mac
 //
-//  Created by Alejandro JL on 13/04/10.
+//  Created by Alejandro JL on 28/04/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
