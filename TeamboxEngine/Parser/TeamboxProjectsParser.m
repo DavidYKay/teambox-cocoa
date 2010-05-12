@@ -1,15 +1,16 @@
-//
-//  TeamboxProjectsParser.m
-//  Teambox
-//
-//  Created by Alejandro Julián López on 27/02/10.
-//  Copyright 2010 Teambox. All rights reserved.
-//
+	//
+	//  TeamboxProjectsParser.m
+	//  Teambox
+	//
+	//  Created by Alejandro Julián López on 27/02/10.
+	//  Copyright 2010 Teambox. All rights reserved.
+	//
 
 #import "TeamboxProjectsParser.h"
 #import "ProjectModel.h"
 #import "UserModel.h"
 #import "Project_UserModel.h"
+#import "User_TBUSerModel.h"
 
 @implementation TeamboxProjectsParser
 
@@ -53,22 +54,20 @@
 				aProject =[items objectAtIndex:0];
 				save = NO;
 			}
-
-			//Get the PEOPLE in the project
+			
+				//Get the PEOPLE in the project
 			
 			TBXMLElement* people = [TBXML childElementNamed:@"people" parentElement:project];
 			TBXMLElement* person = [TBXML childElementNamed:@"person" parentElement:people];
 			while (person != nil) {
-				
-				NSNumber* nId =[NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
-				
+			
 				//first we search the person for update if exists
 				NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 				
 				NSEntityDescription *entity = [NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext];
 				[fetchRequest setEntity:entity];
 				
-				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user_id=%i",[nId intValue]];
+				NSPredicate *predicate = [NSPredicate predicateWithFormat:@"user_id=%@",[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:person]]];
 				[fetchRequest setPredicate:predicate];
 				
 				NSError *error;
@@ -77,43 +76,54 @@
 				
 				UserModel *aUser;
 				
-				//Verify relationship with Projet
+					//Verify relationship with Projet
 				if ([items count]==0) {
-					//The user don't's exists 
+						//The user don't's exists 
 					
-					//first create de object Project_user
+						//first create de object Project_user
 					Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
-					//then create the user
+						//then create the user
 					aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
-					aUser.user_id= [NSNumber numberWithInt:[nId intValue]];
+					aUser.user_id= [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:person]] intValue]];
 					aUser.username = [TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:person]]];
-					//add the ProjectUser to the project and to the user
+						//add the ProjectUser to the project and to the user
 					[aProject addProject_UserObject:aProject_User];
 					[aUser addProject_UserObject:aProject_User];
 					save = YES;
 				} else {
 					aUser =[items objectAtIndex:0];
-					//if the user exists, we have to check if the project_user for that project and that user exists.
-
+						//if the user exists, we have to check if the project_user for that project and that user exists.
+					
 					NSArray* projects_usersArray = [[NSArray alloc] initWithArray:[aUser.Project_User allObjects]];
 					Project_UserModel* pum;
 					Boolean enc=NO;
 					for (int i=0;i<[projects_usersArray count];i++){
 						pum = [projects_usersArray objectAtIndex:i];
 						/*int pumId = [pum.project_id intValue];
-						int projId = [aProject.project_id intValue];*/
+						 int projId = [aProject.project_id intValue];*/
 						if ([pum.Project.project_id intValue]==[aProject.project_id intValue]) {
 							enc=YES;
 						}
 					}
-					//if doen't exists the relationship with this user we have to create it CAMBIO
+						//if doen't exists the relationship with this user we have to create it CAMBIO
 					if (!enc) {
 						Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
 						[aProject addProject_UserObject:aProject_User];
 						[aUser addProject_UserObject:aProject_User];
 						save = YES;
 					}
-	
+				}
+				
+				fetchRequest = [[NSFetchRequest alloc] init];
+				[fetchRequest setEntity:[NSEntityDescription entityForName:@"User_TBUSer" inManagedObjectContext:managedObjectContext]];
+				[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"tb_id= %i", [[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]]];
+		
+				items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
+				[fetchRequest release];
+				if ([items count]==0) {
+					User_TBUSerModel *mUserTB = (User_TBUSerModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User_TBUSer" inManagedObjectContext:managedObjectContext];
+					mUserTB.user_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:person]] intValue]];
+					mUserTB.tb_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
 				}
 				person = [TBXML nextSiblingNamed:@"person" searchFromElement:person];
 			}
@@ -135,7 +145,6 @@
 	}
 	
 	[delegate parserFinishedType:typeParse];
-	
 }
 
 @end

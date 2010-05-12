@@ -16,6 +16,7 @@
 #import "TeamboxConnection.h"
 #import "TeamboxEngineKeychain.h"
 #import "ActivityModel.h"
+#import "ProjectModel.h"
 
 @interface TeamboxEngine (PrivateMethods)
 
@@ -38,8 +39,13 @@
 		password = [NSString alloc];
 		engineDelegate = delegate;
 		if (![[NSUserDefaults standardUserDefaults] objectForKey:kLaunchDateSettingsKey]) {
-			[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastActivityParsed"];
-			[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastMoreActivityParsed"];
+			#if defined(LOCAL)
+				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"LOCALlastActivityParsed"];
+				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"LOCALlastMoreActivityParsed"];
+			#else
+				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastActivityParsed"];
+				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastMoreActivityParsed"];
+			#endif
 		}
 		[[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:kLaunchDateSettingsKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -66,8 +72,13 @@
 }
 
 - (void)getActivitiesAllNew {
-	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]);
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
+	#if defined(LOCAL)
+		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastActivityParsed"]]);
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
+	#else
+		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]);
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
+	#endif
 }
 
 - (void)getActivitiesAllNew:(NSString *)activityID {
@@ -75,9 +86,13 @@
 }
 
 - (void)getActivitiesAllMore {
-	NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]);
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
-	
+	#if defined(LOCAL)
+		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastMoreActivityParsed"]]);
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
+	#else
+		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]);
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
+	#endif
 }
 
 - (void)getActivities:(NSString *)projectID {
@@ -93,7 +108,7 @@
 }
 
 - (void)getTaskList {
-	
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KTaskListXML, username, password]] type:@"TaskListProject" delegate:self];
 }
 
 - (void)getTaskListWithProject:(NSString *)projectName {
@@ -121,8 +136,10 @@
 			[engineDelegate activitiesReceivedNothing:type];
 	} else if ([type isEqualToString:@"TaskListProject"])
 		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"Comment"])
+	else if ([type isEqualToString:@"Comment"]) {
+		[engineDelegate commentEnvoy];
 		[self getActivitiesAllNew];
+	}
 }
 
 - (void)setUseSecureConnection:(BOOL)useSecure {
@@ -134,10 +151,17 @@
 }
 
 - (void)postCommentWithProject:(NSString *)comment projectName:(NSString *)name {
+	NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
+	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY name == %@", name]];
+	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
+	NSError *error;
+	 ProjectModel *aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+	[fetchRequest release];
+	
 	[TeamboxConnection postCommentWithUrl:[NSURL URLWithString:[NSString stringWithFormat:KPostComment, 
 																username, 
-																password, 
-																[[[name componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]] componentsJoinedByString:@""] lowercaseString]]] 
+																password,
+																aProject.permalink]] 
 								  comment:comment delegate:self];
 	NSLog(@"Exit postCommentWithProject");
 }
@@ -210,12 +234,23 @@
     }
 	
 	NSURL *storeUrl;
-	#if TARGET_OS_IPHONE
-		storeUrl = [NSURL fileURLWithPath: [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent: @"Teambox.sqlite"]];
-	#else
+	
+	#if TARGET_OS_MAC
 		[[NSFileManager defaultManager] createDirectoryAtPath:[[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject] 
-														   stringByAppendingPathComponent: @"Teambox"] withIntermediateDirectories:TRUE  attributes:nil error:nil];
-		storeUrl = [NSURL fileURLWithPath: [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent: @"/Teambox/Teambox.sqlite"]];
+														stringByAppendingPathComponent: @"Teambox"] withIntermediateDirectories:TRUE  attributes:nil error:nil];
+	#endif
+	#if defined(LOCAL)
+		#if TARGET_OS_IPHONE
+			storeUrl = [NSURL fileURLWithPath: [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent: @"TeamboxLOCAL.sqlite"]];
+		#else
+			storeUrl = [NSURL fileURLWithPath: [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent: @"/Teambox/TeamboxLOCAL.sqlite"]];
+		#endif
+	#else
+		#if TARGET_OS_IPHONE
+			storeUrl = [NSURL fileURLWithPath: [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent: @"Teambox.sqlite"]];
+		#else
+			storeUrl = [NSURL fileURLWithPath: [[NSSearchPathForDirectoriesInDomains(NSApplicationSupportDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingPathComponent: @"/Teambox/Teambox.sqlite"]];
+		#endif
 	#endif
 	
 	NSError *error = nil;
@@ -232,9 +267,6 @@
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	username = [defaults valueForKey:kUserNameSettingsKey];
 	if (username == nil) {
-		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastActivityParsed"];
-		[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastMoreActivityParsed"];
-		[[NSUserDefaults standardUserDefaults] synchronize];
 		[engineDelegate notHaveUser];
 	} else {
 			NSError *nError;

@@ -32,9 +32,6 @@
 
 + (id)postCommentWithUrl:(NSURL *)url comment:(NSString *)comment delegate:(NSObject *)theDelegate{
 	comment = [NSString stringWithFormat:@"<?xml version=\"1.0\" encoding=\"UTF-8\"?><comment><body>%@</body></comment>", comment];
-
-	
-	
 	id request = [[self alloc] initWithUrlAndPostData:url delegate:theDelegate postData:[comment dataUsingEncoding:NSUTF8StringEncoding]];
 	return request = nil;
 }
@@ -45,8 +42,10 @@
 		typeGet = type;
 		request = [ASIHTTPRequest requestWithURL:url];
 		[request setDelegate:self];
+		[request setShouldRedirect:NO];
 		if (![typeGet isEqualToString:@"file"]) {
-			[request addRequestHeader:@"Accept" value:@"application/xml"];
+			[request addRequestHeader:@"Accept" value:@"application/json"];
+			[request addRequestHeader:@"Content-Type" value:@"application/json"];
 			#if TARGET_OS_IPHONE
 				[request addRequestHeader:@"User-Agent" value:@"Teambox cocoa touch"];
 			#else
@@ -68,6 +67,7 @@
 		request = [ASIHTTPRequest requestWithURL:url];
 		typeGet = @"Comment";
 		[request setDelegate:self];
+		
 		[request addRequestHeader:@"Accept" value:@"application/xml"];
 		[request addRequestHeader:@"Content-Type" value:@"application/xml"];
 		#if TARGET_OS_IPHONE
@@ -119,7 +119,7 @@
 				else
 					[delegate errorConnectionLogin:nil];
 	} else {
-			//NSLog(@"XML %@",[self.request responseString]);
+		NSLog(@"XML %@",[self.request responseString]);
 		[delegate finishedGetData:[self.request responseData] withType:typeGet];
 	}
 	

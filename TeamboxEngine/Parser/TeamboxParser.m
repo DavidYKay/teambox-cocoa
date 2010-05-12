@@ -1,13 +1,13 @@
-//
-//  TeamboxParse.m
-//  Teambox
-//
-//  Created by 
-//			Alejandro Julián López
-//			Eduardo Hernández Cano 
-//	on 26/02/10.
-//  Copyright 2010 Teambox. All rights reserved.
-//
+	//
+	//  TeamboxParse.m
+	//  Teambox
+	//
+	//  Created by 
+	//			Alejandro Julián López
+	//			Eduardo Hernández Cano 
+	//	on 26/02/10.
+	//  Copyright 2010 Teambox. All rights reserved.
+	//
 
 #import "TeamboxParser.h"
 

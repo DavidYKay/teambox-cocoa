@@ -17,6 +17,7 @@
 - (void)projectsReceived;
 - (void)activitiesReceivedNothing:(NSString *)type;
 
+- (void)commentEnvoy;
 - (void)taskListReceivedProject;
 
 @required

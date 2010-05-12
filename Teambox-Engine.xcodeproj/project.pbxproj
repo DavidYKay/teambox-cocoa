@@ -14,6 +14,10 @@
 		8D15AC2F0486D014006FF6A4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 089C165FFE840EACC02AAC07 /* InfoPlist.strings */; };
 		8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4ACFDCFA73011CA2CEA /* MyDocument.m */; settings = {ATTRIBUTES = (); }; };
 		8D15AC320486D014006FF6A4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A37F4B0FDCFA73011CA2CEA /* main.m */; settings = {ATTRIBUTES = (); }; };
+		A4122EDD1190719D005214D9 /* TeamboxActivitiesParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4122ED51190719D005214D9 /* TeamboxActivitiesParser.m */; };
+		A4122EDE1190719D005214D9 /* TeamboxParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4122ED71190719D005214D9 /* TeamboxParser.m */; };
+		A4122EDF1190719D005214D9 /* TeamboxProjectsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4122EDA1190719D005214D9 /* TeamboxProjectsParser.m */; };
+		A4122EE01190719D005214D9 /* TeamboxTaskListsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4122EDC1190719D005214D9 /* TeamboxTaskListsParser.m */; };
 		A469CCD9116600C200D3CE88 /* ASIAuthenticationDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = A469CCD3116600C200D3CE88 /* ASIAuthenticationDialog.m */; };
 		A469CCDA116600C200D3CE88 /* ASIFormDataRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A469CCD4116600C200D3CE88 /* ASIFormDataRequest.m */; };
 		A469CCDB116600C200D3CE88 /* ASIHTTPRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A469CCD5116600C200D3CE88 /* ASIHTTPRequest.m */; };
@@ -23,9 +27,6 @@
 		A4773EDD115E5EE700F9588C /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4773EDC115E5EE700F9588C /* Security.framework */; };
 		A4D4D0DB1160B659008D6C62 /* TeamboxEngineKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = A4D4D0DA1160B659008D6C62 /* TeamboxEngineKeychain.m */; };
 		A4DA257F115D1D2C00853B0D /* Teambox.xcdatamodel in Sources */ = {isa = PBXBuildFile; fileRef = A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */; };
-		A4DA25B4115D1DB000853B0D /* TeamboxParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25A8115D1DB000853B0D /* TeamboxParser.m */; };
-		A4DA25B5115D1DB000853B0D /* TeamboxActivitiesParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25AB115D1DB000853B0D /* TeamboxActivitiesParser.m */; };
-		A4DA25B6115D1DB000853B0D /* TeamboxProjectsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25AD115D1DB000853B0D /* TeamboxProjectsParser.m */; };
 		A4DA25B7115D1DB000853B0D /* TeamboxEngine.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25AF115D1DB000853B0D /* TeamboxEngine.m */; };
 		A4DA25B8115D1DB000853B0D /* TeamboxConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25B3115D1DB000853B0D /* TeamboxConnection.m */; };
 		A4DA25CE115D1DD800853B0D /* NSDataAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DA25BC115D1DD800853B0D /* NSDataAdditions.m */; };
@@ -61,6 +62,15 @@
 		7788DA0506752A1600599AAD /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		8D15AC360486D014006FF6A4 /* Teambox_Engine-Info.plist */ = {isa = PBXFileReference; explicitFileType = text.plist.xml; fileEncoding = 4; path = "Teambox_Engine-Info.plist"; sourceTree = "<group>"; };
 		8D15AC370486D014006FF6A4 /* Teambox-Engine.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Teambox-Engine.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4122ED41190719D005214D9 /* TeamboxActivitiesParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxActivitiesParser.h; sourceTree = "<group>"; };
+		A4122ED51190719D005214D9 /* TeamboxActivitiesParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxActivitiesParser.m; sourceTree = "<group>"; };
+		A4122ED61190719D005214D9 /* TeamboxParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxParser.h; sourceTree = "<group>"; };
+		A4122ED71190719D005214D9 /* TeamboxParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxParser.m; sourceTree = "<group>"; };
+		A4122ED81190719D005214D9 /* TeamboxParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxParserDelegate.h; sourceTree = "<group>"; };
+		A4122ED91190719D005214D9 /* TeamboxProjectsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxProjectsParser.h; sourceTree = "<group>"; };
+		A4122EDA1190719D005214D9 /* TeamboxProjectsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxProjectsParser.m; sourceTree = "<group>"; };
+		A4122EDB1190719D005214D9 /* TeamboxTaskListsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxTaskListsParser.h; sourceTree = "<group>"; };
+		A4122EDC1190719D005214D9 /* TeamboxTaskListsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxTaskListsParser.m; sourceTree = "<group>"; };
 		A469CCCC116600C200D3CE88 /* ASIAuthenticationDialog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIAuthenticationDialog.h; sourceTree = "<group>"; };
 		A469CCCD116600C200D3CE88 /* ASIFormDataRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIFormDataRequest.h; sourceTree = "<group>"; };
 		A469CCCE116600C200D3CE88 /* ASIHTTPRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASIHTTPRequest.h; sourceTree = "<group>"; };
@@ -78,13 +88,6 @@
 		A4D4D0D91160B659008D6C62 /* TeamboxEngineKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineKeychain.h; sourceTree = "<group>"; };
 		A4D4D0DA1160B659008D6C62 /* TeamboxEngineKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxEngineKeychain.m; sourceTree = "<group>"; };
 		A4DA257E115D1D2C00853B0D /* Teambox.xcdatamodel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.xcdatamodel; path = Teambox.xcdatamodel; sourceTree = "<group>"; };
-		A4DA25A7115D1DB000853B0D /* TeamboxParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxParser.h; sourceTree = "<group>"; };
-		A4DA25A8115D1DB000853B0D /* TeamboxParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxParser.m; sourceTree = "<group>"; };
-		A4DA25A9115D1DB000853B0D /* TeamboxParserDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxParserDelegate.h; sourceTree = "<group>"; };
-		A4DA25AA115D1DB000853B0D /* TeamboxActivitiesParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxActivitiesParser.h; sourceTree = "<group>"; };
-		A4DA25AB115D1DB000853B0D /* TeamboxActivitiesParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxActivitiesParser.m; sourceTree = "<group>"; };
-		A4DA25AC115D1DB000853B0D /* TeamboxProjectsParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxProjectsParser.h; sourceTree = "<group>"; };
-		A4DA25AD115D1DB000853B0D /* TeamboxProjectsParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxProjectsParser.m; sourceTree = "<group>"; };
 		A4DA25AE115D1DB000853B0D /* TeamboxEngine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngine.h; sourceTree = "<group>"; };
 		A4DA25AF115D1DB000853B0D /* TeamboxEngine.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TeamboxEngine.m; sourceTree = "<group>"; };
 		A4DA25B0115D1DB000853B0D /* TeamboxEngineDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TeamboxEngineDelegate.h; sourceTree = "<group>"; };
@@ -253,13 +256,15 @@
 		A4DA25A6115D1DB000853B0D /* Parser */ = {
 			isa = PBXGroup;
 			children = (
-				A4DA25A9115D1DB000853B0D /* TeamboxParserDelegate.h */,
-				A4DA25A7115D1DB000853B0D /* TeamboxParser.h */,
-				A4DA25A8115D1DB000853B0D /* TeamboxParser.m */,
-				A4DA25AA115D1DB000853B0D /* TeamboxActivitiesParser.h */,
-				A4DA25AB115D1DB000853B0D /* TeamboxActivitiesParser.m */,
-				A4DA25AC115D1DB000853B0D /* TeamboxProjectsParser.h */,
-				A4DA25AD115D1DB000853B0D /* TeamboxProjectsParser.m */,
+				A4122ED41190719D005214D9 /* TeamboxActivitiesParser.h */,
+				A4122ED51190719D005214D9 /* TeamboxActivitiesParser.m */,
+				A4122ED61190719D005214D9 /* TeamboxParser.h */,
+				A4122ED71190719D005214D9 /* TeamboxParser.m */,
+				A4122ED81190719D005214D9 /* TeamboxParserDelegate.h */,
+				A4122ED91190719D005214D9 /* TeamboxProjectsParser.h */,
+				A4122EDA1190719D005214D9 /* TeamboxProjectsParser.m */,
+				A4122EDB1190719D005214D9 /* TeamboxTaskListsParser.h */,
+				A4122EDC1190719D005214D9 /* TeamboxTaskListsParser.m */,
 			);
 			path = Parser;
 			sourceTree = "<group>";
@@ -412,9 +417,6 @@
 				8D15AC310486D014006FF6A4 /* MyDocument.m in Sources */,
 				8D15AC320486D014006FF6A4 /* main.m in Sources */,
 				A4DA257F115D1D2C00853B0D /* Teambox.xcdatamodel in Sources */,
-				A4DA25B4115D1DB000853B0D /* TeamboxParser.m in Sources */,
-				A4DA25B5115D1DB000853B0D /* TeamboxActivitiesParser.m in Sources */,
-				A4DA25B6115D1DB000853B0D /* TeamboxProjectsParser.m in Sources */,
 				A4DA25B7115D1DB000853B0D /* TeamboxEngine.m in Sources */,
 				A4DA25B8115D1DB000853B0D /* TeamboxConnection.m in Sources */,
 				A4DA25CE115D1DD800853B0D /* NSDataAdditions.m in Sources */,
@@ -437,6 +439,10 @@
 				A469CCDC116600C200D3CE88 /* ASIInputStream.m in Sources */,
 				A469CCDD116600C200D3CE88 /* ASINetworkQueue.m in Sources */,
 				A469CCDE116600C200D3CE88 /* ASINSStringAdditions.m in Sources */,
+				A4122EDD1190719D005214D9 /* TeamboxActivitiesParser.m in Sources */,
+				A4122EDE1190719D005214D9 /* TeamboxParser.m in Sources */,
+				A4122EDF1190719D005214D9 /* TeamboxProjectsParser.m in Sources */,
+				A4122EE01190719D005214D9 /* TeamboxTaskListsParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -490,6 +496,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Teambox_Engine_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					$SDKROOT/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "Teambox_Engine-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = "Teambox-Engine";
@@ -505,6 +515,10 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Teambox_Engine_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					$SDKROOT/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "Teambox_Engine-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = "Teambox-Engine";
@@ -562,6 +576,10 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Teambox_Engine_Prefix.pch;
+				HEADER_SEARCH_PATHS = (
+					/usr/local/include,
+					$SDKROOT/usr/include/libxml2,
+				);
 				INFOPLIST_FILE = "Teambox_Engine-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = "Teambox-Engine";
