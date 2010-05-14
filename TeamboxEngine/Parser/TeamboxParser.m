@@ -30,6 +30,9 @@
 		delegate = theDelegate;
 		typeParse = type;
 		managedObjectContext = theManagedObjectContext;
+		/*if ([typeParse isEqualToString:@"ActivitiesAll"])
+			parser = [[TBXML alloc] initWithXMLFile:@"activities.xml"];
+		else*/
 		parser = [[TBXML alloc] initWithXMLData:data];
 		[self parse];
     }

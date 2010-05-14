@@ -496,10 +496,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Teambox_Engine_Prefix.pch;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					$SDKROOT/usr/include/libxml2,
-				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Teambox_Engine-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = "Teambox-Engine";
@@ -515,10 +512,7 @@
 				GCC_MODEL_TUNING = G5;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Teambox_Engine_Prefix.pch;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					$SDKROOT/usr/include/libxml2,
-				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Teambox_Engine-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = "Teambox-Engine";
@@ -576,10 +570,7 @@
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Teambox_Engine_Prefix.pch;
-				HEADER_SEARCH_PATHS = (
-					/usr/local/include,
-					$SDKROOT/usr/include/libxml2,
-				);
+				HEADER_SEARCH_PATHS = "";
 				INFOPLIST_FILE = "Teambox_Engine-Info.plist";
 				INSTALL_PATH = "$(HOME)/Applications";
 				PRODUCT_NAME = "Teambox-Engine";

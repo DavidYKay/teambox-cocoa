@@ -104,7 +104,7 @@
 }
 
 - (void)getActivitiesMore:(NSString *)projectID sinceActivityID:(NSString *)lastID {
-	
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectMoreXML, username, password, projectID, lastID]] type:@"ActivitiesProjectMore" delegate:self];
 }
 
 - (void)getTaskList {
@@ -128,7 +128,7 @@
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
 	if ([type isEqualToString:@"Projects"])
 		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || [type isEqualToString:@"ActivitiesAllMore"]) {
+	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || [type isEqualToString:@"ActivitiesAllMore"] || [type isEqualToString:@"ActivitiesProjectMore"]) {
 			//temporary solution, must give back 0 (! = nil) 
 		if ([data length] > 67)
 			[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
@@ -178,6 +178,8 @@
 	else if ([type isEqualToString:@"ActivitiesAllNew"])
 		[engineDelegate activitiesReceivedAllNew];
 	else if ([type isEqualToString:@"ActivitiesAllMore"])
+		[engineDelegate activitiesReceivedAllMore];
+	else if ([type isEqualToString:@"ActivitiesProjectMore"])
 		[engineDelegate activitiesReceivedAllMore];
 	else if ([type isEqualToString:@"TaskListProject"])
 		[engineDelegate taskListReceivedProject];
