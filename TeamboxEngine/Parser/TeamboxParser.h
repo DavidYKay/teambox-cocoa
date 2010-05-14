@@ -18,10 +18,12 @@
 	TBXML *parser;
 	NSMutableArray *parsedElements;
 	NSString *typeParse;
+	NSString *projectName;
 	NSManagedObjectContext *managedObjectContext;
 }
 
 + (id)parserWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
++ (id)parserWithData:(NSData *)data typeParse:(NSString *)type projectName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
 - (NSString *)stringByDecodingXMLEntities:(NSString *)sSource;
 
 @end

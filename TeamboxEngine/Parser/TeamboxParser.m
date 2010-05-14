@@ -14,21 +14,41 @@
 @interface  TeamboxParser (Private)
 
 - (id)initWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
+- (id)initWithData:(NSData *)data typeParse:(NSString *)type projectName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
 - (void)parse;
 
 @end
 
 @implementation TeamboxParser
-
 + (id)parserWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate {
 	id parser = [[self alloc] initWithData:data typeParse:type managedObjectContext:theManagedObjectContext delegate:theDelegate];
     return [parser autorelease];
 }
++ (id)parserWithData:(NSData *)data typeParse:(NSString *)type projectName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate {
+	id parser = [[self alloc] initWithData:data typeParse:type projectName:name managedObjectContext:theManagedObjectContext delegate:theDelegate];
+    return [parser autorelease];
+}
 
 - (id)initWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate {
+	if (self = [super init]) {
+		delegate = theDelegate;
+		typeParse = type;
+		managedObjectContext = theManagedObjectContext;
+		/*if ([typeParse isEqualToString:@"ActivitiesAll"])
+		 parser = [[TBXML alloc] initWithXMLFile:@"activities.xml"];
+		 else*/
+		parser = [[TBXML alloc] initWithXMLData:data];
+		[self parse];
+    }
+    
+    return self;
+}
+
+- (id)initWithData:(NSData *)data typeParse:(NSString *)type projectName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate {
     if (self = [super init]) {
 		delegate = theDelegate;
 		typeParse = type;
+		projectName = name;
 		managedObjectContext = theManagedObjectContext;
 		/*if ([typeParse isEqualToString:@"ActivitiesAll"])
 			parser = [[TBXML alloc] initWithXMLFile:@"activities.xml"];

@@ -14,8 +14,15 @@
 - (void)activitiesReceivedAll;
 - (void)activitiesReceivedAllNew;
 - (void)activitiesReceivedAllMore;
-- (void)projectsReceived;
+- (void)activitiesReceivedAllProject;
+
+- (void)activitiesReceivedProjectAllWhithName:(NSString *)name  andType:(NSString *)type;
+- (void)activitiesReceivedProjectNewWhithName:(NSString *)name andType:(NSString *)type;
+- (void)activitiesReceivedProjectMoreWhithName:(NSString *)name andType:(NSString *)type;
+
 - (void)activitiesReceivedNothing:(NSString *)type;
+
+- (void)projectsReceived;
 
 - (void)commentEnvoy;
 - (void)taskListReceivedProject;

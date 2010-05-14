@@ -51,9 +51,9 @@
 - (void)getActivitiesAllMore;
 
 	//Recover the Activities of a Project
-- (void)getActivities:(NSString *)projectID;
-- (void)getActivitiesNew:(NSString *)projectID sinceActivityID:(NSString *)firstID;
-- (void)getActivitiesMore:(NSString *)projectID sinceActivityID:(NSString *)lastID;
+- (void)getActivitiesAllWithProject:(NSString *)name andID:(NSString *)projectID;
+- (void)getActivitiesNewWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)firstID;
+- (void)getActivitiesMoreWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)lastID;
 
 	//Recover the Task List of a Project
 - (void)getTaskList;

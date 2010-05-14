@@ -11,6 +11,7 @@
 @interface  TeamboxConnection (Private)
 
 - (id)initWithURL:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate;
+- (id)initWithURL:(NSURL *)url type:(NSString *)type projectName:(NSString *)name delegate:(NSObject *)theDelegate;
 - (id)initWithAuthenticateWithUsername:(NSString *)username andPassword:(NSString *)password url:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate;
 
 @end
@@ -21,6 +22,11 @@
 
 + (id)getDataWithURL:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate {
 	id request = [[self alloc] initWithURL:url type:type delegate:theDelegate];
+	return request = nil;
+}
+
++ (id)getDataWithURL:(NSURL *)url type:(NSString *)type projectName:(NSString *)name delegate:(NSObject *)theDelegate {
+	id request = [[self alloc] initWithURL:url type:type projectName:name delegate:theDelegate];
 	return request = nil;
 }
 
@@ -40,6 +46,32 @@
 	if (self = [super init]) {
 		delegate = theDelegate;
 		typeGet = type;
+		request = [ASIHTTPRequest requestWithURL:url];
+		[request setDelegate:self];
+		[request setShouldRedirect:NO];
+		if (![typeGet isEqualToString:@"file"]) {
+			[request addRequestHeader:@"Accept" value:@"application/json"];
+			[request addRequestHeader:@"Content-Type" value:@"application/json"];
+			#if TARGET_OS_IPHONE
+				[request addRequestHeader:@"User-Agent" value:@"Teambox cocoa touch"];
+			#else
+				[request addRequestHeader:@"User-Agent" value:@"Teambox Mac"];
+			#endif
+		}
+		
+		[request setDidStartSelector:@selector (requestStart:)];
+		[request setDidFinishSelector:@selector(requestDone:)];
+		[request setDidFailSelector:@selector(requestWentWrong:)];
+		[request startAsynchronous];
+	}
+    return self;
+}
+
+- (id)initWithURL:(NSURL *)url type:(NSString *)type projectName:(NSString *)name delegate:(NSObject *)theDelegate {
+	if (self = [super init]) {
+		delegate = theDelegate;
+		typeGet = type;
+		projectName = name;
 		request = [ASIHTTPRequest requestWithURL:url];
 		[request setDelegate:self];
 		[request setShouldRedirect:NO];
@@ -113,14 +145,17 @@
 		statusCode = [self.request responseStatusCode];
 		if (statusCode==302) {
 			[delegate errorAuthentication];
-		}else
+		} else
 			if ([self.request responseStatusCode] == 200)
 					[delegate finishedConnectionLogin];
 				else
 					[delegate errorConnectionLogin:nil];
 	} else {
-		NSLog(@"XML %@",[self.request responseString]);
-		[delegate finishedGetData:[self.request responseData] withType:typeGet];
+			//NSLog(@"XML %@",[self.request responseString]);
+		if ([typeGet isEqualToString:@"Projects"] || [typeGet isEqualToString:@"TaskListProject"] || [typeGet isEqualToString:@"ActivitiesAll"] || [typeGet isEqualToString:@"ActivitiesAllNew"] || [typeGet isEqualToString:@"ActivitiesAllMore"])
+			[delegate finishedGetData:[self.request responseData] withType:typeGet];
+		else
+			[delegate finishedGetData:[self.request responseData] withType:typeGet andProjectName:projectName];
 	}
 	
 }

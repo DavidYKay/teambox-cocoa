@@ -11,6 +11,7 @@
 @protocol TeamboxParserDelegate
 
 - (void)parserFinishedType:(NSString *)type;
+- (void)parserFinishedType:(NSString *)type projectName:(NSString *)name;
 - (void)parserFailedWithError:(NSError *)errorMsg;
 
 @end

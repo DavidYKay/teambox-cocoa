@@ -203,7 +203,10 @@
 	}
 		//guardamos la últimaactividad parseada
 		//NSString* sO=[NSString stringWithFormat:@"%d", olderActivity];
-	[delegate parserFinishedType:typeParse];
+	if ([typeParse isEqualToString:@"ActivitiesAll"] || [typeParse isEqualToString:@"ActivitiesAllNew"] || [typeParse isEqualToString:@"ActivitiesAllMore"])
+		[delegate parserFinishedType:typeParse];
+	else
+		[delegate parserFinishedType:typeParse projectName:projectName];
 }
 
 - (void)addUser:(NSNumber *)userID WithUsername:(NSString *)username ForProject:(NSNumber *)projectID projectName:(NSString *)projectName permalink:(NSString *)permalink {

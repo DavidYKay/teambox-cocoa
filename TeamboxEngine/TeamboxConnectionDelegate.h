@@ -11,6 +11,7 @@
 @protocol TeamboxConnectionDelegate
 
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type;
+- (void)finishedGetData:(NSData *)data withType:(NSString *)type andProjectName:(NSString *)projectName;
 - (void)finishedConnectionLogin;
 - (void)errorAuthentication;
 - (void)errorConnectionLogin:(NSError *)error;
