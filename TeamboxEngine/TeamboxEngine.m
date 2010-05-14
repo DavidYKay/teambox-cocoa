@@ -266,8 +266,7 @@
 }
 
 - (void)authenticate {
-	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	username = [defaults valueForKey:kUserNameSettingsKey];
+	username = [[NSUserDefaults standardUserDefaults] valueForKey:kUserNameSettingsKey];
 	if (username == nil) {
 		[engineDelegate notHaveUser];
 	} else {
@@ -276,7 +275,11 @@
 		if ([password isEqualToString:@""])
 			[engineDelegate notCorrectUserOrPassword:username];
 		else
-			[TeamboxConnection authenticateWithUsername:username andPassword:password url:[NSURL URLWithString:[NSString stringWithFormat:KTeamboxURL]] type:@"Login" delegate:self];
+			[TeamboxConnection authenticateWithUsername:username
+											andPassword:password 
+													url:[NSURL URLWithString:[NSString stringWithFormat:KTeamboxURL]] 
+												   type:@"Login" 
+											   delegate:self];
 	}
 }
 
@@ -284,6 +287,7 @@
 	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:180 //180
 													target:self selector:@selector(getActivitiesAllNew) userInfo:nil 
 												   repeats:YES];
+	username = (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)[[NSUserDefaults standardUserDefaults] valueForKey:kUserNameSettingsKey], NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
 	[engineDelegate correctAuthentication];
 }
 
