@@ -81,10 +81,6 @@
 	#endif
 }
 
-- (void)getActivitiesAllNew:(NSString *)activityID {
-		//NSString *path = [NSString stringWithFormat:KActivitiesAllNewXML, username, password, activityID];
-}
-
 - (void)getActivitiesAllMore {
 	#if defined(LOCAL)
 		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastMoreActivityParsed"]]);
@@ -100,7 +96,7 @@
 }
 
 - (void)getActivitiesNewWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)firstID {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectNewXML, username, password, projectID, firstID]] type:@"ActivitiesProjectMore" projectName:name delegate:self];
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectNewXML, username, password, projectID, firstID]] type:@"ActivitiesProjectNew" projectName:name delegate:self];
 }
 
 - (void)getActivitiesMoreWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)lastID {
@@ -140,7 +136,7 @@
 }
 	
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type andProjectName:(NSString *)projectName {
-	if ([type isEqualToString:@"ActivitiesAllProject"] || [type isEqualToString:@"ActivitiesProjectMore"]) {
+	if ([type isEqualToString:@"ActivitiesProjectAll"] || [type isEqualToString:@"ActivitiesProjectMore"]) {
 			//temporary solution, must give back 0 (! = nil) 
 		if ([data length] > 67)
 			[TeamboxActivitiesParser parserWithData:data typeParse:type projectName:projectName managedObjectContext:managedObjectContext delegate:self];
@@ -181,6 +177,7 @@
 }
 
 - (void)parserFinishedType:(NSString *)type {
+	NSLog(@"Exit parserFinishedType %@ ", type);
 	if ([type isEqualToString:@"Projects"])
 		[engineDelegate projectsReceived];
 	else if ([type isEqualToString:@"ActivitiesAll"])
@@ -191,17 +188,16 @@
 		[engineDelegate activitiesReceivedAllMore];
 	else if ([type isEqualToString:@"TaskListProject"])
 		[engineDelegate taskListReceivedProject];
-	NSLog(@"Exit parserFinishedType %@ ", type);
 }
 
 - (void)parserFinishedType:(NSString *)type projectName:(NSString *)name {
+	NSLog(@"Exit parserFinishedType:%@ Project:%@", type, name);
 	if ([type isEqualToString:@"ActivitiesProjectAll"])
 		[engineDelegate activitiesReceivedProjectAllWhithName:name andType:type];
 	else if ([type isEqualToString:@"ActivitiesProjectNew"])
 		[engineDelegate activitiesReceivedProjectNewWhithName:name andType:type];
 	else if ([type isEqualToString:@"ActivitiesProjectMore"])
 		[engineDelegate activitiesReceivedProjectMoreWhithName:name andType:type];
-	NSLog(@"Exit parserFinishedType:%@ Project:%@", type, name);
 }
 
 - (NSManagedObjectContext *) managedObjectContext {
