@@ -15,7 +15,7 @@
 
 - (id)initWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
 - (id)initWithData:(NSData *)data typeParse:(NSString *)type projectName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
-- (void)parse;
+- (void)parserAndAddCoreData;
 
 @end
 
@@ -38,7 +38,7 @@
 		 parser = [[TBXML alloc] initWithXMLFile:@"activities.xml"];
 		 else*/
 		parser = [[TBXML alloc] initWithXMLData:data];
-		[self parse];
+		[self parserAndAddCoreData];
     }
     
     return self;
@@ -54,7 +54,7 @@
 			parser = [[TBXML alloc] initWithXMLFile:@"activities.xml"];
 		else*/
 		parser = [[TBXML alloc] initWithXMLData:data];
-		[self parse];
+		[self parserAndAddCoreData];
     }
     
     return self;

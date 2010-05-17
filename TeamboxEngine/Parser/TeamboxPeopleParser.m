@@ -11,7 +11,7 @@
 
 @implementation TeamboxPeopleParser
 
-- (void)parse {
+- (void)parserAndAddCoreData {
 		// Obtain root element
 	TBXMLElement *root = parser.rootXMLElement;	
 	

@@ -91,6 +91,10 @@
 	#endif
 }
 
+- (void)getActivitiesAllMorewithID:(NSString *)idActivity {
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, idActivity]] type:@"ActivitiesAllMoreNew" delegate:self];
+}
+
 - (void)getActivitiesAllWithProject:(NSString *)name andID:(NSString *)projectID {
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectAllXML, username, password, projectID]] type:@"ActivitiesProjectAll" projectName:name delegate:self];
 }

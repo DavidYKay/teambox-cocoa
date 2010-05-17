@@ -16,7 +16,7 @@
 
 @implementation TeamboxTaskListsParser
 
-- (void)parse {
+- (void)parserAndAddCoreData {
 		// Obtain root element
 	TBXMLElement *root = parser.rootXMLElement;
 	
