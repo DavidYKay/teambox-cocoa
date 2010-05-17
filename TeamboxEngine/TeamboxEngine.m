@@ -130,7 +130,9 @@
 		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	else if ([type isEqualToString:@"TaskListProject"])
 		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || [type isEqualToString:@"ActivitiesAllMore"]) {
+	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || 
+			 [type isEqualToString:@"ActivitiesAllMore"] || [type isEqualToString:@"ActivitiesAllMoreNew"] ||
+			 [type isEqualToString:@"ActivitiesProjectAll"]) {
 			//temporary solution, must give back 0 (! = nil) 
 		if ([data length] > 67)
 			[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
