@@ -13,6 +13,9 @@
 #import "TeamboxActivitiesParser.h"
 #import "TeamboxProjectsParser.h"
 #import "TeamboxTaskListsParser.h"
+#import "TeamboxUsersParser.h"
+#import "TeamboxConversationsParser.h"
+#import "TeamboxPagesParser.h"
 #import "TeamboxConnection.h"
 #import "TeamboxEngineKeychain.h"
 #import "ActivityModel.h"
@@ -46,6 +49,7 @@
 				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastActivityParsed"];
 				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastMoreActivityParsed"];
 			#endif
+			[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"sidebarActivity"];
 		}
 		[[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:kLaunchDateSettingsKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -72,6 +76,7 @@
 }
 
 - (void)getActivitiesAllNew {
+	activitiesData = [[NSMutableArray alloc] initWithCapacity:0];
 	#if defined(LOCAL)
 		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastActivityParsed"]]);
 		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
@@ -92,19 +97,28 @@
 }
 
 - (void)getActivitiesAllMorewithID:(NSString *)idActivity {
+	NSLog(@"ENTER getActivitiesAllMorewithID %@",idActivity);
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, idActivity]] type:@"ActivitiesAllMoreNew" delegate:self];
+	NSLog(@"EXIT getActivitiesAllMorewithID %@",idActivity);
 }
 
 - (void)getActivitiesAllWithProject:(NSString *)name andID:(NSString *)projectID {
+	NSLog(@"ENTER getActivitiesAllWithProject %@ %@",name, projectID);
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectAllXML, username, password, projectID]] type:@"ActivitiesProjectAll" projectName:name delegate:self];
+	NSLog(@"EXIT getActivitiesAllWithProject %@ %@",name, projectID);
 }
 
 - (void)getActivitiesNewWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)firstID {
+	NSLog(@"ENTER getActivitiesNewWithProject %@ %@",name, projectID);
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectNewXML, username, password, projectID, firstID]] type:@"ActivitiesProjectNew" projectName:name delegate:self];
+	NSLog(@"EXIT getActivitiesNewWithProject %@ %@",name, projectID);
 }
 
 - (void)getActivitiesMoreWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)lastID {
+	NSLog(@"ENTER getActivitiesMoreWithProject %@ %@",name, projectID);
+	NSLog(@"%@",[NSString stringWithFormat:KActivitiesProjectMoreXML, username, password, projectID, lastID]);
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectMoreXML, username, password, projectID, lastID]] type:@"ActivitiesProjectMore" projectName:name delegate:self];
+	NSLog(@"EXIT getActivitiesMoreWithProject %@ %@",name, projectID);
 }
 
 - (void)getTaskList {
@@ -116,42 +130,26 @@
 	NSLog(@"%@",[NSString stringWithFormat:@"getTaskListWithProject project:%@", projectName]);
 }
 
+- (void)getConversationsWithProject:(NSString *)projectName {
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KConversationsWithProjectXML, username, password, projectName]] type:@"Conversations" delegate:self];
+}
+
+- (void)getPagesWithProject:(NSString *)projectName {
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KPagesWithProjectXML, username, password, projectName]] type:@"Pages" delegate:self];
+}
+
 - (void)getUser:(NSString *)username {
 	
+}
+
+- (void)getUsers {
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:kUsersXML, username, password]] type:@"Users" delegate:self];
+	NSLog(@"getUsers");
 }
 
 - (void)getProjects {
 	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KProjectsXML, username, password]] type:@"Projects" delegate:self];
 	NSLog(@"getProjects");
-}
-
-- (void)finishedGetData:(NSData *)data withType:(NSString *)type {
-	if ([type isEqualToString:@"Projects"])
-		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"TaskListProject"])
-		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || 
-			 [type isEqualToString:@"ActivitiesAllMore"] || [type isEqualToString:@"ActivitiesAllMoreNew"] ||
-			 [type isEqualToString:@"ActivitiesProjectAll"]) {
-			//temporary solution, must give back 0 (! = nil) 
-		if ([data length] > 67)
-			[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
-		else
-			[engineDelegate activitiesReceivedNothing:type];
-	}
-}
-	
-- (void)finishedGetData:(NSData *)data withType:(NSString *)type andProjectName:(NSString *)projectName {
-	if ([type isEqualToString:@"ActivitiesProjectAll"] || [type isEqualToString:@"ActivitiesProjectMore"]) {
-			//temporary solution, must give back 0 (! = nil) 
-		if ([data length] > 67)
-			[TeamboxActivitiesParser parserWithData:data typeParse:type projectName:projectName managedObjectContext:managedObjectContext delegate:self];
-		else
-			[engineDelegate activitiesReceivedNothing:type];
-	} else if ([type isEqualToString:@"Comment"]) {
-		[engineDelegate commentEnvoy];
-		[self getActivitiesAllNew];
-	}
 }
 
 - (void)setUseSecureConnection:(BOOL)useSecure {
@@ -167,7 +165,7 @@
 	[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"ANY name == %@", name]];
 	[fetchRequest setEntity:[NSEntityDescription entityForName:@"Project" inManagedObjectContext:managedObjectContext]];
 	NSError *error;
-	 ProjectModel *aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+	ProjectModel *aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
 	[fetchRequest release];
 	
 	[TeamboxConnection postCommentWithUrl:[NSURL URLWithString:[NSString stringWithFormat:KPostComment, 
@@ -182,18 +180,74 @@
 	NSLog(@"error %@",errorMsg);
 }
 
+- (void)finishedGetData:(NSData *)data withType:(NSString *)type {
+#if defined(DEBUG)
+	NSLog(@"------ FinishedGetData WithType \n");
+#endif
+	if ([type isEqualToString:@"Projects"])
+		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+	else if ([type isEqualToString:@"TaskListProject"])
+		[TeamboxTaskListsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+	else if ([type isEqualToString:@"Conversations"])
+		[TeamboxConversationsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+	else if ([type isEqualToString:@"Pages"])
+		[TeamboxPagesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+	else if ([type isEqualToString:@"ActivitiesAll"] || [type isEqualToString:@"ActivitiesAllNew"] || 
+			 [type isEqualToString:@"ActivitiesAllMore"] || [type isEqualToString:@"ActivitiesAllMoreNew"] ||
+			 [type isEqualToString:@"ActivitiesProjectAll"]) {
+			//temporary solution, must give back 0 (! = nil) 
+		if ([data length] > 67) {
+			if ([type isEqualToString:@"ActivitiesAllNew"] || [type isEqualToString:@"ActivitiesAllMoreNew"])
+				[activitiesData addObject:data];
+			[TeamboxActivitiesParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+		}
+		else
+			[engineDelegate activitiesReceivedNothing:type];
+	} else if ([type isEqualToString:@"Users"]) {
+		[TeamboxUsersParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
+	}
+#if defined(DEBUG)
+	NSLog(@"------ EXIT FinishedGetData WithType \n");
+#endif
+}
+	
+- (void)finishedGetData:(NSData *)data withType:(NSString *)type andProjectName:(NSString *)projectName {
+	if ([type isEqualToString:@"ActivitiesProjectAll"] || [type isEqualToString:@"ActivitiesProjectMore"]) {
+			//temporary solution, must give back 0 (! = nil) 
+		if ([data length] > 67)
+			[TeamboxActivitiesParser parserWithData:data typeParse:type projectName:projectName managedObjectContext:managedObjectContext delegate:self];
+		else
+			[engineDelegate activitiesReceivedNothing:type];
+	} else if ([type isEqualToString:@"Comment"]) {
+		[engineDelegate commentEnvoy];
+		[self getActivitiesAllNew];
+	}
+}
+
 - (void)parserFinishedType:(NSString *)type {
-	NSLog(@"Exit parserFinishedType %@ ", type);
+#if defined(DEBUG)
+	NSLog(@"------ ParserFinishedType: %@ \n", type);
+#endif
 	if ([type isEqualToString:@"Projects"])
 		[engineDelegate projectsReceived];
 	else if ([type isEqualToString:@"ActivitiesAll"])
 		[engineDelegate activitiesReceivedAll];
-	else if ([type isEqualToString:@"ActivitiesAllNew"])
+	else if ([type isEqualToString:@"ActivitiesAllNew"]) {
+		[activitiesData release];
 		[engineDelegate activitiesReceivedAllNew];
+	} else if ([type isEqualToString:@"ActivitiesAllMoreNew"])
+		[TeamboxActivitiesParser parserWithActivities:activitiesData managedObjectContext:managedObjectContext delegate:self];
 	else if ([type isEqualToString:@"ActivitiesAllMore"])
 		[engineDelegate activitiesReceivedAllMore];
 	else if ([type isEqualToString:@"TaskListProject"])
 		[engineDelegate taskListReceivedProject];
+	else if ([type isEqualToString:@"Conversations"])
+		[engineDelegate conversationsReceived];
+	else if ([type isEqualToString:@"Pages"])
+		[engineDelegate pagesReceived];
+#if defined(DEBUG)
+	NSLog(@"------ END ParserFinishedType %@ \n", type);
+#endif
 }
 
 - (void)parserFinishedType:(NSString *)type projectName:(NSString *)name {
@@ -294,7 +348,7 @@
 }
 
 - (void)finishedConnectionLogin {
-	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:180 //180
+	refreshTimer = [NSTimer scheduledTimerWithTimeInterval:60 //180
 													target:self selector:@selector(getActivitiesAllNew) userInfo:nil 
 												   repeats:YES];
 	username = (NSString *)CFURLCreateStringByAddingPercentEscapes(NULL, (CFStringRef)[[NSUserDefaults standardUserDefaults] valueForKey:kUserNameSettingsKey], NULL, (CFStringRef)@"!*'();:@&=+$,/?%#[]", kCFStringEncodingUTF8);
@@ -308,7 +362,13 @@
 }
 
 - (void)errorConnectionLogin:(NSError *)error {
+#if defined(DEBUG)
+	NSLog(@"------ ErrorConnectionLogin \n");
+#endif
 	[engineDelegate errorCommunicateWithTeambox:error];
+#if defined(DEBUG)
+	NSLog(@"------ END ErrorConnection \n");
+#endif
 }
 
 - (void)setFirstActivityID {

@@ -22,6 +22,7 @@
 	NSManagedObjectModel *managedObjectModel;
 	NSManagedObjectContext *managedObjectContext;	    
 	NSPersistentStoreCoordinator *persistentStoreCoordinator;
+	NSMutableArray *activitiesData;
 	BOOL secureConnection;
 	NSTimer *refreshTimer;
 }
@@ -61,9 +62,16 @@
 
 	//Recover a User
 - (void)getUser:(NSString *)username;
+- (void)getUsers;
 
 	//Recover the Projects
 - (void)getProjects;
+
+	//Recover Conversations
+- (void)getConversationsWithProject:(NSString *)projectName;
+
+	//Recover Pages
+- (void)getPagesWithProject:(NSString *)projectName;
 
 	//Recover the Files of a Project
 - (void)getFiles:(NSString *)projectID;
