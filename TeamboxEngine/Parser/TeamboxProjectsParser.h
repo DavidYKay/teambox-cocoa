@@ -11,6 +11,7 @@
 
 @interface TeamboxProjectsParser : TeamboxParser {
 	bool save;
+	int newUsers;
 }
 
 @end

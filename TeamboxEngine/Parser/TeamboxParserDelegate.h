@@ -7,12 +7,13 @@
 //
 
 #import "TeamboxEngineHeaders.h"
-
+#import "TBXML.h"
 @protocol TeamboxParserDelegate
 
 - (void)parserFinishedType:(NSString *)type;
 - (void)parserFinishedType:(NSString *)type projectName:(NSString *)name;
 - (void)getActivitiesAllMorewithID:(NSString *)idActivity;
 - (void)parserFailedWithError:(NSError *)errorMsg;
+- (void)getUsers;
 
 @end

@@ -39,8 +39,11 @@
 #define KProjectsJSON @"http://%@:%@@0.0.0.0:3000/projects.json"
 #define KTaskListXML @"http://%@:%@@0.0.0.0:3000/task_lists.xml"
 #define KTaskListWithProjectXML @"http://%@:%@@0.0.0.0:3000/projects/%@/task_lists.xml"
+#define KConversationsWithProjectXML @"http://%@:%@@0.0.0.0:3000/projects/%@/conversations.xml"
+#define KPagesWithProjectXML @"http://%@:%@@0.0.0.0:3000/projects/%@/pages.xml"
 #define KTeamboxURL @"http://0.0.0.0:3000/"
 #define kUserXML @"http://0.0.0.0:3000/users/%@.xml"
+#define kUsersXML @"http://0.0.0.0:3000/users.xml"
 #define KPostComment @"http://%@:%@@0.0.0.0:3000/projects/%@/comments"
 #else
 #define KActivitiesAllXML @"http://%@:%@@app.teambox.com/activities.xml"
@@ -55,7 +58,10 @@
 #define KProjectsJSON @"http://%@:%@@app.teambox.com/projects.json"
 #define KTaskListXML @"http://%@:%@@app.teambox.com/task_lists.xml"
 #define KTaskListWithProjectXML @"http://%@:%@@app.teambox.com/projects/%@/task_lists.xml"
+#define KConversationsWithProjectXML @"http://%@:%@@app.teambox.com/projects/%@/conversations.xml"
+#define KPagesWithProjectXML @"http://%@:%@@app.teambox.com/projects/%@/pages.xml"
 #define KTeamboxURL @"http://app.teambox.com/"
 #define kUserXML @"http://app.teambox.com/users/%@.xml"
+#define kUsersXML @"http://app.teambox.com/users.xml"
 #define KPostComment @"http://%@:%@@app.teambox.com/projects/%@/comments"
 #endif

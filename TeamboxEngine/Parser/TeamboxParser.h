@@ -20,10 +20,11 @@
 	NSString *typeParse;
 	NSString *projectName;
 	NSManagedObjectContext *managedObjectContext;
+	NSMutableArray *activitiesData;
 }
 
++ (id)parserWithActivities:(NSMutableArray *)activities managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
 + (id)parserWithData:(NSData *)data typeParse:(NSString *)type managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
 + (id)parserWithData:(NSData *)data typeParse:(NSString *)type projectName:(NSString *)name managedObjectContext:(NSManagedObjectContext *)theManagedObjectContext delegate:(NSObject *)theDelegate;
-- (NSString *)stringByDecodingXMLEntities:(NSString *)sSource;
 
 @end

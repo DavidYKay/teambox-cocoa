@@ -27,6 +27,9 @@
 - (void)commentEnvoy;
 - (void)taskListReceivedProject;
 
+- (void)conversationsReceived;
+- (void)pagesReceived;
+
 @required
 	//Authenticate
 - (void)correctAuthentication;

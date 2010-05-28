@@ -153,7 +153,8 @@
 	} else {
 			//NSLog(@"XML %@",[self.request responseString]);
 		if ([typeGet isEqualToString:@"Projects"] || [typeGet isEqualToString:@"TaskListProject"] || [typeGet isEqualToString:@"ActivitiesAll"] || 
-			[typeGet isEqualToString:@"ActivitiesAllNew"] || [typeGet isEqualToString:@"ActivitiesAllMore"] || [typeGet isEqualToString:@"ActivitiesAllMoreNew"])
+			[typeGet isEqualToString:@"ActivitiesAllNew"] || [typeGet isEqualToString:@"ActivitiesAllMore"] || [typeGet isEqualToString:@"ActivitiesAllMoreNew"] || 
+			[typeGet isEqualToString:@"Users"] || [typeGet isEqualToString:@"Conversations"] || [typeGet isEqualToString:@"Pages"])
 			[delegate finishedGetData:[self.request responseData] withType:typeGet];
 		else
 			[delegate finishedGetData:[self.request responseData] withType:typeGet andProjectName:projectName];

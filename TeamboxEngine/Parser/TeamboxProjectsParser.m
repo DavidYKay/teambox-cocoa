@@ -89,6 +89,7 @@
 						//add the ProjectUser to the project and to the user
 					[aProject addProject_UserObject:aProject_User];
 					[aUser addProject_UserObject:aProject_User];
+					newUsers++;
 					save = YES;
 				} else {
 					aUser =[items objectAtIndex:0];
@@ -108,12 +109,12 @@
 						//if doen't exists the relationship with this user we have to create it CAMBIO
 					if (!enc) {
 						Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
+						aProject_User.role = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"role" parentElement:person]] intValue]];
 						[aProject addProject_UserObject:aProject_User];
 						[aUser addProject_UserObject:aProject_User];
 						save = YES;
 					}
 				}
-				
 				fetchRequest = [[NSFetchRequest alloc] init];
 				[fetchRequest setEntity:[NSEntityDescription entityForName:@"User_TBUSer" inManagedObjectContext:managedObjectContext]];
 				[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"tb_id= %i", [[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]]];
@@ -143,8 +144,10 @@
 		
 		
 	}
-	
-	[delegate parserFinishedType:typeParse];
+	if (newUsers)
+		[delegate getUsers];
+	else
+		[delegate parserFinishedType:typeParse];
 }
 
 @end

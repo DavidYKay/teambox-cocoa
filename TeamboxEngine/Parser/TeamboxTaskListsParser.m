@@ -39,7 +39,7 @@
 				aTaskList.project_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"project-id" parentElement:taskList]] intValue]];
 				aTaskList.user_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:taskList]] intValue]];
 				aTaskList.position = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"position" parentElement:taskList]] intValue]];
-				aTaskList.name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:taskList]]];
+				aTaskList.name = [TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:taskList]]];
 					//aTaskList.archived = [[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:taskList]] boolValue];
 			} else
 				aTaskList = [items objectAtIndex:0];
@@ -59,7 +59,7 @@
 						aTask = (TaskModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Task" inManagedObjectContext:managedObjectContext];
 						aTask.task_id = nId;
 						aTask.task_list_id = aTaskList.tasklist_id;
-						aTask.name = [self stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:task]]];
+						aTask.name = [TBXML stringByDecodingXMLEntities:[TBXML textForElement:[TBXML childElementNamed:@"name" parentElement:task]]];
 						aTask.status = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"status" parentElement:task]] intValue]];
 						[aTaskList addTaskObject:aTask];
 					}
