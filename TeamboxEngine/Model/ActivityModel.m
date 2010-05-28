@@ -2,7 +2,7 @@
 //  ActivityModel.m
 //  Teambox Mac
 //
-//  Created by Alejandro JL on 12/05/10.
+//  Created by Alejandro JL on 18/05/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -10,6 +10,7 @@
 
 #import "CommentModel.h"
 #import "ConversationModel.h"
+#import "PageModel.h"
 #import "ProjectModel.h"
 #import "TaskListModel.h"
 #import "TaskModel.h"
@@ -28,6 +29,7 @@
 @dynamic target_id;
 @dynamic project_id;
 @dynamic created_at_string;
+@dynamic Page;
 @dynamic User;
 @dynamic Task;
 @dynamic Project;

@@ -2,7 +2,7 @@
 //  ProjectModel.m
 //  Teambox Mac
 //
-//  Created by Alejandro JL on 12/05/10.
+//  Created by Alejandro JL on 18/05/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -15,6 +15,7 @@
 
 @dynamic archived;
 @dynamic owner_user_id;
+@dynamic complete_activity;
 @dynamic permalink;
 @dynamic project_id;
 @dynamic name;

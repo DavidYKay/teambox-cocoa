@@ -2,7 +2,7 @@
 //  UserModel.m
 //  Teambox Mac
 //
-//  Created by Alejandro JL on 12/05/10.
+//  Created by Alejandro JL on 26/05/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -13,6 +13,7 @@
 
 @implementation UserModel 
 
+@dynamic abbreviation_name;
 @dynamic last_name;
 @dynamic username;
 @dynamic full_name;

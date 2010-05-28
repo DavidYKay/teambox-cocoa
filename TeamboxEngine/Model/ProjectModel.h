@@ -2,7 +2,7 @@
 //  ProjectModel.h
 //  Teambox Mac
 //
-//  Created by Alejandro JL on 12/05/10.
+//  Created by Alejandro JL on 18/05/10.
 //  Copyright 2010 __MyCompanyName__. All rights reserved.
 //
 
@@ -17,6 +17,7 @@
 
 @property (nonatomic, retain) NSNumber * archived;
 @property (nonatomic, retain) NSNumber * owner_user_id;
+@property (nonatomic, retain) NSNumber * complete_activity;
 @property (nonatomic, retain) NSString * permalink;
 @property (nonatomic, retain) NSNumber * project_id;
 @property (nonatomic, retain) NSString * name;
