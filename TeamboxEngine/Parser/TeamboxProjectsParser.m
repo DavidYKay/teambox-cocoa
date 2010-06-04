@@ -29,11 +29,12 @@
 			[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"project_id=%i",[nId intValue]]];
 			
 			NSError *error;
-			NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
-			[fetchRequest release];
-			
+
 			ProjectModel *aProject;
-			if ([items count]==0) {
+			
+			@try {
+				aProject = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+			} @catch (NSException *e) {
 				aProject = (ProjectModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project" inManagedObjectContext:managedObjectContext];
 				aProject.project_id = nId;
 				TBXMLElement* desc = [TBXML childElementNamed:@"name" parentElement:project];
@@ -50,8 +51,8 @@
 				desc = [TBXML childElementNamed:@"owner-user-id" parentElement:project];
 				aProject.owner_user_id = [NSNumber numberWithInt:[[TBXML textForElement:desc] intValue]];
 				save = YES;
-			} else {
-				aProject =[items objectAtIndex:0];
+			} @finally {
+				[fetchRequest release];
 				save = NO;
 			}
 			
@@ -71,16 +72,11 @@
 				[fetchRequest setPredicate:predicate];
 				
 				NSError *error;
-				NSArray *items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
-				[fetchRequest release];
-				
 				UserModel *aUser;
 				
-					//Verify relationship with Projet
-				if ([items count]==0) {
-						//The user don't's exists 
-					
-						//first create de object Project_user
+				@try {
+					aUser = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+				} @catch (NSException *e) {
 					Project_UserModel* aProject_User = (Project_UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Project_User" inManagedObjectContext:managedObjectContext];
 						//then create the user
 					aUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
@@ -91,10 +87,8 @@
 					[aUser addProject_UserObject:aProject_User];
 					newUsers++;
 					save = YES;
-				} else {
-					aUser =[items objectAtIndex:0];
-						//if the user exists, we have to check if the project_user for that project and that user exists.
-					
+				} @finally {
+					[fetchRequest release];
 					NSArray* projects_usersArray = [[NSArray alloc] initWithArray:[aUser.Project_User allObjects]];
 					Project_UserModel* pum;
 					Boolean enc=NO;
@@ -118,13 +112,16 @@
 				fetchRequest = [[NSFetchRequest alloc] init];
 				[fetchRequest setEntity:[NSEntityDescription entityForName:@"User_TBUSer" inManagedObjectContext:managedObjectContext]];
 				[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"tb_id= %i", [[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]]];
-		
-				items = [managedObjectContext  executeFetchRequest:fetchRequest error:&error];
-				[fetchRequest release];
-				if ([items count]==0) {
-					User_TBUSerModel *mUserTB = (User_TBUSerModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User_TBUSer" inManagedObjectContext:managedObjectContext];
+				
+				User_TBUSerModel *mUserTB;
+				@try {
+					mUserTB = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+				} @catch (NSException *e) {
+					mUserTB = (User_TBUSerModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User_TBUSer" inManagedObjectContext:managedObjectContext];
 					mUserTB.user_id = [NSNumber numberWithInt:[[TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:person]] intValue]];
 					mUserTB.tb_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:person]intValue]];
+				} @finally {
+					[fetchRequest release];
 				}
 				person = [TBXML nextSiblingNamed:@"person" searchFromElement:person];
 			}

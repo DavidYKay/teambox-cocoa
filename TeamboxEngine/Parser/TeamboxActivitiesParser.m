@@ -188,8 +188,21 @@
 		fetchRequest = [[NSFetchRequest alloc] init];
 		[fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext]];
 		[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"user_id == %i", [[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue]]];
-		UserModel *aUser = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
-		[fetchRequest release];
+		UserModel *mUser;
+		@try {
+			mUser = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
+		} @catch (NSException *e) {
+			mUser = (UserModel *)[NSEntityDescription insertNewObjectForEntityForName:@"User" inManagedObjectContext:managedObjectContext];
+			mUser.user_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:user] intValue]];
+			mUser.username = [TBXML textForElement:[TBXML childElementNamed:@"username" parentElement:user]];
+			mUser.first_name = [TBXML textForElement:[TBXML childElementNamed:@"first-name" parentElement:user]];
+			mUser.last_name = [TBXML textForElement:[TBXML childElementNamed:@"last-name" parentElement:user]];
+			mUser.avatar_url = [TBXML textForElement:[TBXML childElementNamed:@"avatar-url" parentElement:user]];
+			mUser.full_name = [NSString stringWithFormat:@"%@ %@", mUser.first_name, mUser.last_name];
+			mUser.abbreviation_name = [NSString stringWithFormat:@"%c. %@", [mUser.first_name characterAtIndex:0], mUser.last_name];
+		} @finally {
+			[fetchRequest release];
+		}
 
 		aActivity = (ActivityModel *)[NSEntityDescription insertNewObjectForEntityForName:@"Activity" inManagedObjectContext:managedObjectContext];
 		aActivity.activity_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:activity] intValue]];
@@ -197,12 +210,12 @@
 		aActivity.created_at = [dateFormatter dateFromString:[TBXML textForElement:[TBXML childElementNamed:@"created-at" parentElement:activity]]];
 		aActivity.created_at_string = [TBXML textForElement:[TBXML childElementNamed:@"created-at" parentElement:activity]];
 		aActivity.target_type = [TBXML textForElement:[TBXML childElementNamed:@"type" parentElement:target]];
-		aActivity.user_id = aUser.user_id;
+		aActivity.user_id = mUser.user_id;
 		aActivity.Project = aProject;
 		aActivity.project_id = [NSNumber numberWithInt:[[TBXML valueOfAttributeNamed:@"id" forElement:project] intValue]];
 		
 		if (![aActivity.target_type isEqualToString:@"Person"])
-			[aUser addActivityObject:aActivity];
+			[mUser addActivityObject:aActivity];
 			//Create
 		if ([aActivity.action isEqualToString:@"create"]) {
 			if ([aActivity.target_type isEqualToString:@"Comment"]) {
@@ -387,12 +400,12 @@
 				//Delete
 		} else if ([aActivity.action isEqualToString:@"delete"]) {
 			if ([aActivity.target_type isEqualToString:@"Person"]) {
-				TBXMLElement *person = [TBXML childElementNamed:@"person" parentElement:target];
+				/*TBXMLElement *person = [TBXML childElementNamed:@"person" parentElement:target];
 				NSFetchRequest *fetchRequest = [[NSFetchRequest alloc] init];
 				[fetchRequest setEntity:[NSEntityDescription entityForName:@"User" inManagedObjectContext:managedObjectContext]];
 				[fetchRequest setPredicate:[NSPredicate predicateWithFormat:@"user_id = %@", [TBXML textForElement:[TBXML childElementNamed:@"user-id" parentElement:person]]]];
 				UserModel *mUser = [[managedObjectContext  executeFetchRequest:fetchRequest error:&error] objectAtIndex:0];
-				[fetchRequest release];
+				[fetchRequest release];*/
 				aActivity.User = mUser;
 			}
 		}
