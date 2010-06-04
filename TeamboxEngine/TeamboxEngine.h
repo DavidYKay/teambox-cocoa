@@ -27,6 +27,8 @@
 	NSTimer *refreshTimer;
 }
 #pragma mark Accessors
+@property (nonatomic, retain) NSString *username;
+@property (nonatomic, retain) NSString *password;
 @property (nonatomic, retain) NSString *typeUser;
 @property (nonatomic, retain) NSManagedObjectModel *managedObjectModel;
 @property (nonatomic, retain) NSManagedObjectContext *managedObjectContext;
@@ -52,9 +54,9 @@
 - (void)getActivitiesAllMorewithID:(NSString *)idActivity;
 
 	//Recover the Activities of a Project
-- (void)getActivitiesAllWithProject:(NSString *)name andID:(NSString *)projectID;
-- (void)getActivitiesNewWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)firstID;
-- (void)getActivitiesMoreWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)lastID;
+- (void)getActivitiesAllWithProject:(NSString *)name;
+- (void)getActivitiesNewWithProject:(NSString *)name andSinceActivityID:(NSString *)firstID;
+- (void)getActivitiesMoreWithProject:(NSString *)name andSinceActivityID:(NSString *)lastID;
 
 	//Recover the Task List of a Project
 - (void)getTaskList;

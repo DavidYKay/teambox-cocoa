@@ -21,6 +21,7 @@
 - (void)activitiesReceivedProjectMoreWhithName:(NSString *)name andType:(NSString *)type;
 
 - (void)activitiesReceivedNothing:(NSString *)type;
+- (void)activitiesReceivedNothing:(NSString *)type withProject:(NSString *)project;
 
 - (void)projectsReceived;
 

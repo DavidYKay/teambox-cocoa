@@ -31,6 +31,8 @@
 @synthesize managedObjectModel;
 @synthesize managedObjectContext;
 @synthesize persistentStoreCoordinator;
+@synthesize username;
+@synthesize password;
 
 + (TeamboxEngine *)teamboxEngineWithDelegate:(NSObject *)delegate {
 	return [[[TeamboxEngine alloc] initWithDelegate:delegate] autorelease];
@@ -38,8 +40,8 @@
 
 - (TeamboxEngine *)initWithDelegate:(NSObject *)delegate {
 	if (self = [super init]) {
-		username = [NSString alloc];
-		password = [NSString alloc];
+		username = [[NSString alloc] initWithString:@""];
+		password = [[NSString alloc] initWithString:@""];
 		engineDelegate = delegate;
 		if (![[NSUserDefaults standardUserDefaults] objectForKey:kLaunchDateSettingsKey]) {
 			#if defined(LOCAL)
@@ -50,6 +52,10 @@
 				[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"lastMoreActivityParsed"];
 			#endif
 			[[NSUserDefaults standardUserDefaults] setInteger:0 forKey:@"sidebarActivity"];
+			#if TARGET_OS_MAC
+				[[NSUserDefaults standardUserDefaults] setBool:TRUE forKey:@"growlNotifications"];
+				[[NSUserDefaults standardUserDefaults] setBool:FALSE forKey:@"PREStartLogin"];
+			#endif
 		}
 		[[NSUserDefaults standardUserDefaults] setValue:[NSDate date] forKey:kLaunchDateSettingsKey];
 		[[NSUserDefaults standardUserDefaults] synchronize];
@@ -70,72 +76,98 @@
 }
 
 - (void)getActivitiesAll {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllXML, username, password]] type:@"ActivitiesAll" delegate:self];
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllXML, username, [password retain]]] type:@"ActivitiesAll" delegate:self];
 		//[TeamboxActivitiesParser parserWithURL:url delegate:self typeParse:@"ActivitiesAll"];
-	NSLog(@"getActivitiesAll");
+	#if defined(DEBUG)
+		NSLog(@"getActivitiesAll");
+	#endif
 }
 
 - (void)getActivitiesAllNew {
 	activitiesData = [[NSMutableArray alloc] initWithCapacity:0];
 	#if defined(LOCAL)
-		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastActivityParsed"]]);
-		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
+		NSLog(@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastActivityParsed"]);
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, [password retain], [[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
 	#else
-		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]);
-		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
+		#if defined(DEBUG)
+			NSLog(@"getActivitiesAllNew activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]);
+		#endif
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllNewXML, username, [password retain], [[NSUserDefaults standardUserDefaults] valueForKey:@"lastActivityParsed"]]] type:@"ActivitiesAllNew" delegate:self];
 	#endif
 }
 
 - (void)getActivitiesAllMore {
 	#if defined(LOCAL)
 		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastMoreActivityParsed"]]);
-		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, [password retain], [[NSUserDefaults standardUserDefaults] valueForKey:@"LOCALlastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
 	#else
-		NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]);
-		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, [[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
+		#if defined(DEBUG)
+			NSLog(@"%@",[NSString stringWithFormat:@"getActivitiesAllMore activity:%@",[[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]);
+		#endif
+		[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, [password retain], [[NSUserDefaults standardUserDefaults] valueForKey:@"lastMoreActivityParsed"]]] type:@"ActivitiesAllMore" delegate:self];
 	#endif
 }
 
 - (void)getActivitiesAllMorewithID:(NSString *)idActivity {
-	NSLog(@"ENTER getActivitiesAllMorewithID %@",idActivity);
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, password, idActivity]] type:@"ActivitiesAllMoreNew" delegate:self];
-	NSLog(@"EXIT getActivitiesAllMorewithID %@",idActivity);
+	#if defined(DEBUG)
+		NSLog(@"ENTER getActivitiesAllMorewithID %@",idActivity);
+	#endif
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesAllMoreXML, username, [password retain], idActivity]] type:@"ActivitiesAllMoreNew" delegate:self];
+	#if defined(DEBUG)
+		NSLog(@"EXIT getActivitiesAllMorewithID %@",idActivity);
+	#endif
 }
 
-- (void)getActivitiesAllWithProject:(NSString *)name andID:(NSString *)projectID {
-	NSLog(@"ENTER getActivitiesAllWithProject %@ %@",name, projectID);
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectAllXML, username, password, projectID]] type:@"ActivitiesProjectAll" projectName:name delegate:self];
-	NSLog(@"EXIT getActivitiesAllWithProject %@ %@",name, projectID);
+- (void)getActivitiesAllWithProject:(NSString *)name {
+	#if defined(DEBUG)
+		NSLog(@"ENTER getActivitiesAllWithProject %@", name);
+	#endif
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectAllXML, username, [password retain], name]] type:@"ActivitiesProjectAll" projectName:name delegate:self];
+	#if defined(DEBUG)
+		NSLog(@"EXIT getActivitiesAllWithProject %@", name);
+	#endif
 }
 
-- (void)getActivitiesNewWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)firstID {
-	NSLog(@"ENTER getActivitiesNewWithProject %@ %@",name, projectID);
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectNewXML, username, password, projectID, firstID]] type:@"ActivitiesProjectNew" projectName:name delegate:self];
-	NSLog(@"EXIT getActivitiesNewWithProject %@ %@",name, projectID);
+- (void)getActivitiesNewWithProject:(NSString *)name andSinceActivityID:(NSString *)firstID {
+	#if defined(DEBUG)
+		NSLog(@"ENTER getActivitiesNewWithProject %@", name);
+	#endif
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectNewXML, username, [password retain], name, firstID]] type:@"ActivitiesProjectNew" projectName:name delegate:self];
+	#if defined(DEBUG)
+		NSLog(@"EXIT getActivitiesNewWithProject %@", name);
+	#endif
 }
 
-- (void)getActivitiesMoreWithProject:(NSString *)name ID:(NSString *)projectID andSinceActivityID:(NSString *)lastID {
-	NSLog(@"ENTER getActivitiesMoreWithProject %@ %@",name, projectID);
-	NSLog(@"%@",[NSString stringWithFormat:KActivitiesProjectMoreXML, username, password, projectID, lastID]);
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectMoreXML, username, password, projectID, lastID]] type:@"ActivitiesProjectMore" projectName:name delegate:self];
-	NSLog(@"EXIT getActivitiesMoreWithProject %@ %@",name, projectID);
+- (void)getActivitiesMoreWithProject:(NSString *)name andSinceActivityID:(NSString *)lastID {
+	#if defined(DEBUG)
+		NSLog(@"ENTER getActivitiesMoreWithProject %@", name);
+	#endif
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KActivitiesProjectMoreXML, username, [password retain], name, lastID]] type:@"ActivitiesProjectMore" projectName:name delegate:self];
+	#if defined(DEBUG)
+		NSLog(@"EXIT getActivitiesMoreWithProject %@", name);
+	#endif
 }
 
 - (void)getTaskList {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KTaskListXML, username, password]] type:@"TaskListProject" delegate:self];
+#if defined(DEBUG)
+	NSLog(@"------ ENTER getTaskList \n");
+#endif
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KTaskListXML, username, [password retain]]] type:@"TaskListProject" delegate:self];
 }
 
 - (void)getTaskListWithProject:(NSString *)projectName {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KTaskListWithProjectXML, username, password, projectName]] type:@"TaskListProject" delegate:self];
-	NSLog(@"%@",[NSString stringWithFormat:@"getTaskListWithProject project:%@", projectName]);
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KTaskListWithProjectXML, username, [password retain], projectName]] type:@"TaskListProject" delegate:self];
+	#if defined(DEBUG)
+		NSLog(@"%@",[NSString stringWithFormat:@"getTaskListWithProject project:%@", projectName]);
+	#endif
 }
 
 - (void)getConversationsWithProject:(NSString *)projectName {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KConversationsWithProjectXML, username, password, projectName]] type:@"Conversations" delegate:self];
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KConversationsWithProjectXML, username, [password retain], projectName]] type:@"Conversations" delegate:self];
 }
 
 - (void)getPagesWithProject:(NSString *)projectName {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KPagesWithProjectXML, username, password, projectName]] type:@"Pages" delegate:self];
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KPagesWithProjectXML, username, [password retain], projectName]] type:@"Pages" delegate:self];
 }
 
 - (void)getUser:(NSString *)username {
@@ -143,13 +175,17 @@
 }
 
 - (void)getUsers {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:kUsersXML, username, password]] type:@"Users" delegate:self];
-	NSLog(@"getUsers");
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:kUsersXML, username, [password retain]]] type:@"Users" delegate:self];
+	#if defined(DEBUG)
+		NSLog(@"getUsers");
+	#endif
 }
 
 - (void)getProjects {
-	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KProjectsXML, username, password]] type:@"Projects" delegate:self];
-	NSLog(@"getProjects");
+	[TeamboxConnection getDataWithURL:[NSURL URLWithString:[NSString stringWithFormat:KProjectsXML, username, [password retain]]] type:@"Projects" delegate:self];
+	#if defined(DEBUG)
+		NSLog(@"getProjects");
+	#endif
 }
 
 - (void)setUseSecureConnection:(BOOL)useSecure {
@@ -170,20 +206,25 @@
 	
 	[TeamboxConnection postCommentWithUrl:[NSURL URLWithString:[NSString stringWithFormat:KPostComment, 
 																username, 
-																password,
+																[password retain],
 																aProject.permalink]] 
 								  comment:comment delegate:self];
-	NSLog(@"Exit postCommentWithProject");
+	#if defined(DEBUG)
+		NSLog(@"Exit postCommentWithProject");
+	#endif
 }
 
 - (void)parserFailedWithError:(NSError *)errorMsg {
-	NSLog(@"error %@",errorMsg);
+	#if defined(DEBUG)
+		NSLog(@"error %@",errorMsg);
+	#endif
 }
 
 - (void)finishedGetData:(NSData *)data withType:(NSString *)type {
 #if defined(DEBUG)
-	NSLog(@"------ FinishedGetData WithType \n");
+	NSLog(@"------ ENTER FinishedGetData WithType: %@ \n", type);
 #endif
+	
 	if ([type isEqualToString:@"Projects"])
 		[TeamboxProjectsParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	else if ([type isEqualToString:@"TaskListProject"])
@@ -207,7 +248,7 @@
 		[TeamboxUsersParser parserWithData:data typeParse:type managedObjectContext:managedObjectContext delegate:self];
 	}
 #if defined(DEBUG)
-	NSLog(@"------ EXIT FinishedGetData WithType \n");
+	NSLog(@"------ EXIT FinishedGetData WithType %@ \n", type);
 #endif
 }
 	
@@ -217,7 +258,7 @@
 		if ([data length] > 67)
 			[TeamboxActivitiesParser parserWithData:data typeParse:type projectName:projectName managedObjectContext:managedObjectContext delegate:self];
 		else
-			[engineDelegate activitiesReceivedNothing:type];
+			[engineDelegate activitiesReceivedNothing:type withProject:projectName];
 	} else if ([type isEqualToString:@"Comment"]) {
 		[engineDelegate commentEnvoy];
 		[self getActivitiesAllNew];
@@ -226,7 +267,7 @@
 
 - (void)parserFinishedType:(NSString *)type {
 #if defined(DEBUG)
-	NSLog(@"------ ParserFinishedType: %@ \n", type);
+	NSLog(@"------ ENTER ParserFinishedType: %@ \n", type);
 #endif
 	if ([type isEqualToString:@"Projects"])
 		[engineDelegate projectsReceived];
@@ -246,12 +287,14 @@
 	else if ([type isEqualToString:@"Pages"])
 		[engineDelegate pagesReceived];
 #if defined(DEBUG)
-	NSLog(@"------ END ParserFinishedType %@ \n", type);
+	NSLog(@"------ EXIT ParserFinishedType %@ \n", type);
 #endif
 }
 
 - (void)parserFinishedType:(NSString *)type projectName:(NSString *)name {
-	NSLog(@"Exit parserFinishedType:%@ Project:%@", type, name);
+	#if defined(DEBUG)
+		NSLog(@"Exit parserFinishedType:%@ Project:%@", type, name);
+	#endif
 	if ([type isEqualToString:@"ActivitiesProjectAll"])
 		[engineDelegate activitiesReceivedProjectAllWhithName:name andType:type];
 	else if ([type isEqualToString:@"ActivitiesProjectNew"])
@@ -336,11 +379,11 @@
 	} else {
 			NSError *nError;
 			password = [TeamboxEngineKeychain getPasswordForUsername:username error:&nError];
-		if ([password isEqualToString:@""])
+		if ([[password retain] isEqualToString:@""])
 			[engineDelegate notCorrectUserOrPassword:username];
 		else
 			[TeamboxConnection authenticateWithUsername:username
-											andPassword:password 
+											andPassword:[password retain] 
 													url:[NSURL URLWithString:[NSString stringWithFormat:KTeamboxURL]] 
 												   type:@"Login" 
 											   delegate:self];
@@ -365,7 +408,8 @@
 #if defined(DEBUG)
 	NSLog(@"------ ErrorConnectionLogin \n");
 #endif
-	[engineDelegate errorCommunicateWithTeambox:error];
+	[engineDelegate notCorrectUserOrPassword:username];
+		//[engineDelegate errorCommunicateWithTeambox:error];
 #if defined(DEBUG)
 	NSLog(@"------ END ErrorConnection \n");
 #endif
