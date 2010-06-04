@@ -33,7 +33,6 @@
 + (id)authenticateWithUsername:(NSString *)username andPassword:(NSString *)password url:(NSURL *)url type:(NSString *)type delegate:(NSObject *)theDelegate {
 	id request = [[self alloc] initWithAuthenticateWithUsername:username andPassword:password url:url type:type delegate:theDelegate];
 	return request = nil;
-
 }
 
 + (id)postCommentWithUrl:(NSURL *)url comment:(NSString *)comment delegate:(NSObject *)theDelegate{
@@ -141,6 +140,7 @@
 
 - (void)requestDone:(ASIHTTPRequest *)request {
 	int statusCode;
+		//NSLog(@"XML %@",[self.request responseString]);
 	if ([typeGet isEqualToString:@"Login"]){
 		statusCode = [self.request responseStatusCode];
 		if (statusCode==302) {
@@ -172,7 +172,6 @@
 			[delegate errorConnectionLogin:error];
 
 	}
-
-	}
+}
 
 @end
